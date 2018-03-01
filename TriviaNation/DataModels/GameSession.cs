@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace TriviaNation.DataModels
 {
-    class GameSession
+    public class GameSession
     {
+        //TODO this should be a list of Students
+        public List<Object> Students { get; private set; }
+
+        public string Name { get; }
+
+        public IQuestionBank QuestionBank { get; set; }
+
+        public GameSession(string name)
+        {
+
+        }
     }
 }

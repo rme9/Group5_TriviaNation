@@ -8,5 +8,12 @@ namespace TriviaNation.DataModels
 {
     interface IGameSession
     {
+        List<Object> Students { get; }
+
+        String Name { get; }
+
+        IQuestionBank QuestionBank { get; }
+
+
     }
 }

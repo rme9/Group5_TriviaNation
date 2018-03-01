@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TriviaNation.DataModels
 {
-    interface IQuestionBank
+    public interface IQuestionBank
     {
+
     }
 }

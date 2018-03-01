@@ -8,5 +8,6 @@ namespace TriviaNation.DataModels
 {
     class QuestionBank
     {
+
     }
 }
