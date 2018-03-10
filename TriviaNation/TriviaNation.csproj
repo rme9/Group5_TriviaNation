@@ -64,8 +64,8 @@
     <Compile Include="DataModels\IGameSession.cs" />
     <Compile Include="DataModels\IQuestionBank.cs" />
     <Compile Include="DataModels\QuestionBank.cs" />
-    <Compile Include="UI\ViewControllers\GameCreationViewController.cs" />
-    <Compile Include="UI\Views\GameCreationView.xaml.cs">
+    <Compile Include="ViewControllers\GameCreationViewController.cs" />
+    <Compile Include="Views\GameCreationView.xaml.cs">
       <DependentUpon>GameCreationView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -80,7 +80,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\Views\GameCreationView.xaml">
+    <Page Include="Views\GameCreationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
