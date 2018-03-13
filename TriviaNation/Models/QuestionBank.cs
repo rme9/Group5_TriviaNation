@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TriviaNation.DataModels
+namespace TriviaNation.Models
 {
-    public interface IQuestionBank
+    class QuestionBank
     {
 
     }
