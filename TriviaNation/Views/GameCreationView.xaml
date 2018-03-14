@@ -4,21 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaNation.UI.Views"
+        xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
         mc:Ignorable="d"
-        Height="450" Width="300">
+        d:DesignHeight="450" d:DesignWidth="800"
+        Height="450" Width="400">
     <Grid>
-        <Label Content="Create Game" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Margin="0,0,10,0"/>
+        <StackPanel HorizontalAlignment="Center">
+            <Label Content="Create Game" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Margin="0,20,0,20"/>
 
-        <Label Content="Session Name" HorizontalAlignment="Left" Margin="22,61,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="112,61,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="149"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Session Name" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Center" Height="26" Margin="5,5,5,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Cursor="None"/>
+            </StackPanel>
 
-        <Label Content="Question Bank" HorizontalAlignment="Left" Margin="22,96,0,0" VerticalAlignment="Top"/>
-        <ListBox SelectionMode="Single" HorizontalAlignment="Left" Height="59" Margin="22,127,0,0" VerticalAlignment="Top" Width="239"/>
 
-        <Label Content="Select Students" HorizontalAlignment="Left" Margin="22,204,0,0" VerticalAlignment="Top"/>
-        <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Height="106" Margin="22,235,0,0" VerticalAlignment="Top" Width="239"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="22,376,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="161,376,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.5,0.5"/>
+            <Label Content="Question Bank" HorizontalAlignment="Left" Margin="5,5,5,5" VerticalAlignment="Top"/>
+            <ListBox SelectionMode="Single" HorizontalAlignment="Left" Height="59" Margin="5,5,5,5" VerticalAlignment="Top" Width="239"/>
 
+            <Label Content="Select Students" HorizontalAlignment="Left" Margin="5,5,5,5" VerticalAlignment="Top"/>
+            <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Height="106" Margin="5,5,5,5" VerticalAlignment="Top" Width="239"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Cancel" Click="OnClick_Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="5,5,10,5" VerticalAlignment="Top" Width="100"/>
+                <Button Content="Save" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Top" Width="100"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

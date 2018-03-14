@@ -23,5 +23,11 @@ namespace TriviaNation.UI.Views
         {
             InitializeComponent();
         }
+
+	    public void OnClick_Cancel(object sender, RoutedEventArgs e)
+	    {
+		    this.Close();
+	    }
+
     }
 }

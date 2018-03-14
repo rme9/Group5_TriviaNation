@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TriviaNation.ViewModels;
+using TriviaNation.Views;
 
 namespace TriviaNation
 {
@@ -20,9 +22,29 @@ namespace TriviaNation
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		public LoginPopupView _LoginPopup;
+
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			var login = new LoginPopupViewModel();
+
+			var _LoginPopup = new LoginPopupView(login);
+
+			_LoginPopup.LoginComplete += LoginView_LoginComplete;
+
+			_LoginPopup.Show();
+		}
+
+		private void LoginView_LoginComplete(object sender, object e)
+		{
+			if (e is AdminViewModel model)
+			{
+				DataContext = model;
+			}
+
+			//_LoginPopup.Hide();
 		}
 	}
 }
