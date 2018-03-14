@@ -8,6 +8,6 @@ namespace TriviaNation.Models
 {
     public interface IQuestionBank
     {
-
+		string Name { get; set; }
     }
 }

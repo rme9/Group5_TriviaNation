@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace TriviaNation.Models
 {
-    class QuestionBank
+	public class QuestionBank : IQuestionBank
     {
+		public string Name { get; set; }
 
+	    public QuestionBank(string name)
+	    {
+		    Name = name;
+	    }
     }
 }
