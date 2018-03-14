@@ -63,8 +63,9 @@
     <Compile Include="Models\GameSession.cs" />
     <Compile Include="Models\IGameSession.cs" />
     <Compile Include="Models\IQuestionBank.cs" />
+    <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\QuestionBank.cs" />
-    <Compile Include="ViewControllers\GameCreationViewController.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\GameCreationViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
