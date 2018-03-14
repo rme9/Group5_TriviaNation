@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaNation.Views"
         mc:Ignorable="d"
-        Title="LoginPopupView" Height="450" Width="250">
+        Title="LoginPopupView" Height="450" Width="250"
+        Topmost="True">
     <Grid>
         <RadioButton Content="Instructor" GroupName="UserType" Name="Admin" HorizontalAlignment="Left" Margin="84,149,0,0" VerticalAlignment="Top"/>
         <RadioButton Content="Student" GroupName="UserType" Name="User" HorizontalAlignment="Left" Margin="84,193,0,0" VerticalAlignment="Top"/>
