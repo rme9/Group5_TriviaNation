@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaNation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="Question Editor" Height="350" Width="525">
+    <Border Padding="10">
+    
+    <StackPanel>
         
-    </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width = "*"/>
+                    <ColumnDefinition Width = "*"/>
+                    <ColumnDefinition Width = "*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Margin ="10 0" Grid.Column="0" Content="Add"/>
+                <Button Margin ="10 0" Grid.Column="1" Content="Delete"/>
+                <Button Margin ="10 0" Grid.Column="2" Content="Modify"/>
+
+
+            </Grid>
+        
+    </StackPanel>
+
+    </Border>
+
 </Window>
