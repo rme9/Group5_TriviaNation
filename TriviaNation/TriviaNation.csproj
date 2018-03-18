@@ -66,6 +66,7 @@
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\QuestionBank.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\GameCreationViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
@@ -130,5 +131,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
