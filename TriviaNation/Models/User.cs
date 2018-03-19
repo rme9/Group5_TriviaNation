@@ -12,9 +12,10 @@ namespace TriviaNation.Models
 
 		public string Name { get; set; }
 
-		public User(string Name, string Email)
+		public User(string name, string email)
 		{
-
+			Email = email;
+			Name = name;
 		}
 	}
 }

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TriviaNation.Models
 {
     public class GameSession
     {
-        //TODO this should be a list of Students
-        public List<Object> Students { get; private set; }
+        public List<IUser> Students { get; private set; }
 
         public string Name { get; }
 
@@ -19,5 +14,10 @@ namespace TriviaNation.Models
         {
 
         }
+
+	    public GameSession(string name, List<IUser> students)
+	    {
+
+	    }
     }
 }

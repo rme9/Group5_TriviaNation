@@ -15,12 +15,12 @@
 
             <StackPanel Orientation="Horizontal">
                 <Label Content="Session Name" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top"/>
-                <TextBox Text="{Binding Name}" HorizontalAlignment="Center" Height="26" Margin="5,5,5,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Cursor="None"/>
+                <TextBox Text="{Binding Name}" HorizontalAlignment="Center" Height="26" Margin="5,5,5,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
             </StackPanel>
 
 
             <Label Content="Question Bank" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top"/>
-            <ListBox ItemsSource="{Binding Path=AvailableQuestionBanks}" SelectedItem="{Binding SelectedQuestionBank}" SelectionMode="Single" HorizontalAlignment="Left" Height="125" Margin="5,0,5,5" VerticalAlignment="Top" Width="300">
+            <ListBox SelectionMode="Single" ItemsSource="{Binding Path=AvailableQuestionBanks}" SelectedItem="{Binding SelectedQuestionBank}" HorizontalAlignment="Left" Height="125" Margin="5,0,5,5" VerticalAlignment="Top" Width="300">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -29,17 +29,20 @@
             </ListBox>
 
             <Label Content="Select Students" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top"/>
-            <ListBox SelectionMode="Multiple" ItemsSource="{Binding Path=AvailableStudents}" HorizontalAlignment="Left" Height="200" Margin="5,0,5,5" VerticalAlignment="Top" Width="300">
+            <ListBox SelectionMode="Multiple" ItemsSource="{Binding Path=AvailableStudents}" x:Name="StudentListBox" HorizontalAlignment="Left" Height="200" Margin="5,0,5,5" VerticalAlignment="Top" Width="300">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" Margin="0,2,5,2"/>
+                            <TextBlock Text="{Binding Email}" Margin="5,2,0,2"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
            </ListBox>
 
            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5,10,10,5">
-                <Button Content="Cancel" Click="OnClick_Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="5,5,10,5" VerticalAlignment="Top" Width="100"/>
-                <Button Content="Save" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Top" Width="100"/>
+                <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" HorizontalAlignment="Left" Margin="5,5,10,5" VerticalAlignment="Top" Width="100"/>
+                <Button Content="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=StudentListBox, Path=SelectedItems}" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Top" Width="100"/>
             </StackPanel>
         </StackPanel>
     </Grid>
