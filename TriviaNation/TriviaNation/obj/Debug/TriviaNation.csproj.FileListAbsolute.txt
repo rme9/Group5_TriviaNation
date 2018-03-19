@@ -1,0 +1,15 @@
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation.csprojResolveAssemblyReference.cache
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\MainWindow.g.cs
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\App.g.cs
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation_MarkupCompile.cache
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation_MarkupCompile.lref
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\bin\Debug\TriviaNation.exe.config
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\bin\Debug\TriviaNation.exe
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\bin\Debug\TriviaNation.pdb
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\MainWindow.baml
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation.g.resources
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation.Properties.Resources.resources
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation.csproj.GenerateResource.Cache
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation.csproj.CoreCompileInputs.cache
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation.exe
+D:\Programming\SE2\TriviaNation\TriviaNation\TriviaNation\obj\Debug\TriviaNation.pdb
