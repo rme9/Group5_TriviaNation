@@ -6,26 +6,26 @@
         xmlns:local="clr-namespace:TriviaNation"
         mc:Ignorable="d"
         Title="Question Editor" Height="350" Width="525">
-    <Border Padding="10">
-    
-    <StackPanel>
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width =".2*"/>
+            <ColumnDefinition Width ="*"/>
+        </Grid.ColumnDefinitions>
         
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width = "*"/>
-                    <ColumnDefinition Width = "*"/>
-                    <ColumnDefinition Width = "*"/>
-                </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
 
-                <Button Margin ="10 0" Grid.Column="0" Content="Add"/>
-                <Button Margin ="10 0" Grid.Column="1" Content="Delete"/>
-                <Button Margin ="10 0" Grid.Column="2" Content="Modify"/>
+            <Button x:Name="AddButton" Margin ="10" Grid.Column="0" Content="Add" Click="AddButton_Click" />
+            <Button x:Name="DeleteButton" Margin ="10" Grid.Column="1" Content="Delete" Click="DeleteButton_Click"/>
+            <Button x:Name="ModifyButton" Margin ="10" Grid.Column="2" Content="Modify" Click="ModifyButton_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+            
+        </StackPanel>
+    </Grid>
 
 
-            </Grid>
-        
-    </StackPanel>
-
-    </Border>
 
 </Window>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TriviaNation.Control_Modules;
 
 namespace TriviaNation
 {
@@ -20,9 +21,35 @@ namespace TriviaNation
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+        DeleteModule deleteModule = new DeleteModule();
+        ModifyModule modifyModule = new ModifyModule();
+
+
+        public MainWindow()
 		{
 			InitializeComponent();
 		}
-	}
+
+        //Add button action
+        
+
+            //when Delete button is clicked, checks t osee if the delete control has been loaded and is not loads the module.
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (deleteModule.IsEnabled == false)
+            {
+               
+            }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ModifyButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }
