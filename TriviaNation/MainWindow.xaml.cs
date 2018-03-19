@@ -36,9 +36,16 @@ namespace TriviaNation
             //when Delete button is clicked, checks t osee if the delete control has been loaded and is not loads the module.
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+
+            
             if (deleteModule.IsEnabled == false)
             {
-               
+                deleteModule.IsEnabled = true;
+                deleteModule.BringIntoView();
+            }
+            else
+            {
+                deleteModule.BringIntoView();
             }
         }
 

@@ -40,7 +40,6 @@ namespace TriviaNation.Control_Modules
                     _instance = new DeleteModule();
                 }
                 return _instance;
-
             }
         }
     }
