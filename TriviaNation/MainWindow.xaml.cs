@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TriviaNation.Control_Modules;
+using TriviaNation.ViewModels;
 
 namespace TriviaNation
 {
@@ -21,13 +21,13 @@ namespace TriviaNation
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-        DeleteModule deleteModule = new DeleteModule();
-        ModifyModule modifyModule = new ModifyModule();
-
+       
 
         public MainWindow()
 		{
 			InitializeComponent();
+
+		    DataContext = new QuestionBankViewModel();
 		}
 
         //Add button action
@@ -38,25 +38,6 @@ namespace TriviaNation
         {
 
             
-            if (deleteModule.IsEnabled == false)
-            {
-                deleteModule.IsEnabled = true;
-                deleteModule.BringIntoView();
-            }
-            else
-            {
-                deleteModule.BringIntoView();
-            }
-        }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ModifyButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

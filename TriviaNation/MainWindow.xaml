@@ -4,28 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaNation"
+        xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
+        xmlns:views="clr-namespace:TriviaNation.Views"
         mc:Ignorable="d"
-        Title="Question Editor" Height="350" Width="525">
-
+        Title="MainWindow"
+        MinWidth="1024" MinHeight="768">
+    <Window.Resources>
+        <DataTemplate x:Name="AdminViewTemplate" DataType="{x:Type viewmodels:QuestionBankViewModel}">
+            <views:QuestionBankView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width =".2*"/>
-            <ColumnDefinition Width ="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <StackPanel Grid.Column="0">
-
-            <Button x:Name="AddButton" Margin ="10" Grid.Column="0" Content="Add" Click="AddButton_Click" />
-            <Button x:Name="DeleteButton" Margin ="10" Grid.Column="1" Content="Delete" Click="DeleteButton_Click"/>
-            <Button x:Name="ModifyButton" Margin ="10" Grid.Column="2" Content="Modify" Click="ModifyButton_Click"/>
-        </StackPanel>
-
-        <StackPanel Grid.Column="1">
-            
-        </StackPanel>
+        <ContentControl Content="{Binding}" />
     </Grid>
-
-
-
 </Window>
