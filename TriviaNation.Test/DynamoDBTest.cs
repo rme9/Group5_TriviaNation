@@ -10,17 +10,19 @@ namespace TriviaNation.Test
 	public class DynamoDBTest
 	{
 		private DynamoDBDriver _driver;
+
 		[TestInitialize]
 		public void testSetup()
 		{
 			_driver = new DynamoDBDriver();
 		}
 
+		#region User
+
 		[TestMethod]
 		public void TestInsertUser()
 		{
-			var newStu = new StudentUser("Harry Potter", "hpotter@email.com");
-			newStu.InstructorId = "rme9@students.uwf.edu";
+			var newStu = new StudentUser("Harry Potter", "hpotter@email.com") {InstructorId = "rme9@students.uwf.edu"};
 			_driver.InsertUser(newStu);
 		}
 
@@ -29,6 +31,10 @@ namespace TriviaNation.Test
 		{
 			_driver.GetAllUsersByInstructor("rme9@students.uwf.edu");
 		}
+
+		#endregion
+
+		#region QuestionBanks
 
 		[TestMethod]
 		public void TestInsertQuestionBank()
@@ -64,5 +70,28 @@ namespace TriviaNation.Test
 		{
 			var qbs = _driver.GetQuestionBanksByInstructor("rme9@students.uwf.edu");
 		}
+
+		#endregion
+
+		#region GameSessions
+
+		[TestMethod]
+		public void TestInsertGameSession()
+		{
+			var gs = new GameSession()
+			{
+				Students = new List<IUser>
+				{
+					new StudentUser("Harry Potter", "hpotter@email.com") {InstructorId = "rme9@students.uwf.edu"}
+				},
+				Name = "TestGame1",
+				QuestionBank = new QuestionBank()
+			};
+
+			_driver.InsertGameSession(gs);
+		}
+
+		#endregion
+
 	}
 }

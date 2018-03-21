@@ -19,6 +19,12 @@ namespace TriviaNation.Drivers
 {
 	public class DynamoDBDriver
 	{
+		// TODO 
+		// 
+		//
+		//
+
+
 		private readonly BasicAWSCredentials _awsCredentials;
 
 		private AmazonDynamoDBClient _Client;
@@ -229,8 +235,52 @@ namespace TriviaNation.Drivers
 			}
 		}
 
-
 		#endregion
 
+		#region GameSessions
+
+		public void InsertGameSession(IGameSession newGameSession)
+		{
+			try
+			{
+				// Create a list of student ids
+				var studentIds = new List<string>();
+
+				foreach (var s in newGameSession.Students)
+				{
+					studentIds.Add(s.Email);
+				}
+
+				// Build the attribute dictionary
+				var attributes =
+					new Dictionary<string, AttributeValue>
+					{
+						["name"] = new AttributeValue { S = newGameSession.Name },
+						["question_bank_id"] = new AttributeValue { S = newGameSession.QuestionBank.UniqueId },
+						["unique_id"] = new AttributeValue { S = newGameSession.UniqueId },
+						["instructor_id"] = new AttributeValue { S = "rme9@students.uwf.edu" }, // TODO add a way to get the current logged in user
+						["student_ids"] = new AttributeValue { SS = studentIds }
+					};
+
+				// Create PutItem request
+				PutItemRequest request = new PutItemRequest
+				{
+					TableName = "se2_gamesession",
+					Item = attributes
+				};
+
+				// Issue PutItem request
+				var resp = _Client.PutItem(request);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+
+		}
+
+
+
+		#endregion
 	}
 }
