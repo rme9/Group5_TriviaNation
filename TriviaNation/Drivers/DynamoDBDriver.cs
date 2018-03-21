@@ -129,7 +129,6 @@ namespace TriviaNation.Drivers
 		{
 			try
 			{
-
 				// Turn the list of questions into a dictionary
 				var questions = new Dictionary<string, AttributeValue>();
 
@@ -149,7 +148,8 @@ namespace TriviaNation.Drivers
 					{
 						["name"] = new AttributeValue {S = newQuestionBank.Name},
 						["questions"] = new AttributeValue {M = questions},
-						["unique_id"] = new AttributeValue { S = newQuestionBank.UniqueId }
+						["unique_id"] = new AttributeValue { S = newQuestionBank.UniqueId },
+						["instructor_id"] = new AttributeValue { S = "rme9@students.uwf.edu"} // TODO add a way to get the current logged in user
 					};
 
 				// Create PutItem request
@@ -168,6 +168,67 @@ namespace TriviaNation.Drivers
 			}
 
 		}
+
+		public List<IQuestionBank> GetQuestionBanksByInstructor(string instructorsEmail)
+		{
+			try
+			{
+				var request = new ScanRequest
+				{
+					TableName = "se2_questionbank",
+					ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+					{
+						{":instr", new AttributeValue {S = instructorsEmail}}
+					},
+					FilterExpression = "instructor_id = :instr"
+				};
+
+				var resp = _Client.Scan(request);
+
+				var questionbanks = new List<IQuestionBank>();
+
+				foreach (var item in resp.Items)
+				{
+					item.TryGetValue("name", out var name);
+					item.TryGetValue("unique_id", out var unid);
+
+					var didGetQuestions = item.TryGetValue("questions", out var qs);
+
+					var questionList = new List<IQuestion>();
+
+					if(didGetQuestions && qs.IsMSet)
+					{
+						foreach (var thing in qs.M)
+						{
+							thing.Value.M.TryGetValue("correct_answer", out var corrAns);
+							thing.Value.M.TryGetValue("alternate_answers", out var altAns);
+
+							questionList.Add( new Question
+							{
+								Body = thing.Key,
+								AlternateAnswers = altAns?.SS,
+								CorrectAnswer = corrAns?.S
+							});
+						}
+					}
+
+					questionbanks.Add(new QuestionBank(unid?.S)
+					{
+						Name = name?.S,
+						Questions = questionList
+					});
+				}
+
+				return questionbanks;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+
+				return new List<IQuestionBank>();
+			}
+		}
+
 
 		#endregion
 

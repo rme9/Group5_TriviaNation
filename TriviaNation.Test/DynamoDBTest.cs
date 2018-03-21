@@ -58,5 +58,11 @@ namespace TriviaNation.Test
 
 			_driver.InsertQuestionBank(qb);
 		}
+
+		[TestMethod]
+		public void TestGetAllQuestionBanksByInstructor()
+		{
+			var qbs = _driver.GetQuestionBanksByInstructor("rme9@students.uwf.edu");
+		}
 	}
 }
