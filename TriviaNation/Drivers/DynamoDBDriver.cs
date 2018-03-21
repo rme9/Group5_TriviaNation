@@ -29,7 +29,9 @@ namespace TriviaNation.Drivers
 			_Client = new AmazonDynamoDBClient(_awsCredentials, RegionEndpoint.USEast1);
 		}
 
-		public async void InsertUser(IUser newUser)
+		#region Users
+
+		public void InsertUser(IUser newUser)
 		{
 			try
 			{
@@ -67,7 +69,7 @@ namespace TriviaNation.Drivers
 			}
 		}
 
-		public List<IUser> GetAllUsers(string instructorsEmail)
+		public List<IUser> GetAllUsersByInstructor(string instructorsEmail)
 		{
 			try
 			{
@@ -103,8 +105,9 @@ namespace TriviaNation.Drivers
 
 				return new List<IUser>();
 			}
-
 		}
+		
+		#endregion
 
 	}
 }
