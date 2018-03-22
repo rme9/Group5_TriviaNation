@@ -44,8 +44,10 @@ namespace TriviaNation.ViewModels
 				}
 			}
 
-			var newGame = new GameSession(Name, students)
+			var newGame = new GameSession()
 			{
+				Name = Name,
+				Students = students,
 				QuestionBank = SelectedQuestionBank
 			};
 
