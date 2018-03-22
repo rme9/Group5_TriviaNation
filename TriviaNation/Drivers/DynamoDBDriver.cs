@@ -12,6 +12,7 @@ using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using MongoDB.Driver.Core.Operations;
 using TriviaNation.Models;
+using TriviaNation.Util.CustomExceptions;
 
 using Table = Amazon.DynamoDBv2.DocumentModel.Table;
 
@@ -47,7 +48,8 @@ namespace TriviaNation.Drivers
 		/// StudentUsers and AdminUsers.
 		/// </summary>
 		/// <param name="newUser">A new user to insert in the database.</param>
-		public void InsertUser(IUser newUser)
+		/// <param name="instructorsEmail"></param>
+		public void InsertUser(IUser newUser, string instructorsEmail)
 		{
 			try
 			{
@@ -63,7 +65,7 @@ namespace TriviaNation.Drivers
 				{
 					attributes.Add("isadmin", new AttributeValue {BOOL = false});
 					attributes.Add("instructor_id",
-						new AttributeValue {S = "rme9@students.uwf.edu"}); // TODO this should be the email of the admin that added it
+						new AttributeValue {S = instructorsEmail});
 				}
 				else if (newUser is AdminUser)
 				{
@@ -82,7 +84,7 @@ namespace TriviaNation.Drivers
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				throw ex;
 			}
 		}
 
@@ -149,43 +151,35 @@ namespace TriviaNation.Drivers
 
 				var result = response.Items.FirstOrDefault();
 
-				IUser newUser = null;
-
-				if (result.TryGetValue("isadmin", out var userIsAdmin) &&
-				    result.TryGetValue("email", out var dbEmail) &&
-				    result.TryGetValue("name", out var name))
+				// if we can't retrieve one of the values, or the email doesn't match
+				// what we searched for, throw an error
+				if (result == null ||
+				    !result.TryGetValue("isadmin", out var userIsAdmin) ||
+				    !result.TryGetValue("email", out var dbEmail) ||
+				    !result.TryGetValue("name", out var name) ||
+				    !email.Equals(dbEmail.S))
 				{
-					if (email != dbEmail.S)
-					{
-						throw new Exception("Could not retrieve user from database");
-					}
-
-					if (userIsAdmin.BOOL)
-					{
-						newUser = new AdminUser(name.S, email);
-					}
-					else
-					{
-						if (!result.TryGetValue("instructor_id", out var instrid))
-						{
-							throw new Exception(
-								"Requested student user doesn't have an instructor assigned and will not appear in the admin dashboard.");
-						}
-
-						newUser = new StudentUser(name.S, email)
-						{
-							InstructorId = instrid.S
-						};
-
-					}
+					throw new ItemNotFoundException(email, _UserTableName);
 				}
 
-				return newUser ?? throw new Exception("Could not retrieve user.");
+				if (userIsAdmin.BOOL)
+				{
+					return new AdminUser(name.S, email);
+				}
+
+				// If the student doesn't have an instructor, throw an error
+				if (!result.TryGetValue("instructor_id", out var instrid))
+				{
+					throw new InvalidDatabaseObjectException(email);
+				}
+
+				return new StudentUser(name.S, email)
+				{
+					InstructorId = instrid.S
+				};
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
-
 				throw ex;
 			}
 		}
@@ -237,7 +231,7 @@ namespace TriviaNation.Drivers
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				throw ex;
 			}
 
 		}
@@ -327,7 +321,7 @@ namespace TriviaNation.Drivers
 
 				if (result == null || !result.TryGetValue("name", out var name))
 				{
-					throw new Exception("Retrieval failed.");
+					throw new ItemNotFoundException(uniqueId, _QuestionBankTableName);
 				}
 
 				var questionList = new List<IQuestion>();
@@ -370,8 +364,8 @@ namespace TriviaNation.Drivers
 		/// Inserts a new game session into the database. Throws an exception on error.
 		/// </summary>
 		/// <param name="newGameSession"></param>
-		/// <param name="instructorEmail"></param>
-		public void InsertGameSession(IGameSession newGameSession, string instructorEmail)
+		/// <param name="instructorsEmail"></param>
+		public void InsertGameSession(IGameSession newGameSession, string instructorsEmail)
 		{
 			try
 			{
@@ -390,7 +384,7 @@ namespace TriviaNation.Drivers
 						["name"] = new AttributeValue {S = newGameSession.Name},
 						["question_bank_id"] = new AttributeValue {S = newGameSession.QuestionBank.UniqueId},
 						["unique_id"] = new AttributeValue {S = newGameSession.UniqueId},
-						["instructor_id"] = new AttributeValue {S = instructorEmail},
+						["instructor_id"] = new AttributeValue {S = instructorsEmail},
 						["student_ids"] = new AttributeValue {SS = studentsEmails}
 					};
 
@@ -441,12 +435,19 @@ namespace TriviaNation.Drivers
 						var studentList = new List<IUser>();
 						foreach (var stid in studentsEmails.SS)
 						{
-							studentList.Add(GetUserByEmail(stid));
+							try
+							{
+								studentList.Add(GetUserByEmail(stid));
+							}
+							catch (ItemNotFoundException ex)
+							{
+								// continue trying to get the students
+							}
 						}
 
 						//pull the questionbank from the questionbank table
 						var questionB = GetQuestionBankById(qbId.S);
-
+						
 						gameSessions.Add(new GameSession(unid?.S)
 						{
 							Name = name?.S,
@@ -466,7 +467,7 @@ namespace TriviaNation.Drivers
 			}
 		}
 
-		public IGameSession GetGameSessionsById(string uniqueId)
+		public IGameSession GetGameSessionById(string uniqueId)
 		{
 			try
 			{

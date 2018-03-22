@@ -24,7 +24,7 @@ namespace TriviaNation.Test
 		public void TestInsertUser()
 		{
 			var newStu = new StudentUser("Ron Weasley", "RWeasley@email.com") {InstructorId = "rme9@students.uwf.edu"};
-			_driver.InsertUser(newStu);
+			_driver.InsertUser(newStu, "rme9@students.uwf.edu");
 		}
 
 		[TestMethod]
@@ -129,7 +129,7 @@ namespace TriviaNation.Test
 		[TestMethod]
 		public void TestGetGameSessionsById()
 		{
-			var game = _driver.GetGameSessionsById("29a9d5c256a24cc8b05a32862609d8e7");
+			var game = _driver.GetGameSessionById("29a9d5c256a24cc8b05a32862609d8e7");
 
 			Assert.IsNotNull(game.Name.Equals("TestGame1"));
 
