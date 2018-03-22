@@ -12,34 +12,53 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TriviaNation.ViewModels;
+using TriviaNation.Views;
 
 namespace TriviaNation
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("D:/Programming/SE2/TriviaNation/TriviaNation/TriviaNation/Resources/background.gif", UriKind.Absolute));
-            this.Background = myBrush;
-        }
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+		public LoginPopupView _LoginPopup;
 
-        private void showInformation(object sender, RoutedEventArgs e)
-        {
-            if (((RadioButton)sender).IsChecked == true)
+		public MainWindow()
+		{
+			InitializeComponent();
+
+            this.Visibility = Visibility.Hidden;
+
+			var login = new LoginPopupViewModel();
+
+			var _LoginPopup = new LoginPopupView(login);
+
+			_LoginPopup.LoginComplete += LoginView_LoginComplete;
+
+			_LoginPopup.Show();
+		}
+
+		private void LoginView_LoginComplete(object sender, object e)
+		{
+			if (e is AdminViewModel model)
+			{
+                this.Visibility = Visibility.Visible;
+				DataContext = model;
+			}
+
+            if(e is GameBoardViewModel model2)
             {
-                InformationPanel.Visibility = Visibility.Visible;
-                Information_Info.Visibility = Visibility.Visible;
-                Information_Controlled.Visibility = Visibility.Visible;
-                AttackButton.Visibility = Visibility.Visible;
-                DefendButton.Visibility = Visibility.Visible;
-
-                Information_Info.Content = ((RadioButton)sender).Name;
+                this.Visibility = Visibility.Visible;
+                DataContext = model2;
             }
-        }
-    }
+		}
+
+		protected override void OnClosed(EventArgs e)
+		{
+			base.OnClosed(e);
+
+			Application.Current.Shutdown();
+		}
+	}
 }

@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="TriviaNation.Views.GameBoardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TriviaNation.Views"
+             xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
+             xmlns:views="clr-namespace:TriviaNation.UI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1500">
+    <Grid RenderTransformOrigin="0.5,0.5">
+        <Grid.Background>
+            <ImageBrush ImageSource="background.gif"/>
+        </Grid.Background>
+        <Rectangle x:Name="InformationPanel" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="602" Margin="1012,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="332" Visibility="Hidden"/>
+        <Label x:Name="Information_Info" Content="Name:" HorizontalAlignment="Left" Height="60" Margin="1054,104,0,0" VerticalAlignment="Top" Width="243" FontSize="18" Visibility="Hidden"/>
+        <Label x:Name="Information_Controlled" Content="Controlled By:" HorizontalAlignment="Left" Height="90" Margin="1054,229,0,0" VerticalAlignment="Top" Width="243" RenderTransformOrigin="0.5,1.4" FontSize="18" Visibility="Hidden"/>
+        <Button x:Name="AttackButton" Content="Attack" HorizontalAlignment="Left" Height="46" Margin="1098,476,0,0" VerticalAlignment="Top" Width="172" FontSize="22" Visibility="Hidden"/>
+        <Button x:Name="DefendButton" Content="Defend" HorizontalAlignment="Left" Height="46" Margin="1098,565,0,0" VerticalAlignment="Top" Width="172" FontSize="22" Visibility="Hidden"/>
+        <RadioButton x:Name="t1" Content="" HorizontalAlignment="Left" Margin="270,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t2" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t3" Content="" HorizontalAlignment="Left" Margin="328,552,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t4" Content="" HorizontalAlignment="Left" Margin="154,110,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t5" Content="" HorizontalAlignment="Left" Margin="226,266,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t6" Content="" HorizontalAlignment="Left" Margin="378,236,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t7" Content="" HorizontalAlignment="Left" Margin="360,110,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t8" Content="" HorizontalAlignment="Left" Margin="623,216,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t9" Content="" HorizontalAlignment="Left" Margin="239,414,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t10" Content="" HorizontalAlignment="Left" Margin="270,318,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+
+        <RadioButton x:Name="t11" Content="" HorizontalAlignment="Left" Margin="582,552,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t12" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t13" Content="" HorizontalAlignment="Left" Margin="538,430,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t14" Content="" HorizontalAlignment="Left" Margin="737,290,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t15" Content="" HorizontalAlignment="Left" Margin="820,364,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t16" Content="" HorizontalAlignment="Left" Margin="674,454,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t17" Content="" HorizontalAlignment="Left" Margin="407,380,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t18" Content="" HorizontalAlignment="Left" Margin="200,508,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t19" Content="" HorizontalAlignment="Left" Margin="154,200,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t20" Content="" HorizontalAlignment="Left" Margin="374,622,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+
+        <RadioButton x:Name="t21" Content="" HorizontalAlignment="Left" Margin="116,444,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t22" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t23" Content="" HorizontalAlignment="Left" Margin="239,582,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t24" Content="" HorizontalAlignment="Left" Margin="270,494,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t25" Content="" HorizontalAlignment="Left" Margin="360,444,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t26" Content="" HorizontalAlignment="Left" Margin="431,657,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t27" Content="" HorizontalAlignment="Left" Margin="378,290,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t28" Content="" HorizontalAlignment="Left" Margin="140,318,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t29" Content="" HorizontalAlignment="Left" Margin="880,200,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t30" Content="" HorizontalAlignment="Left" Margin="674,318,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+
+        <RadioButton x:Name="t31" Content="" HorizontalAlignment="Left" Margin="556,636,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t32" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t33" Content="" HorizontalAlignment="Left" Margin="835,622,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t34" Content="" HorizontalAlignment="Left" Margin="600,600,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t35" Content="" HorizontalAlignment="Left" Margin="455,444,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t36" Content="" HorizontalAlignment="Left" Margin="389,532,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t37" Content="" HorizontalAlignment="Left" Margin="476,600,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t38" Content="" HorizontalAlignment="Left" Margin="462,494,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t39" Content="" HorizontalAlignment="Left" Margin="754,236,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t40" Content="" HorizontalAlignment="Left" Margin="556,318,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+
+        <RadioButton x:Name="t41" Content="" HorizontalAlignment="Left" Margin="498,364,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t42" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t43" Content="" HorizontalAlignment="Left" Margin="302,396,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t44" Content="" HorizontalAlignment="Left" Margin="648,176,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t45" Content="" HorizontalAlignment="Left" Margin="431,266,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t46" Content="" HorizontalAlignment="Left" Margin="476,188,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t47" Content="" HorizontalAlignment="Left" Margin="328,236,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t48" Content="" HorizontalAlignment="Left" Margin="600,110,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t49" Content="" HorizontalAlignment="Left" Margin="90,156,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <RadioButton x:Name="t50" Content="" HorizontalAlignment="Left" Margin="360,176,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+    </Grid>
+</UserControl>
