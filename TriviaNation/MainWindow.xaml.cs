@@ -28,6 +28,13 @@ namespace TriviaNation
 		{
 			InitializeComponent();
 
+			this.Hide();
+
+			ShowLoginWindow();
+		}
+
+		private void ShowLoginWindow()
+		{
 			var login = new LoginPopupViewModel();
 
 			var _LoginPopup = new LoginPopupView(login);
@@ -43,6 +50,8 @@ namespace TriviaNation
 			{
 				DataContext = model;
 			}
+
+			this.Show();
 		}
 
 		protected override void OnClosed(EventArgs e)

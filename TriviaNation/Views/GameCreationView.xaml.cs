@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using TriviaNation.ViewModels;
 
 namespace TriviaNation.UI.Views
@@ -7,7 +8,7 @@ namespace TriviaNation.UI.Views
 	/// <summary>
 	/// Interaction logic for GameCreationView.xaml
 	/// </summary>
-	public partial class GameCreationView : Window
+	public partial class GameCreationView : UserControl
 	{
 		public GameCreationView(GameCreationViewModel vm)
 		{
@@ -19,7 +20,6 @@ namespace TriviaNation.UI.Views
 
 		public void OnCloseView(object sender, EventArgs eventArgs)
 		{
-			this.Close();
 		}
 	}
 }
