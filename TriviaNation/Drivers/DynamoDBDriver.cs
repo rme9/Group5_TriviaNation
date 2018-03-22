@@ -19,15 +19,19 @@ namespace TriviaNation.Drivers
 {
 	public class DynamoDBDriver
 	{
-		// TODO 
-		// 
-		//
-		//
-
-
 		private readonly BasicAWSCredentials _awsCredentials;
 
 		private AmazonDynamoDBClient _Client;
+
+		#region Table Name Strings
+
+		private readonly string _UserTableName = "se2_user";
+
+		private readonly string _QuestionBankTableName = "se2_questionbank";
+
+		private readonly string _GameSessionTableName = "se2_gamesession";
+
+		#endregion
 
 		public DynamoDBDriver()
 		{
@@ -69,7 +73,7 @@ namespace TriviaNation.Drivers
 				// Create PutItem request
 				PutItemRequest request = new PutItemRequest
 				{
-					TableName = "se2_user",
+					TableName = _UserTableName,
 					Item = attributes
 				};
 
@@ -88,13 +92,13 @@ namespace TriviaNation.Drivers
 		/// </summary>
 		/// <param name="instructorsEmail">The email saved in the account of the AdminUser whose Students should be pulled.</param>
 		/// <returns></returns>
-		public List<IUser> GetAllUsersByInstructor(string instructorsEmail)
+		public List<StudentUser> GetAllUsersByInstructor(string instructorsEmail)
 		{
 			try
 			{
 				var request = new ScanRequest
 				{
-					TableName = "se2_user",
+					TableName = _UserTableName,
 					ExpressionAttributeValues = new Dictionary<string, AttributeValue>
 					{
 						{":instr", new AttributeValue {S = instructorsEmail}}
@@ -104,7 +108,7 @@ namespace TriviaNation.Drivers
 
 				var resp = _Client.Scan(request);
 
-				var users = new List<IUser>();
+				var users = new List<StudentUser>();
 
 				foreach (var item in resp.Items)
 				{
@@ -123,7 +127,66 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				return new List<IUser>();
+				throw ex;
+			}
+		}
+
+		public IUser GetUserByEmail(string email)
+		{
+			try
+			{
+				var request = new ScanRequest
+				{
+					TableName = _UserTableName,
+					ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+					{
+						{":em", new AttributeValue {S = email}}
+					},
+					FilterExpression = "email = :em"
+				};
+
+				var response = _Client.Scan(request);
+
+				var result = response.Items.FirstOrDefault();
+
+				IUser newUser = null;
+
+				if (result.TryGetValue("isadmin", out var userIsAdmin) &&
+				    result.TryGetValue("email", out var dbEmail) &&
+				    result.TryGetValue("name", out var name))
+				{
+					if (email != dbEmail.S)
+					{
+						throw new Exception("Could not retrieve user from database");
+					}
+
+					if (userIsAdmin.BOOL)
+					{
+						newUser = new AdminUser(name.S, email);
+					}
+					else
+					{
+						if (!result.TryGetValue("instructor_id", out var instrid))
+						{
+							throw new Exception(
+								"Requested student user doesn't have an instructor assigned and will not appear in the admin dashboard.");
+						}
+
+						newUser = new StudentUser(name.S, email)
+						{
+							InstructorId = instrid.S
+						};
+
+					}
+				}
+
+				return newUser ?? throw new Exception("Could not retrieve user.");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+
+				throw ex;
 			}
 		}
 
@@ -131,7 +194,11 @@ namespace TriviaNation.Drivers
 
 		#region QuestionBanks
 
-		public void InsertQuestionBank(IQuestionBank newQuestionBank)
+		/// <summary>
+		/// Inserts a single new questionbank into the database.
+		/// </summary>
+		/// <param name="newQuestionBank"></param>
+		public void InsertQuestionBank(IQuestionBank newQuestionBank, string instructorEmail)
 		{
 			try
 			{
@@ -154,14 +221,14 @@ namespace TriviaNation.Drivers
 					{
 						["name"] = new AttributeValue {S = newQuestionBank.Name},
 						["questions"] = new AttributeValue {M = questions},
-						["unique_id"] = new AttributeValue { S = newQuestionBank.UniqueId },
-						["instructor_id"] = new AttributeValue { S = "rme9@students.uwf.edu"} // TODO add a way to get the current logged in user
+						["unique_id"] = new AttributeValue {S = newQuestionBank.UniqueId},
+						["instructor_id"] = new AttributeValue {S = instructorEmail}
 					};
 
 				// Create PutItem request
 				PutItemRequest request = new PutItemRequest
 				{
-					TableName = "se2_questionbank",
+					TableName = _QuestionBankTableName,
 					Item = attributes
 				};
 
@@ -175,13 +242,18 @@ namespace TriviaNation.Drivers
 
 		}
 
+		/// <summary>
+		/// Retrieves all question banks created by the given user.
+		/// </summary>
+		/// <param name="instructorsEmail"></param>
+		/// <returns></returns>
 		public List<IQuestionBank> GetQuestionBanksByInstructor(string instructorsEmail)
 		{
 			try
 			{
 				var request = new ScanRequest
 				{
-					TableName = "se2_questionbank",
+					TableName = _QuestionBankTableName,
 					ExpressionAttributeValues = new Dictionary<string, AttributeValue>
 					{
 						{":instr", new AttributeValue {S = instructorsEmail}}
@@ -202,16 +274,16 @@ namespace TriviaNation.Drivers
 
 					var questionList = new List<IQuestion>();
 
-					if(didGetQuestions && qs.IsMSet)
+					if (didGetQuestions && qs.IsMSet)
 					{
-						foreach (var thing in qs.M)
+						foreach (var keyPair in qs.M)
 						{
-							thing.Value.M.TryGetValue("correct_answer", out var corrAns);
-							thing.Value.M.TryGetValue("alternate_answers", out var altAns);
+							keyPair.Value.M.TryGetValue("correct_answer", out var corrAns);
+							keyPair.Value.M.TryGetValue("alternate_answers", out var altAns);
 
-							questionList.Add( new Question
+							questionList.Add(new Question
 							{
-								Body = thing.Key,
+								Body = keyPair.Key,
 								AlternateAnswers = altAns?.SS,
 								CorrectAnswer = corrAns?.S
 							});
@@ -235,37 +307,97 @@ namespace TriviaNation.Drivers
 			}
 		}
 
+		public IQuestionBank GetQuestionBankById(string uniqueId)
+		{
+			try
+			{
+				var request = new ScanRequest
+				{
+					TableName = _QuestionBankTableName,
+					ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+					{
+						{":unid", new AttributeValue {S = uniqueId}}
+					},
+					FilterExpression = "unique_id = :unid"
+				};
+
+				var response = _Client.Scan(request);
+
+				var result = response.Items.FirstOrDefault();
+
+				if (result == null || !result.TryGetValue("name", out var name))
+				{
+					throw new Exception("Retrieval failed.");
+				}
+
+				var questionList = new List<IQuestion>();
+
+				if (result.TryGetValue("questions", out var qs) && qs.IsMSet)
+				{
+					foreach (var keyPair in qs.M)
+					{
+						keyPair.Value.M.TryGetValue("correct_answer", out var corrAns);
+						keyPair.Value.M.TryGetValue("alternate_answers", out var altAns);
+
+						questionList.Add(new Question
+						{
+							Body = keyPair.Key,
+							AlternateAnswers = altAns?.SS,
+							CorrectAnswer = corrAns?.S
+						});
+					}
+				}
+
+				return new QuestionBank(uniqueId)
+				{
+					Name = name.S,
+					Questions = questionList
+				};
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+
+				throw ex;
+			}
+		}
+
 		#endregion
 
 		#region GameSessions
 
-		public void InsertGameSession(IGameSession newGameSession)
+		/// <summary>
+		/// Inserts a new game session into the database. Throws an exception on error.
+		/// </summary>
+		/// <param name="newGameSession"></param>
+		/// <param name="instructorEmail"></param>
+		public void InsertGameSession(IGameSession newGameSession, string instructorEmail)
 		{
 			try
 			{
 				// Create a list of student ids
-				var studentIds = new List<string>();
+				var studentsEmails = new List<string>();
 
 				foreach (var s in newGameSession.Students)
 				{
-					studentIds.Add(s.Email);
+					studentsEmails.Add(s.Email);
 				}
 
 				// Build the attribute dictionary
 				var attributes =
 					new Dictionary<string, AttributeValue>
 					{
-						["name"] = new AttributeValue { S = newGameSession.Name },
-						["question_bank_id"] = new AttributeValue { S = newGameSession.QuestionBank.UniqueId },
-						["unique_id"] = new AttributeValue { S = newGameSession.UniqueId },
-						["instructor_id"] = new AttributeValue { S = "rme9@students.uwf.edu" }, // TODO add a way to get the current logged in user
-						["student_ids"] = new AttributeValue { SS = studentIds }
+						["name"] = new AttributeValue {S = newGameSession.Name},
+						["question_bank_id"] = new AttributeValue {S = newGameSession.QuestionBank.UniqueId},
+						["unique_id"] = new AttributeValue {S = newGameSession.UniqueId},
+						["instructor_id"] = new AttributeValue {S = instructorEmail},
+						["student_ids"] = new AttributeValue {SS = studentsEmails}
 					};
 
 				// Create PutItem request
 				PutItemRequest request = new PutItemRequest
 				{
-					TableName = "se2_gamesession",
+					TableName = _GameSessionTableName,
 					Item = attributes
 				};
 
@@ -275,11 +407,114 @@ namespace TriviaNation.Drivers
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
-			}
 
+				throw ex;
+			}
 		}
 
+		public List<IGameSession> GetGameSessionsByInstructor(string instructorsEmail)
+		{
+			try
+			{
+				var request = new ScanRequest
+				{
+					TableName = _GameSessionTableName,
+					ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+					{
+						{":instr", new AttributeValue {S = instructorsEmail}}
+					},
+					FilterExpression = "instructor_id = :instr"
+				};
 
+				var resp = _Client.Scan(request);
+
+				var gameSessions = new List<IGameSession>();
+
+				foreach (var item in resp.Items)
+				{
+					if (item.TryGetValue("name", out var name) &&
+					    item.TryGetValue("unique_id", out var unid) &&
+					    item.TryGetValue("question_bank_id", out var qbId) &&
+					    item.TryGetValue("student_ids", out var studentsEmails))
+					{
+						// pull all the students from the user table
+						var studentList = new List<IUser>();
+						foreach (var stid in studentsEmails.SS)
+						{
+							studentList.Add(GetUserByEmail(stid));
+						}
+
+						//pull the questionbank from the questionbank table
+						var questionB = GetQuestionBankById(qbId.S);
+
+						gameSessions.Add(new GameSession(unid?.S)
+						{
+							Name = name?.S,
+							Students = studentList,
+							QuestionBank = questionB
+						});
+					}
+				}
+
+				return gameSessions;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+
+				throw ex;
+			}
+		}
+
+		public IGameSession GetGameSessionsById(string uniqueId)
+		{
+			try
+			{
+				var request = new ScanRequest
+				{
+					TableName = _GameSessionTableName,
+					ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+					{
+						{":unid", new AttributeValue {S = uniqueId}}
+					},
+					FilterExpression = "unique_id = :unid"
+				};
+
+				var resp = _Client.Scan(request).Items.FirstOrDefault();
+
+				if (resp == null || 
+				    !resp.TryGetValue("name", out var name) || 
+				    !resp.TryGetValue("unique_id", out var unid) ||
+				    !resp.TryGetValue("question_bank_id", out var qbId) || 
+				    !resp.TryGetValue("student_ids", out var studentsEmails))
+				{
+					throw new Exception("Game session not found.");
+				}
+
+				// pull all the students from the user table
+				var studentList = new List<IUser>();
+				foreach (var stid in studentsEmails.SS)
+				{
+					studentList.Add(GetUserByEmail(stid));
+				}
+
+				//pull the questionbank from the questionbank table
+				var questionB = GetQuestionBankById(qbId.S);
+
+				return new GameSession(unid?.S)
+				{
+					Name = name?.S,
+					Students = studentList,
+					QuestionBank = questionB
+				};
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+
+				throw ex;
+			}
+		}
 
 		#endregion
 	}
