@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TriviaNation.ViewModels;
+using Application = System.Windows.Application;
 
 namespace TriviaNation.Views
 {
@@ -26,27 +27,24 @@ namespace TriviaNation.Views
 
 			DataContext = model;
 
+			model.LoginComplete += Model_LoginComplete;
+
+			this.Closing += LoginPopupView_Closing;
 		}
 
-		#region Login Complete
-		// TODO This code may actually belong in the ViewModel
-
-		private void OnClicked_ContinueButton(object sender, RoutedEventArgs e)
+		private void LoginPopupView_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (User.IsChecked ?? false)
+			if (Application.Current.Properties["LoggedInUserId"] == null)
 			{
-				// TODO Load User View
+				Application.Current.Shutdown();
 			}
-			else if (Admin.IsChecked ?? false)
-			{
-				LoginComplete?.Invoke(this, new AdminViewModel());
-			}
-
-			this.Hide();
 		}
 
-		public event EventHandler<Object> LoginComplete;
+		private void Model_LoginComplete(object sender, object e)
+		{
+			this.Close();
+		}
 
-		#endregion
+		
 	}
 }
