@@ -85,13 +85,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Util\RelayCommand.cs" />
     <Compile Include="ViewModels\AdminDashboardViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\GameCreationViewModel.cs" />
     <Compile Include="ViewModels\GameManagementViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\LoginPopupViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\AdminDashboardView.xaml.cs">
       <DependentUpon>AdminDashboardView.xaml</DependentUpon>
     </Compile>
