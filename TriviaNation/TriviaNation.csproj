@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.Core.3.3.21.16\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.DynamoDBv2, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.DynamoDBv2.3.3.6.2\lib\net45\AWSSDK.DynamoDBv2.dll</HintPath>
+    </Reference>
     <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
     </Reference>
@@ -45,12 +51,6 @@
     </Reference>
     <Reference Include="MongoDB.Driver.Core, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Driver.Core.2.5.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Driver.GridFS">
-      <HintPath>..\MongoDrivers\MongoDB.Driver.GridFS.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Driver.Legacy">
-      <HintPath>..\MongoDrivers\MongoDB.Driver.Legacy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -79,31 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\AddQuestionBankViewModel.cs" />
-    <Compile Include="ViewModels\DeleteQuestionBankViewModel.cs" />
-    <Compile Include="ViewModels\ModifyQuestionBankViewModel.cs" />
-    <Compile Include="ViewModels\QuestionBankViewModel.cs" />
-    <Compile Include="Views\AddQuestionBankView.xaml.cs">
-      <DependentUpon>AddQuestionBankView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\QuestionBankView.xaml.cs">
-      <DependentUpon>QuestionBankView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseEditor.xaml.cs">
-      <DependentUpon>DatabaseEditor.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\AddQuestionBankView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DeleteQuestionBankView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ModifyQuestionBankView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Util\CustomExceptions.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,27 +88,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\DeleteQuestionBankView.xaml.cs">
-      <DependentUpon>DeleteQuestionBankView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ModifyQuestionBankView.xaml.cs">
-      <DependentUpon>ModifyQuestionBankView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Drivers\DynamoDBDriver.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\QuestionBankView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DatabaseEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Objects\Question.cs" />
+    <Compile Include="Models\AdminUser.cs" />
+    <Compile Include="Models\GameSession.cs" />
+    <Compile Include="Models\IGameSession.cs" />
+    <Compile Include="Models\IQuestion.cs" />
+    <Compile Include="Models\IQuestionBank.cs" />
+    <Compile Include="Models\IUser.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\QuestionBank.cs" />
+    <Compile Include="Models\StudentUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,7 +121,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="bin\Debug\TriviaNation.exe.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -161,8 +131,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\TriviaNation.exe" />
-    <Content Include="bin\Debug\TriviaNation.pdb" />
+    <Analyzer Include="..\packages\AWSSDK.DynamoDBv2.3.3.6.2\analyzers\dotnet\cs\AWSSDK.DynamoDBv2.CodeAnalysis.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
