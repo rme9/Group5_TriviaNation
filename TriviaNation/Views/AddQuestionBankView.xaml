@@ -17,7 +17,7 @@
                 <TextBlock Text="Question:"/>
                 <TextBox Padding="2" TextWrapping="Wrap" Margin="5 0 5 10" Text="{Binding Path=Body}"/>
 
-                    <!--actual answer to the question-->
+                <!--actual answer to the question-->
                 <TextBlock Text="Actual Answer:"/>
                 <TextBox Padding="2" TextWrapping="Wrap" Margin="5 0 5 10" Text="{Binding Path=CorrectAnswer}"></TextBox>
 

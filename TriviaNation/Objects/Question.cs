@@ -4,34 +4,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TriviaNation.Models;
 
 namespace Trivia_Nation
 {
-    class Question
+    class Question : IQuestion
     {
         ObjectId ID { set; get; }
-        string body { set; get; }
-        string answer { set; get; }
+
+       
+        public string Body { set; get; }
+        public string CorrectAnswer { get; set; }
+        public List<string> AlternateAnswers { get; set; }
+        
 
 
         public Question()
         {
             
-            this.body = "";
-            this.body = "";
+            this.Body = "";
+            this.CorrectAnswer = "";
+            this.AlternateAnswers.Add("");
 
         }
         public Question(int id, string body, string answer)
         {
-            this.body = body;
-            this.answer = answer;
+            this.Body = body;
+            this.CorrectAnswer = answer;
         }
+
+        public void addAltAnswer(string answer)
+        {
+            AlternateAnswers.Add(answer);
+        }
+
+        public void removeAnswer(int index)
+        {
+            AlternateAnswers.RemoveAt(index);
+        }
+
+
+
+
         
-
-
-
-
-
-
+       
     }
 }
