@@ -82,6 +82,7 @@
     <Compile Include="DatabaseEditor.xaml.cs">
       <DependentUpon>DatabaseEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\IViewModel.cs" />
     <Compile Include="Objects\Question.cs" />
     <Compile Include="Util\CustomExceptions.cs" />
     <Compile Include="ViewModels\AddQuestionBankViewModel.cs" />
