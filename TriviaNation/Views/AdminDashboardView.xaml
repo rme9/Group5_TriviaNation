@@ -19,11 +19,23 @@
 
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Label Content="Students" HorizontalAlignment="Center" FontSize="16"/>
-            <DataGrid HorizontalAlignment="Center" MinHeight="175" MinWidth="300" VerticalAlignment="Center"/>
+            <DataGrid HorizontalAlignment="Center" ItemsSource="{Binding AllStudents}" AutoGenerateColumns="False" CanUserResizeColumns="False" MinHeight="175" MinWidth="300" VerticalAlignment="Center">
+               <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="125" />
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" MinWidth="175"/>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Label Content="Question Banks" HorizontalAlignment="Center" FontSize="16"/>
-            <DataGrid HorizontalAlignment="Center" MinHeight="175" VerticalAlignment="Center" MinWidth="300"/>
+            <DataGrid HorizontalAlignment="Center" ItemsSource="{Binding AllQuestionBanks}" AutoGenerateColumns="False" MinHeight="175" VerticalAlignment="Center" MinWidth="300">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="300"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0">
 
