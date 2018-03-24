@@ -108,7 +108,7 @@ namespace TriviaNation.Test
 					new StudentUser("Harry Potter", "hpotter@email.com") {InstructorId = "rme9@students.uwf.edu"}
 				},
 				Name = "TestGame1",
-				QuestionBank = new QuestionBank()
+				QuestionBank = new QuestionBank("d187d42797634e5f9277faf5fd78bcf4")
 			};
 
 			_driver.InsertGameSession(gs, "rme9@students.uwf.edu");
