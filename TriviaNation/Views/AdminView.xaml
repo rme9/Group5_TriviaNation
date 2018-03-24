@@ -29,7 +29,7 @@
         <StackPanel Grid.Row="0" Grid.Column="1"></StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="407" Margin="5,5,5,5">
-            <Button Content="Logout" Width="100" Margin="5,30,15,5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Button Content="Logout" Command="{Binding LogoutCommand}" Width="100" Margin="5,30,15,5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         </StackPanel>
         
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" MinHeight="668" Background="LightSlateGray">
@@ -40,7 +40,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" >
-            <Viewbox  Name="ContentViewBox" StretchDirection="DownOnly" />
+            <Viewbox  Name="ContentViewBox" StretchDirection="DownOnly"/>
         </StackPanel>
         
     </Grid>

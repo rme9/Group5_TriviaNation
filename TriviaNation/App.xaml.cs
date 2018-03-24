@@ -69,7 +69,7 @@ namespace TriviaNation
 			Application.Current.Properties.Remove("LoggedInUserId");
 			Application.Current.Properties.Remove("LoggedInUserName");
 
-			//Application.Current.Shutdown();
+			Application.Current.Shutdown();
 		}
 	}
 }
