@@ -23,6 +23,25 @@ namespace TriviaNation.ViewModels
 			
 		}
 
+		#region ManageGameSessions
+
+		public void ExecuteManageGamesCommand(object ob)
+		{
+			TransitionChildView.Invoke(this, new GameManagementViewModel());
+		}
+
+		private RelayCommand _ManageGamesCommand;
+
+		public RelayCommand ManageGamesCommand
+		{
+			get { return _ManageGamesCommand ?? (_ManageGamesCommand = new RelayCommand(ExecuteManageGamesCommand)); }
+			set { _ManageGamesCommand = value; }
+		}
+
+		#endregion
+
+		public EventHandler<object> TransitionChildView;
+
 		#region Logout
 
 		public void ExecuteLogoutCommand(object ob)

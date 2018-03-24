@@ -15,26 +15,22 @@ namespace TriviaNation.Views
 		private AdminDashboardViewModel _baseViewModel;
 		private AdminDashboardView _BaseView;
 
-		
-
 		public AdminView()
 		{
 			_baseViewModel = new AdminDashboardViewModel();
 			_BaseView = new AdminDashboardView(_baseViewModel);
 
 			InitializeComponent();
-
+			
 			ContentViewBox.Child = _BaseView;
 		}
 
+		
 		private void CreateGame_OnClick(object sender, RoutedEventArgs e)
 		{
-			//var createGameWindow = new GameCreationView(new GameCreationViewModel());
-			
-			//createGameWindow.Show();
 
 			var newContentVM = new GameManagementViewModel();
-			var newContent = new GameManagementView();
+			var newContent = new GameManagementView(newContentVM);
 
 			newContentVM.CloseView += TransitionToBaseView;
 
