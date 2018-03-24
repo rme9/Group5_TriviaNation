@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TriviaNation.UI.Views;
+using TriviaNation.ViewModels;
 
 namespace TriviaNation.Views
 {
@@ -20,9 +22,11 @@ namespace TriviaNation.Views
 	/// </summary>
 	public partial class GameManagementView : UserControl
 	{
-		public GameManagementView()
+		public GameManagementView(GameManagementViewModel vm)
 		{
 			InitializeComponent();
+
+			DataContext = vm;
 		}
 	}
 }
