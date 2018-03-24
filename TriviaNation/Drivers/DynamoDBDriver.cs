@@ -13,12 +13,11 @@ using Amazon.Runtime.CredentialManagement;
 using MongoDB.Driver.Core.Operations;
 using TriviaNation.Models;
 using TriviaNation.Util.CustomExceptions;
-
 using Table = Amazon.DynamoDBv2.DocumentModel.Table;
 
 namespace TriviaNation.Drivers
 {
-	public class DynamoDBDriver
+	public class DynamoDBDriver : IDisposable
 	{
 		private readonly BasicAWSCredentials _awsCredentials;
 
@@ -51,6 +50,11 @@ namespace TriviaNation.Drivers
 		/// <param name="instructorsEmail"></param>
 		public void InsertUser(IUser newUser, string instructorsEmail)
 		{
+			if (newUser == null || string.IsNullOrWhiteSpace(instructorsEmail))
+			{
+				throw new ArgumentNullException();
+			}
+
 			try
 			{
 				// Build the attribute dictionary
@@ -96,6 +100,11 @@ namespace TriviaNation.Drivers
 		/// <returns></returns>
 		public List<StudentUser> GetAllUsersByInstructor(string instructorsEmail)
 		{
+			if (string.IsNullOrWhiteSpace(instructorsEmail))
+			{
+				throw new ArgumentNullException(nameof(instructorsEmail));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -135,6 +144,11 @@ namespace TriviaNation.Drivers
 
 		public IUser GetUserByEmail(string email)
 		{
+			if (string.IsNullOrWhiteSpace(email))
+			{
+				throw new ArgumentNullException(nameof(email));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -194,6 +208,11 @@ namespace TriviaNation.Drivers
 		/// <param name="newQuestionBank"></param>
 		public void InsertQuestionBank(IQuestionBank newQuestionBank, string instructorEmail)
 		{
+			if (newQuestionBank == null || string.IsNullOrWhiteSpace(instructorEmail))
+			{
+				throw new ArgumentNullException();
+			}
+
 			try
 			{
 				// Turn the list of questions into a dictionary
@@ -243,6 +262,11 @@ namespace TriviaNation.Drivers
 		/// <returns></returns>
 		public List<IQuestionBank> GetQuestionBanksByInstructor(string instructorsEmail)
 		{
+			if (string.IsNullOrWhiteSpace(instructorsEmail))
+			{
+				throw new ArgumentNullException(nameof(instructorsEmail));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -303,6 +327,11 @@ namespace TriviaNation.Drivers
 
 		public IQuestionBank GetQuestionBankById(string uniqueId)
 		{
+			if (string.IsNullOrWhiteSpace(uniqueId))
+			{
+				throw new ArgumentNullException(nameof(uniqueId));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -367,6 +396,11 @@ namespace TriviaNation.Drivers
 		/// <param name="instructorsEmail"></param>
 		public void InsertGameSession(IGameSession newGameSession, string instructorsEmail)
 		{
+			if (newGameSession == null || instructorsEmail == null)
+			{
+				throw new ArgumentNullException();
+			}
+
 			try
 			{
 				// Create a list of student ids
@@ -408,6 +442,10 @@ namespace TriviaNation.Drivers
 
 		public List<IGameSession> GetGameSessionsByInstructor(string instructorsEmail)
 		{
+			if (string.IsNullOrWhiteSpace(instructorsEmail))
+			{
+				throw new ArgumentNullException(nameof(instructorsEmail));
+			}
 			try
 			{
 				var request = new ScanRequest
@@ -469,6 +507,11 @@ namespace TriviaNation.Drivers
 
 		public IGameSession GetGameSessionById(string uniqueId)
 		{
+			if (string.IsNullOrWhiteSpace(uniqueId))
+			{
+				throw new ArgumentNullException(nameof(uniqueId));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -515,6 +558,15 @@ namespace TriviaNation.Drivers
 
 				throw ex;
 			}
+		}
+
+		#endregion
+
+
+		#region IDisposable Implementation
+		public void Dispose()
+		{
+			
 		}
 
 		#endregion
