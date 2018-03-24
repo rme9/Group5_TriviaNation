@@ -5,24 +5,62 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using DevExpress.Mvvm.Native;
+using TriviaNation.Drivers;
 using TriviaNation.Models;
+using TriviaNation.Properties;
+using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels
 {
 	// Defines the data context of a GameCreationView
-	public class GameCreationViewModel : IViewModel
+	public class GameCreationViewModel : ViewModel
 	{
 		public string Name { get; set; }
 
 		public IQuestionBank SelectedQuestionBank { get; set; }
 
-		public ObservableCollection<IQuestionBank> AvailableQuestionBanks { get; set; }
+		private List<IQuestionBank> _AvailableQuestionBanks;
 
-		public ObservableCollection<IUser> AvailableStudents { get; set; }
+		public ObservableCollection<IQuestionBank> AvailableQuestionBanks
+		{
+			get{ return new ObservableCollection<IQuestionBank>(_AvailableQuestionBanks); }
+			set { _AvailableQuestionBanks = value.ToList(); }
+		}
 
+		private List<StudentUser> _AvailableStudents;
+
+		public ObservableCollection<StudentUser> AvailableStudents
+		{
+			get { return new ObservableCollection<StudentUser>(_AvailableStudents); }
+			set
+			{	
+				_AvailableStudents = value.ToList();
+			}
+		}
+		
 		public GameCreationViewModel()
 		{
+			
+				LoadData();
 		}
+
+		#region Database Query
+
+		public void LoadData()
+		{
+			var user = Application.Current.Properties["LoggedInUserId"] as string;
+
+			using (var db = new DynamoDBDriver())
+			{
+				_AvailableStudents = db.GetAllUsersByInstructor(user);
+
+				_AvailableQuestionBanks = db.GetQuestionBanksByInstructor(user);
+			}
+
+		}
+
+		#endregion
 
 		#region SaveCommand
 
@@ -33,7 +71,6 @@ namespace TriviaNation.ViewModels
 
 		public void ExecuteSaveCommand(object ob)
 		{
-			// TODO write newGame to database, call method to send emails to students.
 			var students = new List<IUser>();
 
 			if (ob is ObservableCollection<object> list)
@@ -51,7 +88,12 @@ namespace TriviaNation.ViewModels
 				QuestionBank = SelectedQuestionBank
 			};
 
-			CloseView?.Invoke(this, null);
+			using (var db = new DynamoDBDriver())
+			{
+				db.InsertGameSession(newGame, Application.Current.Properties["LoggedInUserId"] as string);
+			}
+
+			CloseView?.Invoke(this, newGame);
 		}
 
 		private RelayCommand _SaveCommand;
@@ -79,7 +121,7 @@ namespace TriviaNation.ViewModels
 			set { _CancelCommand = value; }
 		}
 
-		public event EventHandler CloseView;
+		public event EventHandler<object> CloseView;
 
 		#endregion
 

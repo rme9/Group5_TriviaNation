@@ -8,18 +8,20 @@ namespace TriviaNation.UI.Views
 	/// <summary>
 	/// Interaction logic for GameCreationView.xaml
 	/// </summary>
-	public partial class GameCreationView : UserControl
+	public partial class GameCreationView : Window
 	{
 		public GameCreationView(GameCreationViewModel vm)
 		{
 			InitializeComponent();
 			DataContext = vm;
 
-			vm.CloseView += OnCloseView;
+			vm.CloseView += Vm_CloseView; ;
 		}
 
-		public void OnCloseView(object sender, EventArgs eventArgs)
+		private void Vm_CloseView(object sender, object e)
 		{
+			this.Close();
 		}
+
 	}
 }
