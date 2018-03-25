@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace TriviaNation.ViewModels
 {
-	interface IViewModel
 	public interface IViewModel
 	{
 	}
