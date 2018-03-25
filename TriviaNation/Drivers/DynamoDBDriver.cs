@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
@@ -48,7 +45,7 @@ namespace TriviaNation.Drivers
 		/// </summary>
 		/// <param name="newUser">A new user to insert in the database.</param>
 		/// <param name="instructorsEmail"></param>
-		public void InsertUser(IUser newUser, string instructorsEmail)
+		public bool InsertUser(IUser newUser, string instructorsEmail)
 		{
 			if (newUser == null || string.IsNullOrWhiteSpace(instructorsEmail))
 			{
@@ -84,11 +81,15 @@ namespace TriviaNation.Drivers
 				};
 
 				// Issue PutItem request
-				var resp = _Client.PutItem(request);
+				_Client.PutItem(request);
+
+				return true;
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				Console.WriteLine(ex.Message);
+
+				return false;
 			}
 		}
 
@@ -138,7 +139,7 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return new List<StudentUser>();
 			}
 		}
 
@@ -173,7 +174,7 @@ namespace TriviaNation.Drivers
 				    !result.TryGetValue("name", out var name) ||
 				    !email.Equals(dbEmail.S))
 				{
-					throw new ItemNotFoundException(email, _UserTableName);
+					return new StudentUser(null, null);
 				}
 
 				if (userIsAdmin.BOOL)
@@ -194,7 +195,9 @@ namespace TriviaNation.Drivers
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				Console.WriteLine(ex.Message);
+
+				return new StudentUser(null, null);
 			}
 		}
 
@@ -206,7 +209,7 @@ namespace TriviaNation.Drivers
 		/// Inserts a single new questionbank into the database.
 		/// </summary>
 		/// <param name="newQuestionBank"></param>
-		public void InsertQuestionBank(IQuestionBank newQuestionBank, string instructorEmail)
+		public bool InsertQuestionBank(IQuestionBank newQuestionBank, string instructorEmail)
 		{
 			if (newQuestionBank == null || string.IsNullOrWhiteSpace(instructorEmail))
 			{
@@ -246,11 +249,15 @@ namespace TriviaNation.Drivers
 				};
 
 				// Issue PutItem request
-				var resp = _Client.PutItem(request);
+				 _Client.PutItem(request);
+
+				return true;
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				Console.WriteLine(ex.Message);
+
+				return false;
 			}
 
 		}
@@ -350,7 +357,7 @@ namespace TriviaNation.Drivers
 
 				if (result == null || !result.TryGetValue("name", out var name))
 				{
-					throw new ItemNotFoundException(uniqueId, _QuestionBankTableName);
+					return new QuestionBank(null);
 				}
 
 				var questionList = new List<IQuestion>();
@@ -381,7 +388,7 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return new QuestionBank(null);
 			}
 		}
 
@@ -394,7 +401,7 @@ namespace TriviaNation.Drivers
 		/// </summary>
 		/// <param name="newGameSession"></param>
 		/// <param name="instructorsEmail"></param>
-		public void InsertGameSession(IGameSession newGameSession, string instructorsEmail)
+		public bool InsertGameSession(IGameSession newGameSession, string instructorsEmail)
 		{
 			if (newGameSession == null || instructorsEmail == null)
 			{
@@ -430,13 +437,15 @@ namespace TriviaNation.Drivers
 				};
 
 				// Issue PutItem request
-				var resp = _Client.PutItem(request);
+				_Client.PutItem(request);
+				
+				return true;
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return false;
 			}
 		}
 
@@ -501,7 +510,7 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return new List<IGameSession>();
 			}
 		}
 
@@ -532,7 +541,7 @@ namespace TriviaNation.Drivers
 				    !resp.TryGetValue("question_bank_id", out var qbId) || 
 				    !resp.TryGetValue("student_ids", out var studentsEmails))
 				{
-					throw new Exception("Game session not found.");
+					return new GameSession(null);
 				}
 
 				// pull all the students from the user table
@@ -556,7 +565,7 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return new GameSession(null);
 			}
 		}
 
