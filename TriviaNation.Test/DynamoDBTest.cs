@@ -174,9 +174,9 @@ namespace TriviaNation.Test
 
 			Assert.IsTrue(game.Name.Equals(_NewGameSession.Name));
 
-			//Assert.IsNotNull(game.QuestionBank);
-			//Assert.IsNotNull(game.Students);
-			//Assert.IsNotNull(game.UniqueId);
+			Assert.IsNotNull(game.QuestionBank);
+			Assert.IsNotNull(game.Students);
+			Assert.IsNotNull(game.UniqueId);
 		}
 
 		#endregion
