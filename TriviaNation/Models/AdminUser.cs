@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TriviaNation.Models
 {
-	class AdminUser : IUser
+	public class AdminUser : IUser
 	{
 		public string Name { get; set; }
 		public string Email { get; set; }

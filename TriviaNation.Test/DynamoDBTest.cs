@@ -12,47 +12,37 @@ namespace TriviaNation.Test
 	{
 		private DynamoDBDriver _driver;
 
+		#region TestParameters
+
+		private AdminUser _NewAdmin => new AdminUser("Rebecca Elliff", "rme9@students.uwf.edu");
+
+		private StudentUser _NewUser => new StudentUser("Ron Weasley", "RWeasley@email.com") { InstructorId = _NewAdmin.Email };
+
+		private List<IQuestion> _Questions;
+
+		private QuestionBank _NewQuestionBank;
+
+		private GameSession _NewGameSession;
+
+		#endregion
+
+		#region Setup
+
 		[TestInitialize]
 		public void testSetup()
 		{
 			_driver = new DynamoDBDriver();
+
+			CreateQuestions();
+
+			CreateQuestionBank();
+
+			CreateGameSession();
 		}
 
-		#region User
-
-		[TestMethod]
-		public void TestInsertUser()
+		public void CreateQuestions()
 		{
-			var newStu = new StudentUser("Ron Weasley", "RWeasley@email.com") {InstructorId = "rme9@students.uwf.edu"};
-			_driver.InsertUser(newStu, "rme9@students.uwf.edu");
-		}
-
-		[TestMethod]
-		public void TestGetAllUsersByInstructor()
-		{
-			var users = _driver.GetAllUsersByInstructor("rme9@students.uwf.edu");
-
-			Assert.IsNotNull(users.Where(x => x.Name.Equals("Harry Potter")));
-			Assert.IsNotNull(users.Where(x => x.Name.Equals("Ron Weasley")));
-		}
-
-		[TestMethod]
-		public void TestGetUserByEmail()
-		{
-			var student = _driver.GetUserByEmail("hpotter@email.com");
-
-			Assert.IsTrue("Harry Potter".Equals(student.Name));
-			Assert.IsTrue("hpotter@email.com".Equals(student.Email));
-		}
-
-		#endregion
-
-		#region QuestionBanks
-
-		[TestMethod]
-		public void TestInsertQuestionBank()
-		{
-			var questions = new List<IQuestion>
+			_Questions = new List<IQuestion>
 			{
 				new Question
 				{
@@ -67,31 +57,88 @@ namespace TriviaNation.Test
 					CorrectAnswer = "John Quincy Adams"
 				}
 			};
+		}
 
-			var qb = new QuestionBank
+		public void CreateQuestionBank()
+		{
+			_NewQuestionBank = new QuestionBank("08a9df568ced4fa393e4a78d7da94649")
 			{
-				Questions = questions,
+				Questions = _Questions,
 				Name = "US_History_1"
 			};
+		}
 
-			_driver.InsertQuestionBank(qb, "rme9@students.uwf.edu");
+		public void CreateGameSession()
+		{
+			_NewGameSession = new GameSession("29a9d5c256a24cc8b05a32862609d8e7")
+			{
+				Students = new List<IUser>
+				{
+					_NewUser
+				},
+				Name = "TestGame1",
+				QuestionBank = _NewQuestionBank
+			};
+
+		}
+
+		#endregion
+
+		#region User
+
+		[TestMethod]
+		public void TestInsertUser()
+		{
+			var newStu = _driver.InsertUser(_NewUser, _NewAdmin.Email);
+
+			Assert.IsTrue(newStu);
+		}
+
+		[TestMethod]
+		public void TestGetAllUsersByInstructor()
+		{
+			var users = _driver.GetAllUsersByInstructor(_NewAdmin.Email);
+
+			Assert.IsNotNull(users.Where(x => x.Name.Equals("Harry Potter")));
+			Assert.IsNotNull(users.Where(x => x.Name.Equals("Ron Weasley")));
+		}
+
+		[TestMethod]
+		public void TestGetUserByEmail()
+		{
+			var student = _driver.GetUserByEmail(_NewUser.Email);
+
+			Assert.IsTrue(_NewUser.Name.Equals(student.Name));
+			Assert.IsTrue(_NewUser.Email.Equals(student.Email));
+		}
+
+		#endregion
+
+		#region QuestionBanks
+
+		[TestMethod]
+		public void TestInsertQuestionBank()
+		{
+			var res = _driver.InsertQuestionBank(_NewQuestionBank, _NewAdmin.Email);
+
+			Assert.IsTrue(res);
 		}
 
 		[TestMethod]
 		public void TestGetAllQuestionBanksByInstructor()
 		{
-			var qbs = _driver.GetQuestionBanksByInstructor("rme9@students.uwf.edu");
+			var qbs = _driver.GetQuestionBanksByInstructor(_NewAdmin.Email);
 
-
-			Assert.IsNotNull(qbs.Where(x=> x.Name.Equals("US_History_1")));
+			Assert.IsNotNull(qbs.Where(x=> x.Name.Equals(_NewQuestionBank.Name)));
+			Assert.IsNotNull(qbs.FirstOrDefault()?.Questions);
 		}
 
 		[TestMethod]
 		public void TestGetQuestionBankById()
 		{
-			var qbs = _driver.GetQuestionBankById("08a9df568ced4fa393e4a78d7da94649");
+			var qbs = _driver.GetQuestionBankById(_NewQuestionBank.UniqueId);
 
-			Assert.IsTrue(qbs.Name.Equals("US_History_1"));
+			Assert.IsTrue(qbs.Name.Equals(_NewQuestionBank.Name));
 		}
 
 		#endregion
@@ -101,25 +148,17 @@ namespace TriviaNation.Test
 		[TestMethod]
 		public void TestInsertGameSession()
 		{
-			var gs = new GameSession()
-			{
-				Students = new List<IUser>
-				{
-					new StudentUser("Harry Potter", "hpotter@email.com") {InstructorId = "rme9@students.uwf.edu"}
-				},
-				Name = "TestGame1",
-				QuestionBank = new QuestionBank("d187d42797634e5f9277faf5fd78bcf4")
-			};
+			var res = _driver.InsertGameSession(_NewGameSession, _NewAdmin.Email);
 
-			_driver.InsertGameSession(gs, "rme9@students.uwf.edu");
+			Assert.IsTrue(res);
 		}
 
 		[TestMethod]
 		public void TestGetGameSessionsByInstructor()
 		{
-			var games = _driver.GetGameSessionsByInstructor("rme9@students.uwf.edu");
+			var games = _driver.GetGameSessionsByInstructor(_NewAdmin.Email);
 
-			Assert.IsNotNull(games.Where(x => x.Name.Equals("TestGame1")));
+			Assert.IsNotNull(games.Where(x => x.Name.Equals(_NewGameSession.Name)));
 
 			Assert.IsNotNull(games.FirstOrDefault()?.QuestionBank);
 			Assert.IsNotNull(games.FirstOrDefault()?.Students);
@@ -129,13 +168,15 @@ namespace TriviaNation.Test
 		[TestMethod]
 		public void TestGetGameSessionsById()
 		{
-			var game = _driver.GetGameSessionById("29a9d5c256a24cc8b05a32862609d8e7");
+			var game = _driver.GetGameSessionById(_NewGameSession.UniqueId);
 
-			Assert.IsNotNull(game.Name.Equals("TestGame1"));
+			Assert.IsNotNull(game);
 
-			Assert.IsNotNull(game.QuestionBank);
-			Assert.IsNotNull(game.Students);
-			Assert.IsNotNull(game.UniqueId);
+			Assert.IsTrue(game.Name.Equals(_NewGameSession.Name));
+
+			//Assert.IsNotNull(game.QuestionBank);
+			//Assert.IsNotNull(game.Students);
+			//Assert.IsNotNull(game.UniqueId);
 		}
 
 		#endregion
