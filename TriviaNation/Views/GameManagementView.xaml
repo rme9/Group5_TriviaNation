@@ -19,8 +19,6 @@
         
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="New" Command="{Binding NewGameCommand}" Width="100" Height="25" Margin="5,5,5,5"/>
-            <Button Content="View" Width="100" Height="25" Margin="5,5,5,5"/>
-            <Button Content="Delete" Width="100" Height="25" Margin="5,5,5,5"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="5,5,5,5">
             <DataGrid MinHeight="250" Width="400" ItemsSource="{Binding GameSessions}" AutoGenerateColumns="False">
