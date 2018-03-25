@@ -575,7 +575,7 @@ namespace TriviaNation.Drivers
 		#region IDisposable Implementation
 		public void Dispose()
 		{
-			
+			_Client?.Dispose();
 		}
 
 		#endregion
