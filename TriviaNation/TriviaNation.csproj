@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Mvvm, Version=17.1.0.0, Culture=neutral, PublicKeyToken=382ad28f6ae31f30, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpressMvvm.17.1.6.0\lib\net40-client\DevExpress.Mvvm.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.UI, Version=17.1.0.0, Culture=neutral, PublicKeyToken=382ad28f6ae31f30, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpressMvvm.17.1.6.0\lib\net40-client\DevExpress.Mvvm.UI.dll</HintPath>
+    </Reference>
     <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
       <HintPath>..\packages\AWSSDK.Core.3.3.21.16\lib\net45\AWSSDK.Core.dll</HintPath>
     </Reference>
@@ -79,32 +85,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DatabaseEditor.xaml.cs">
-      <DependentUpon>DatabaseEditor.xaml</DependentUpon>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Util\RelayCommand.cs" />
+    <Compile Include="ViewModels\AdminDashboardViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
+    <Compile Include="ViewModels\GameCreationViewModel.cs" />
+    <Compile Include="ViewModels\GameManagementViewModel.cs" />
+    <Compile Include="ViewModels\IViewModel.cs" />
+    <Compile Include="ViewModels\LoginPopupViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\AdminDashboardView.xaml.cs">
+      <DependentUpon>AdminDashboardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\IViewModel.cs" />
-    <Compile Include="Objects\Question.cs" />
+    <Compile Include="Views\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GameCreationView.xaml.cs">
+      <DependentUpon>GameCreationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GameManagementView.xaml.cs">
+      <DependentUpon>GameManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginPopupView.xaml.cs">
+      <DependentUpon>LoginPopupView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\CustomExceptions.cs" />
-    <Compile Include="ViewModels\AddQuestionBankViewModel.cs" />
-    <Compile Include="ViewModels\DeleteQuestionBankViewModel.cs" />
-    <Compile Include="ViewModels\ModifyQuestionBankViewModel.cs" />
-    <Compile Include="ViewModels\QuestionBankViewModel.cs" />
-    <Compile Include="Views\AddQuestionBankView.xaml.cs">
-      <DependentUpon>AddQuestionBankView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DeleteQuestionBankView.xaml.cs">
-      <DependentUpon>DeleteQuestionBankView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ModifyQuestionBankView.xaml.cs">
-      <DependentUpon>ModifyQuestionBankView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\QuestionBankView.xaml.cs">
-      <DependentUpon>QuestionBankView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="DatabaseEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -118,21 +123,25 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\AddQuestionBankView.xaml">
+    <Page Include="Views\AdminDashboardView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\DeleteQuestionBankView.xaml">
+    <Page Include="Views\AdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GameCreationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GameManagementView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ModifyQuestionBankView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\LoginPopupView.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\QuestionBankView.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +180,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.DynamoDBv2.3.3.6.2\analyzers\dotnet\cs\AWSSDK.DynamoDBv2.CodeAnalysis.dll" />
   </ItemGroup>
