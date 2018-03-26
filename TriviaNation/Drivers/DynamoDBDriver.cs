@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
@@ -12,12 +9,11 @@ using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using TriviaNation.Models;
 using TriviaNation.Util.CustomExceptions;
-
 using Table = Amazon.DynamoDBv2.DocumentModel.Table;
 
 namespace TriviaNation.Drivers
 {
-	public class DynamoDBDriver
+	public class DynamoDBDriver : IDisposable
 	{
 		private readonly BasicAWSCredentials _awsCredentials;
 
@@ -48,8 +44,13 @@ namespace TriviaNation.Drivers
 		/// </summary>
 		/// <param name="newUser">A new user to insert in the database.</param>
 		/// <param name="instructorsEmail"></param>
-		public void InsertUser(IUser newUser, string instructorsEmail)
+		public bool InsertUser(IUser newUser, string instructorsEmail)
 		{
+			if (newUser == null || string.IsNullOrWhiteSpace(instructorsEmail))
+			{
+				throw new ArgumentNullException();
+			}
+
 			try
 			{
 				// Build the attribute dictionary
@@ -79,11 +80,15 @@ namespace TriviaNation.Drivers
 				};
 
 				// Issue PutItem request
-				var resp = _Client.PutItem(request);
+				_Client.PutItem(request);
+
+				return true;
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				Console.WriteLine(ex.Message);
+
+				return false;
 			}
 		}
 
@@ -95,6 +100,11 @@ namespace TriviaNation.Drivers
 		/// <returns></returns>
 		public List<StudentUser> GetAllUsersByInstructor(string instructorsEmail)
 		{
+			if (string.IsNullOrWhiteSpace(instructorsEmail))
+			{
+				throw new ArgumentNullException(nameof(instructorsEmail));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -128,12 +138,17 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return new List<StudentUser>();
 			}
 		}
 
 		public IUser GetUserByEmail(string email)
 		{
+			if (string.IsNullOrWhiteSpace(email))
+			{
+				throw new ArgumentNullException(nameof(email));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -158,7 +173,7 @@ namespace TriviaNation.Drivers
 				    !result.TryGetValue("name", out var name) ||
 				    !email.Equals(dbEmail.S))
 				{
-					throw new ItemNotFoundException(email, _UserTableName);
+					return new StudentUser(null, null);
 				}
 
 				if (userIsAdmin.BOOL)
@@ -179,7 +194,9 @@ namespace TriviaNation.Drivers
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				Console.WriteLine(ex.Message);
+
+				return new StudentUser(null, null);
 			}
 		}
 
@@ -191,8 +208,13 @@ namespace TriviaNation.Drivers
 		/// Inserts a single new questionbank into the database.
 		/// </summary>
 		/// <param name="newQuestionBank"></param>
-		public void InsertQuestionBank(IQuestionBank newQuestionBank, string instructorEmail)
+		public bool InsertQuestionBank(IQuestionBank newQuestionBank, string instructorEmail)
 		{
+			if (newQuestionBank == null || string.IsNullOrWhiteSpace(instructorEmail))
+			{
+				throw new ArgumentNullException();
+			}
+
 			try
 			{
 				// Turn the list of questions into a dictionary
@@ -226,11 +248,15 @@ namespace TriviaNation.Drivers
 				};
 
 				// Issue PutItem request
-				var resp = _Client.PutItem(request);
+				 _Client.PutItem(request);
+
+				return true;
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				Console.WriteLine(ex.Message);
+
+				return false;
 			}
 
 		}
@@ -242,6 +268,11 @@ namespace TriviaNation.Drivers
 		/// <returns></returns>
 		public List<IQuestionBank> GetQuestionBanksByInstructor(string instructorsEmail)
 		{
+			if (string.IsNullOrWhiteSpace(instructorsEmail))
+			{
+				throw new ArgumentNullException(nameof(instructorsEmail));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -302,6 +333,11 @@ namespace TriviaNation.Drivers
 
 		public IQuestionBank GetQuestionBankById(string uniqueId)
 		{
+			if (string.IsNullOrWhiteSpace(uniqueId))
+			{
+				throw new ArgumentNullException(nameof(uniqueId));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -320,7 +356,7 @@ namespace TriviaNation.Drivers
 
 				if (result == null || !result.TryGetValue("name", out var name))
 				{
-					throw new ItemNotFoundException(uniqueId, _QuestionBankTableName);
+					return new QuestionBank(null);
 				}
 
 				var questionList = new List<IQuestion>();
@@ -351,7 +387,7 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return new QuestionBank(null);
 			}
 		}
 
@@ -364,8 +400,13 @@ namespace TriviaNation.Drivers
 		/// </summary>
 		/// <param name="newGameSession"></param>
 		/// <param name="instructorsEmail"></param>
-		public void InsertGameSession(IGameSession newGameSession, string instructorsEmail)
+		public bool InsertGameSession(IGameSession newGameSession, string instructorsEmail)
 		{
+			if (newGameSession == null || instructorsEmail == null)
+			{
+				throw new ArgumentNullException();
+			}
+
 			try
 			{
 				// Create a list of student ids
@@ -395,18 +436,24 @@ namespace TriviaNation.Drivers
 				};
 
 				// Issue PutItem request
-				var resp = _Client.PutItem(request);
+				_Client.PutItem(request);
+				
+				return true;
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return false;
 			}
 		}
 
 		public List<IGameSession> GetGameSessionsByInstructor(string instructorsEmail)
 		{
+			if (string.IsNullOrWhiteSpace(instructorsEmail))
+			{
+				throw new ArgumentNullException(nameof(instructorsEmail));
+			}
 			try
 			{
 				var request = new ScanRequest
@@ -462,12 +509,17 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return new List<IGameSession>();
 			}
 		}
 
 		public IGameSession GetGameSessionById(string uniqueId)
 		{
+			if (string.IsNullOrWhiteSpace(uniqueId))
+			{
+				throw new ArgumentNullException(nameof(uniqueId));
+			}
+
 			try
 			{
 				var request = new ScanRequest
@@ -488,7 +540,7 @@ namespace TriviaNation.Drivers
 				    !resp.TryGetValue("question_bank_id", out var qbId) || 
 				    !resp.TryGetValue("student_ids", out var studentsEmails))
 				{
-					throw new Exception("Game session not found.");
+					return new GameSession(null);
 				}
 
 				// pull all the students from the user table
@@ -512,8 +564,17 @@ namespace TriviaNation.Drivers
 			{
 				Console.WriteLine(ex.Message);
 
-				throw ex;
+				return new GameSession(null);
 			}
+		}
+
+		#endregion
+
+
+		#region IDisposable Implementation
+		public void Dispose()
+		{
+			_Client?.Dispose();
 		}
 
 		#endregion
