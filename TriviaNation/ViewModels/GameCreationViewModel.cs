@@ -11,6 +11,7 @@ using TriviaNation.Models;
 using TriviaNation.Properties;
 using TriviaNation.Util;
 
+
 namespace TriviaNation.ViewModels
 {
 	// Defines the data context of a GameCreationView

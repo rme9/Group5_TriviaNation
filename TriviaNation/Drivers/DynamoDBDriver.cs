@@ -10,7 +10,6 @@ using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
-using MongoDB.Driver.Core.Operations;
 using TriviaNation.Models;
 using TriviaNation.Util.CustomExceptions;
 
