@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TriviaNation.Models
+namespace TriviaNation.Core.Models
 {
 	public class GameSession : IGameSession
 	{

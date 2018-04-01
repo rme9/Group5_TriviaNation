@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TriviaNation.Util.CustomExceptions
+namespace TriviaNation.Core.Util.CustomExceptions
 {
 	public class ItemNotFoundException : ApplicationException
 	{

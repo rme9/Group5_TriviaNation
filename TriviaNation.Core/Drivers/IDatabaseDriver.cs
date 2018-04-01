@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TriviaNation.Models
+namespace TriviaNation.Core.Drivers
 {
-	public interface IUser
+	public interface IDatabaseDriver
 	{
-		string Name { get; set; }
-		string Email { get; set; }
+
 	}
 }

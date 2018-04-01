@@ -7,12 +7,11 @@ using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
-using MongoDB.Driver.Core.Operations;
-using TriviaNation.Models;
-using TriviaNation.Util.CustomExceptions;
+using TriviaNation.Core.Models;
+using TriviaNation.Core.Util.CustomExceptions;
 using Table = Amazon.DynamoDBv2.DocumentModel.Table;
 
-namespace TriviaNation.Drivers
+namespace TriviaNation.Core.Drivers
 {
 	public class DynamoDBDriver : IDisposable
 	{
@@ -32,7 +31,7 @@ namespace TriviaNation.Drivers
 
 		public DynamoDBDriver()
 		{
-			_awsCredentials = new BasicAWSCredentials("accesskey", "secretkey");
+			_awsCredentials = new BasicAWSCredentials("AKIAJVY3C5ER7URGFMVQ", "XMlT3UlWOCzpeX9jEfQIx+fGuL24mqJAdQVf7lsS");
 
 			_Client = new AmazonDynamoDBClient(_awsCredentials, RegionEndpoint.USEast1);
 		}
@@ -570,7 +569,6 @@ namespace TriviaNation.Drivers
 		}
 
 		#endregion
-
 
 		#region IDisposable Implementation
 		public void Dispose()

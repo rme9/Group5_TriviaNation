@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TriviaNation.Models
+namespace TriviaNation.Core.Models
 {
 	public class Question : IQuestion
 	{
