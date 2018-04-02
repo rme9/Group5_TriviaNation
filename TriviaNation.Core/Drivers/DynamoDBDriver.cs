@@ -31,7 +31,7 @@ namespace TriviaNation.Core.Drivers
 
 		public DynamoDBDriver()
 		{
-			_awsCredentials = new BasicAWSCredentials("AKIAJVY3C5ER7URGFMVQ", "XMlT3UlWOCzpeX9jEfQIx+fGuL24mqJAdQVf7lsS");
+			_awsCredentials = new BasicAWSCredentials("", "");
 
 			_Client = new AmazonDynamoDBClient(_awsCredentials, RegionEndpoint.USEast1);
 		}
