@@ -10,6 +10,7 @@ using System.Windows.Input;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using TriviaNation.Annotations;
+using TriviaNation.Core.Models;
 using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels
@@ -53,23 +54,7 @@ namespace TriviaNation.ViewModels
 
 		}
 
-		#region RadioButtons
-
-		private ICommand _RadioButtonCommand;
-
-		public ICommand RadioButtonCommand
-		{
-			get { return _RadioButtonCommand ?? (_RadioButtonCommand = new RelayCommand(ExecuteRadioButtonCommand)); }
-			set { _RadioButtonCommand = value; }
-
-		}
-
-		private void ExecuteRadioButtonCommand(object param)
-		{
-			UserType = param as string;
-		}
-
-		#endregion
+		
 
 		#region LoginCommand
 
@@ -77,18 +62,11 @@ namespace TriviaNation.ViewModels
 		{
 			LoginMessage = null;
 
-			var result = App.OnLogin(Email, null, UserType);
+			var result = App.OnLogin(Email, null, "admin");
 
 			if (result == null)
 			{
-				if (UserType.Equals("User"))
-				{
-					// TODO Load User View
-				}
-				else if (UserType.Equals("Admin"))
-				{
-					LoginComplete?.Invoke(this, new MainWindowViewModel());
-				}
+				LoginComplete?.Invoke(this, new MainWindowViewModel());
 			}
 			else
 			{

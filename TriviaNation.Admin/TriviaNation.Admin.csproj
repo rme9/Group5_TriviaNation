@@ -94,9 +94,6 @@
     <Compile Include="Views\AdminDashboardView.xaml.cs">
       <DependentUpon>AdminDashboardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AdminView.xaml.cs">
-      <DependentUpon>AdminView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\GameCreationView.xaml.cs">
       <DependentUpon>GameCreationView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +103,10 @@
     <Compile Include="Views\LoginPopupView.xaml.cs">
       <DependentUpon>LoginPopupView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Theme\AdminTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,10 +122,6 @@
     <Page Include="Views\AdminDashboardView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\AdminView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GameCreationView.xaml">
       <SubType>Designer</SubType>
@@ -175,5 +172,6 @@
       <Name>TriviaNation.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

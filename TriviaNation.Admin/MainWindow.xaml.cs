@@ -54,6 +54,8 @@ namespace TriviaNation
 
 			loginvm.LoginComplete += LoginView_LoginComplete;
 
+			_LoginPopup.Owner = this;
+
 			_LoginPopup.ShowDialog();
 		}
 
@@ -81,7 +83,7 @@ namespace TriviaNation
 
 			newContentVM.CloseView += TransitionToBaseView;
 
-			_ViewModel.ContentViewBox = newContent;
+			_ViewModel.ContentViewBox.Content = newContent;
 		}
 
 		private void TransitionToBaseView(object sender, EventArgs eventArgs)

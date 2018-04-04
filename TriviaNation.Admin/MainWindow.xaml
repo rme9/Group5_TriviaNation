@@ -8,7 +8,8 @@
         xmlns:views="clr-namespace:TriviaNation.Views"
         mc:Ignorable="d"
         Title="MainWindow"
-        MinWidth="1024" MinHeight="768">
+        MinWidth="1024" MinHeight="768"
+        d:DesignWidth="1024" d:DesignHeight="768">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="210"/>
@@ -21,20 +22,28 @@
 
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
-            <Label Content="Welcome" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="23"/>
-            <Label Content="{Binding LoggedInUserName}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="28"/>
-        </StackPanel>
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="3" MinWidth="1024" Style="{StaticResource WindowHeader}">
+            <StackPanel HorizontalAlignment="Stretch" DockPanel.Dock="Left">
+                <Label Content="Welcome" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="23" />
+                <Label Content="{Binding LoggedInUserName}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="28"/>
+            </StackPanel>
 
-        <StackPanel Grid.Row="0" Grid.Column="1"></StackPanel>
+            <StackPanel HorizontalAlignment="Right" Margin="5,5,5,5" DockPanel.Dock="Right">
+                <Button Content="Logout" Command="{Binding LogoutCommand}" Width="100" Margin="5,30,15,5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </StackPanel>
 
-        <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="407" Margin="5,5,5,5">
-            <Button Content="Logout" Command="{Binding LogoutCommand}" Width="100" Margin="5,30,15,5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        </StackPanel>
+        </DockPanel>
+
 
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" MinHeight="668" Background="LightSlateGray">
+
+            <Button Content="View Dashboard" Click="CreateGame_OnClick" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
+
             <Button Content="Manage Game Sessions" Click="CreateGame_OnClick" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
 
+            <Button Content="Manage Question Banks" Click="CreateGame_OnClick" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
+
+            <Button Content="Manage Students" Click="CreateGame_OnClick" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" >
