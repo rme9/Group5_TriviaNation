@@ -87,7 +87,7 @@ namespace TriviaNation.ViewModels
 				}
 				else if (UserType.Equals("Admin"))
 				{
-					LoginComplete?.Invoke(this, new AdminViewModel());
+					LoginComplete?.Invoke(this, new MainWindowViewModel());
 				}
 			}
 			else

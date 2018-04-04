@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TriviaNation.Drivers;
-using TriviaNation.Models;
+using TriviaNation.Core.Drivers;
+using TriviaNation.Core.Models;
 using TriviaNation.UI.Views;
 using TriviaNation.Util;
 

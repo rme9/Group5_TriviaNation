@@ -4,19 +4,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TriviaNation.Drivers;
-using TriviaNation.Models;
+using TriviaNation.Core.Drivers;
+using TriviaNation.Core.Models;
 using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels
 {
-	public class AdminDashboardViewModel
+	public class AdminDashboardViewModel : ViewModel
 	{
-		public List<StudentUser> AllStudents { get; set; }
+		#region Student List
+		private List<StudentUser> _AllStudents;
 
-		public List<IQuestionBank> AllQuestionBanks { get; set; }
+		public List<StudentUser> AllStudents
+		{
+			get { return _AllStudents; }
+			set
+			{
+				if (_AllStudents != value)
+				{
+					_AllStudents = value;
+					OnPropertyChanged(nameof(AllStudents));
+				}
+			}
+		}
 
+		#endregion
+
+		#region Question Banks
+
+		private List<IQuestionBank> _AllQuestionBanks;
+		public List<IQuestionBank> AllQuestionBanks
+		{
+			get { return _AllQuestionBanks;}
+			set
+			{
+				if (_AllQuestionBanks != value)
+				{
+					_AllQuestionBanks = value;
+					OnPropertyChanged(nameof(_AllQuestionBanks));
+				}
+			}
+		}
+
+
+		#endregion
 		public AdminDashboardViewModel()
+		{
+			
+		}
+
+		public void UpdateViewAfterLogin()
 		{
 			using (var db = new DynamoDBDriver())
 			{
@@ -24,6 +61,7 @@ namespace TriviaNation.ViewModels
 				AllStudents = db.GetAllUsersByInstructor(currentUser);
 				AllQuestionBanks = db.GetQuestionBanksByInstructor(currentUser);
 			}
+
 		}
 
 		#region ManageGameSessions

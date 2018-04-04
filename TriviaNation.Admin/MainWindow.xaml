@@ -9,12 +9,37 @@
         mc:Ignorable="d"
         Title="MainWindow"
         MinWidth="1024" MinHeight="768">
-    <Window.Resources>
-        <DataTemplate x:Name="AdminViewTemplate" DataType="{x:Type viewmodels:AdminViewModel}">
-            <views:AdminView DataContext="{Binding}"/>
-        </DataTemplate>
-    </Window.Resources>
     <Grid>
-        <ContentControl Content="{Binding}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+            <Label Content="Welcome" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="23"/>
+            <Label Content="{Binding LoggedInUserName}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="28"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1"></StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="407" Margin="5,5,5,5">
+            <Button Content="Logout" Command="{Binding LogoutCommand}" Width="100" Margin="5,30,15,5" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" MinHeight="668" Background="LightSlateGray">
+            <Button Content="Manage Game Sessions" Click="CreateGame_OnClick" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" >
+            <ContentPresenter Content="{Binding ContentViewBox}"/>
+        </StackPanel>
+
     </Grid>
 </Window>
