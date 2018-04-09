@@ -36,12 +36,7 @@ namespace TriviaNation
 			{
 				var user = db.GetUserByEmail(userId);
 
-				if ((user as StudentUser)?.InstructorId == null && userType.Equals("User"))
-				{
-					throw new Exception();
-				}
-
-				if ((user as AdminUser) == null && userType.Equals("Admin"))
+				if ((user as AdminUser) == null)
 				{
 					throw new Exception();
 				}
