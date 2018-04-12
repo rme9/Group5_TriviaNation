@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using TriviaNation.Core.Models;
 
 namespace TriviaNation.Core.Drivers
@@ -24,11 +25,13 @@ namespace TriviaNation.Core.Drivers
 		{
 			var students = new List<StudentUser>();
 
-			var response = await _Client.GetAsync(_BaseRequestURL + instructorsEmail);
+			var response = await _Client.GetAsync(_BaseRequestURL + "GetAllUsersByInstructor/" + instructorsEmail);
 
 			if (response.IsSuccessStatusCode)
 			{
-				students = await response.Content.ReadAsAsync<List<StudentUser>>();
+				var content = await response.Content.ReadAsStringAsync();
+
+				students = JsonConvert.DeserializeObject<List<StudentUser>>(content);
 			}
 
 			return students;
