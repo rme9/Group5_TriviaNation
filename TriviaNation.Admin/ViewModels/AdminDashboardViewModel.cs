@@ -10,19 +10,37 @@ using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels
 {
-	public class AdminDashboardViewModel
+	public class AdminDashboardViewModel : ViewModel
 	{
-		public List<StudentUser> AllStudents { get; set; }
+		public List<StudentUser> _AllStudents;
+
+		public List<StudentUser> AllStudents
+		{
+			get { return _AllStudents; }
+			set
+			{
+				if (value != _AllStudents)
+				{
+					_AllStudents = value;
+					OnPropertyChanged(nameof(AllStudents));
+				}
+			}
+		}
 
 		public List<IQuestionBank> AllQuestionBanks { get; set; }
 
 		public AdminDashboardViewModel()
 		{
-			using (var db = new DynamoDBDriver())
+			TryLoadData();
+		}
+
+		private async void TryLoadData()
+		{
+			using (var serv = new WebServiceDriver())
 			{
 				var currentUser = Application.Current.Properties["LoggedInUserId"] as string;
-				AllStudents = db.GetAllUsersByInstructor(currentUser);
-				AllQuestionBanks = db.GetQuestionBanksByInstructor(currentUser);
+				AllStudents = await serv.GetAllUsersByInstructor(currentUser);
+				//AllQuestionBanks = db.GetQuestionBanksByInstructor(currentUser);
 			}
 		}
 
