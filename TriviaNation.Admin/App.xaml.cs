@@ -5,9 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using TriviaNation.Drivers;
-using TriviaNation.Models;
-using TriviaNation.Util.CustomExceptions;
+using TriviaNation.Core.Drivers;
+using TriviaNation.Core.Models;
+using TriviaNation.Core.Util.CustomExceptions;
 
 namespace TriviaNation
 {
