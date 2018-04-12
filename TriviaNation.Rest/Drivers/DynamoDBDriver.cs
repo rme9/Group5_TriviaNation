@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
@@ -14,7 +15,7 @@ using Table = Amazon.DynamoDBv2.DocumentModel.Table;
 
 namespace TriviaNation.Drivers
 {
-	public class DynamoDBDriver : IDatabaseDriver, IDisposable
+	public class DynamoDBDriver : IDisposable
 	{
 		private readonly BasicAWSCredentials _awsCredentials;
 
@@ -27,7 +28,7 @@ namespace TriviaNation.Drivers
 			_Client = new AmazonDynamoDBClient(_awsCredentials, RegionEndpoint.USEast1);
 		}
 
-		public bool Insert(string tableName, Dictionary<string, AttributeValue> item)
+		public async Task<bool> Insert(string tableName, Dictionary<string, AttributeValue> item)
 		{
 			try
 			{
@@ -39,7 +40,7 @@ namespace TriviaNation.Drivers
 				};
 
 				// Issue PutItem request
-				_Client.PutItem(request);
+				await _Client.PutItemAsync(request).ConfigureAwait(false);
 
 				return true;
 			}
@@ -51,17 +52,19 @@ namespace TriviaNation.Drivers
 			}
 		}
 
-		public List<Dictionary<string, AttributeValue>> Scan(string tableName, Dictionary<string, AttributeValue> searchAttributes)
+		public async Task<List<Dictionary<string, AttributeValue>>> Scan(string tableName, Dictionary<string, AttributeValue> searchAttributes, string filterExpression)
 		{
 			try
 			{
 				var request = new ScanRequest
 				{
 					TableName = tableName,
-					ExpressionAttributeValues = searchAttributes
+					ExpressionAttributeValues = searchAttributes,
+					FilterExpression = filterExpression
+
 				};
 
-				var resp = _Client.Scan(request);
+				var resp = await _Client.ScanAsync(request).ConfigureAwait(false);
 
 				return resp.Items;
 			}

@@ -160,5 +160,11 @@
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.DynamoDBv2.3.3.6.2\analyzers\dotnet\cs\AWSSDK.DynamoDBv2.CodeAnalysis.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TriviaNation.Core\TriviaNation.Core.csproj">
+      <Project>{7fb5d060-913b-437a-acaa-0acdeeaf5cec}</Project>
+      <Name>TriviaNation.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

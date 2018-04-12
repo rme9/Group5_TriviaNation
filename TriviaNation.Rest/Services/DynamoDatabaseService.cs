@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Amazon.DynamoDBv2.Model;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using TriviaNation.Core.Models;
 using TriviaNation.Core.Util.CustomExceptions;
 using TriviaNation.Drivers;
@@ -10,7 +12,7 @@ using TriviaNation.Services;
 
 namespace TriviaNation.Rest.Services
 {
-	public class DynamoDatabaseService : IDatabaseService, IDisposable
+	public class DynamoDatabaseService : IDisposable
 	{
 		private DynamoDBDriver _Driver;
 		
@@ -29,33 +31,35 @@ namespace TriviaNation.Rest.Services
 			_Driver = new DynamoDBDriver();
 		}
 
-		public bool InsertUser(IUser newUser, string instructorsEmail)
+		public bool InsertUser(IUser user)
 		{
-			if (newUser == null || string.IsNullOrWhiteSpace(instructorsEmail))
+			if (user == null)
 			{
-				throw new ArgumentNullException();
+				return false;
 			}
+
+			//var user = JsonConvert.DeserializeObject<IUser>(newUser);
 
 			// Build the attribute dictionary
 			var attributes =
 				new Dictionary<string, AttributeValue>
 				{
-					["email"] = new AttributeValue { S = newUser.Email },
-					["name"] = new AttributeValue { S = newUser.Name },
+					["email"] = new AttributeValue { S = user.Email },
+					["name"] = new AttributeValue { S = user.Name }
 				};
 
-			if (newUser is StudentUser)
+			if (user is StudentUser suser)
 			{
 				attributes.Add("isadmin", new AttributeValue { BOOL = false });
 				attributes.Add("instructor_id",
-					new AttributeValue { S = instructorsEmail });
+					new AttributeValue { S = suser.InstructorId });
 			}
-			else if (newUser is AdminUser)
+			else if (user is AdminUser)
 			{
 				attributes.Add("isadmin", new AttributeValue { BOOL = true });
 			}
 
-			return _Driver.Insert(_UserTableName, attributes);
+			return _Driver.Insert(_UserTableName, attributes).Result;
 		}
 
 		public bool InsertQuestionBank(IQuestionBank newQuestionBank, string instructorEmail)
@@ -88,7 +92,7 @@ namespace TriviaNation.Rest.Services
 					["instructor_id"] = new AttributeValue {S = instructorEmail}
 				};
 
-			return _Driver.Insert(_QuestionBankTableName, attributes);
+			return _Driver.Insert(_QuestionBankTableName, attributes).Result;
 		}
 
 		public bool InsertGameSession(IGameSession newGameSession, string instructorsEmail)
@@ -118,17 +122,19 @@ namespace TriviaNation.Rest.Services
 					["student_ids"] = new AttributeValue {SS = studentsEmails}
 				};
 
-			return _Driver.Insert(_GameSessionTableName, attributes);
+			return _Driver.Insert(_GameSessionTableName, attributes).Result;
 		}
 
 		public List<StudentUser> GetAllUsersByInstructor(string instructorsEmail)
 		{
 			var searchValues = new Dictionary<string, AttributeValue>
 			{
-				{"instructor_id", new AttributeValue {S = instructorsEmail}}
+				{":instr", new AttributeValue {S = instructorsEmail}}
 			};
 
-			var resp = _Driver.Scan(_UserTableName, searchValues);
+			var filter =  "instructor_id = :instr";
+
+			var resp = _Driver.Scan(_UserTableName, searchValues, filter).Result;
 
 			var users = new List<StudentUser>();
 
@@ -160,7 +166,7 @@ namespace TriviaNation.Rest.Services
 				{"instructor_id", new AttributeValue {S = instructorsEmail}}
 			};
 
-			var resp = _Driver.Scan(_QuestionBankTableName, searchValues);
+			var resp = _Driver.Scan(_QuestionBankTableName, searchValues, "").Result;
 
 			var questionbanks = new List<IQuestionBank>();
 
@@ -221,7 +227,7 @@ namespace TriviaNation.Rest.Services
 				{"instructor_id", new AttributeValue {S = instructorsEmail}}
 			};
 
-			var resp = _Driver.Scan(_GameSessionTableName, searchValues);
+			var resp = _Driver.Scan(_GameSessionTableName, searchValues, "").Result;
 
 			var gameSessions = new List<IGameSession>();
 
@@ -282,7 +288,7 @@ namespace TriviaNation.Rest.Services
 				{"email", new AttributeValue {S = email}}
 			};
 
-			var response = _Driver.Scan(_UserTableName, searchValues);
+			var response = _Driver.Scan(_UserTableName, searchValues, "").Result;
 
 			var result = response.FirstOrDefault();
 
@@ -332,7 +338,7 @@ namespace TriviaNation.Rest.Services
 				{"unique_id", new AttributeValue {S = uniqueId}}
 			};
 
-			var response = _Driver.Scan(_QuestionBankTableName, searchValues);
+			var response = _Driver.Scan(_QuestionBankTableName, searchValues, "").Result;
 
 			var result = response.FirstOrDefault();
 
@@ -387,7 +393,7 @@ namespace TriviaNation.Rest.Services
 				{"unique_id", new AttributeValue {S = uniqueId}}
 			};
 
-			var resp = _Driver.Scan(_GameSessionTableName, searchValues).FirstOrDefault();
+			var resp = _Driver.Scan(_GameSessionTableName, searchValues, "").Result.FirstOrDefault();
 
 			#region
 

@@ -10,7 +10,7 @@ using TriviaNation.Core.Models;
 
 namespace TriviaNation.Services
 {
-	public class DatabaseRestService //: IDatabaseService, IRestService
+	public class DatabaseRestService //: IDatabaseWebService, IRestService
 	{
 		private DynamoDBDriver _Driver;
 
