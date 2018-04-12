@@ -13,6 +13,7 @@ using Table = Amazon.DynamoDBv2.DocumentModel.Table;
 
 namespace TriviaNation.Core.Drivers
 {
+	// TODO Delete this once all functionality is available througth webservice
 	public class DynamoDBDriver : IDisposable
 	{
 		private readonly BasicAWSCredentials _awsCredentials;
