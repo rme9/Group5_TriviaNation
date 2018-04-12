@@ -5,71 +5,79 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TriviaNation.Views"
              xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
-             xmlns:views="clr-namespace:TriviaNation.UI.Views"
+             xmlns:views="clr-namespace:TriviaNation.Views"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1500">
-    <Grid RenderTransformOrigin="0.5,0.5">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    <Grid x:Name="boardGrid" RenderTransformOrigin="0.5,0.5" MinWidth="1500" MinHeight="750">
         <Grid.Background>
             <ImageBrush ImageSource="background.gif"/>
         </Grid.Background>
-        <Rectangle x:Name="InformationPanel" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="602" Margin="1012,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="332" Visibility="Hidden"/>
-        <Label x:Name="Information_Info" Content="Name:" HorizontalAlignment="Left" Height="60" Margin="1054,104,0,0" VerticalAlignment="Top" Width="243" FontSize="18" Visibility="Hidden"/>
-        <Label x:Name="Information_Controlled" Content="Controlled By:" HorizontalAlignment="Left" Height="90" Margin="1054,229,0,0" VerticalAlignment="Top" Width="243" RenderTransformOrigin="0.5,1.4" FontSize="18" Visibility="Hidden"/>
-        <Button x:Name="AttackButton" Content="Attack" HorizontalAlignment="Left" Height="46" Margin="1098,476,0,0" VerticalAlignment="Top" Width="172" FontSize="22" Visibility="Hidden"/>
-        <Button x:Name="DefendButton" Content="Defend" HorizontalAlignment="Left" Height="46" Margin="1098,565,0,0" VerticalAlignment="Top" Width="172" FontSize="22" Visibility="Hidden"/>
-        <RadioButton x:Name="t1" Content="" HorizontalAlignment="Left" Margin="270,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t2" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t3" Content="" HorizontalAlignment="Left" Margin="328,552,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t4" Content="" HorizontalAlignment="Left" Margin="154,110,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t5" Content="" HorizontalAlignment="Left" Margin="226,266,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t6" Content="" HorizontalAlignment="Left" Margin="378,236,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t7" Content="" HorizontalAlignment="Left" Margin="360,110,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t8" Content="" HorizontalAlignment="Left" Margin="623,216,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t9" Content="" HorizontalAlignment="Left" Margin="239,414,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t10" Content="" HorizontalAlignment="Left" Margin="270,318,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <Rectangle x:Name="InformationPanel" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="602" Margin="1080,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="332" Visibility="Hidden"/>
+        <Label x:Name="Information_Info" Content="Name:" HorizontalAlignment="Left" Height="60" Margin="1122,104,0,0" VerticalAlignment="Top" Width="242" FontSize="18" Visibility="Hidden"/>
+        <Label x:Name="Information_Controlled" Content="Controlled By:" HorizontalAlignment="Left" Height="39" Margin="1122,229,0,0" VerticalAlignment="Top" Width="242" RenderTransformOrigin="0.5,1.4" FontSize="18" Visibility="Hidden"/>
+        <Label x:Name="Information_ControlName" Content="" HorizontalAlignment="Left" Height="101" Margin="1122,273,0,0" VerticalAlignment="Top" Width="242" RenderTransformOrigin="0.5,1.4" FontSize="18" Visibility="Hidden"/>
+        <Button x:Name="AttackButton" Content="Attack" HorizontalAlignment="Left" Height="46" Margin="1166,476,0,0" VerticalAlignment="Top" Width="172" FontSize="22" Click="AttackButton_OnClick" Visibility="Hidden"/>
+        <Button x:Name="DefendButton" Content="Defend" HorizontalAlignment="Left" Height="46" Margin="1166,565,0,0" VerticalAlignment="Top" Width="172" FontSize="22" Visibility="Hidden"/>
 
-        <RadioButton x:Name="t11" Content="" HorizontalAlignment="Left" Margin="582,552,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t12" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t13" Content="" HorizontalAlignment="Left" Margin="538,430,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t14" Content="" HorizontalAlignment="Left" Margin="737,290,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t15" Content="" HorizontalAlignment="Left" Margin="820,364,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t16" Content="" HorizontalAlignment="Left" Margin="674,454,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t17" Content="" HorizontalAlignment="Left" Margin="407,380,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t18" Content="" HorizontalAlignment="Left" Margin="200,508,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t19" Content="" HorizontalAlignment="Left" Margin="154,200,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t20" Content="" HorizontalAlignment="Left" Margin="374,622,0,0" VerticalAlignment="Top" Checked="showInformation"/>
+        <Rectangle x:Name="T1" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T2" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T3" Fill="White" HorizontalAlignment="Left" Height="80" Margin="351,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T4" Fill="White" HorizontalAlignment="Left" Height="80" Margin="469,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T5" Fill="White" HorizontalAlignment="Left" Height="80" Margin="587,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T6" Fill="White" HorizontalAlignment="Left" Height="80" Margin="705,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T7" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,157,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T8" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,157,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T9" Fill="White" HorizontalAlignment="Left" Height="80" Margin="351,157,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T10" Fill="White" HorizontalAlignment="Left" Height="80" Margin="469,157,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T11" Fill="White" HorizontalAlignment="Left" Height="80" Margin="587,157,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T12" Fill="White" HorizontalAlignment="Left" Height="80" Margin="705,157,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T13" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T14" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T15" Fill="White" HorizontalAlignment="Left" Height="80" Margin="351,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T16" Fill="White" HorizontalAlignment="Left" Height="80" Margin="469,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T17" Fill="White" HorizontalAlignment="Left" Height="80" Margin="587,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T18" Fill="White" HorizontalAlignment="Left" Height="80" Margin="705,237,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T19" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,317,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T20" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,317,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T21" Fill="White" HorizontalAlignment="Left" Height="80" Margin="351,317,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T22" Fill="White" HorizontalAlignment="Left" Height="80" Margin="469,317,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T23" Fill="White" HorizontalAlignment="Left" Height="80" Margin="587,317,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T24" Fill="White" HorizontalAlignment="Left" Height="80" Margin="705,317,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T25" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,397,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T26" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,397,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T27" Fill="White" HorizontalAlignment="Left" Height="80" Margin="351,397,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T28" Fill="White" HorizontalAlignment="Left" Height="80" Margin="469,397,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T29" Fill="White" HorizontalAlignment="Left" Height="80" Margin="587,397,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T30" Fill="White" HorizontalAlignment="Left" Height="80" Margin="705,397,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T31" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,476,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T32" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,476,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T33" Fill="White" HorizontalAlignment="Left" Height="80" Margin="351,476,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T34" Fill="White" HorizontalAlignment="Left" Height="80" Margin="469,476,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T35" Fill="White" HorizontalAlignment="Left" Height="80" Margin="587,476,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T36" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,556,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T37" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,556,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T38" Fill="White" HorizontalAlignment="Left" Height="80" Margin="351,556,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T39" Fill="White" HorizontalAlignment="Left" Height="80" Margin="469,556,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T40" Fill="White" HorizontalAlignment="Left" Height="80" Margin="587,556,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T41" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,636,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T42" Fill="White" HorizontalAlignment="Left" Height="80" Margin="351,636,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T43" Fill="White" HorizontalAlignment="Left" Height="80" Margin="469,636,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T44" Fill="White" HorizontalAlignment="Left" Height="80" Margin="587,636,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T45" Fill="White" HorizontalAlignment="Left" Height="80" Margin="705,597,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T46" Fill="White" HorizontalAlignment="Left" Height="80" Margin="823,597,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T47" Fill="White" HorizontalAlignment="Left" Height="80" Margin="-3,597,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T48" Fill="White" HorizontalAlignment="Left" Height="80" Margin="-3,517,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T49" Fill="White" HorizontalAlignment="Left" Height="80" Margin="-3,442,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T50" Fill="White" HorizontalAlignment="Left" Height="80" Margin="-3,362,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T51" Fill="White" HorizontalAlignment="Left" Height="80" Margin="-3,239,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T52" Fill="White" HorizontalAlignment="Left" Height="80" Margin="-3,159,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T53" Fill="White" HorizontalAlignment="Left" Height="80" Margin="823,322,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T54" Fill="White" HorizontalAlignment="Left" Height="80" Margin="823,162,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T55" Fill="White" HorizontalAlignment="Left" Height="80" Margin="941,162,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
+        <Rectangle x:Name="T56" Fill="White" HorizontalAlignment="Left" Height="80" Margin="823,242,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
 
-        <RadioButton x:Name="t21" Content="" HorizontalAlignment="Left" Margin="116,444,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t22" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t23" Content="" HorizontalAlignment="Left" Margin="239,582,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t24" Content="" HorizontalAlignment="Left" Margin="270,494,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t25" Content="" HorizontalAlignment="Left" Margin="360,444,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t26" Content="" HorizontalAlignment="Left" Margin="431,657,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t27" Content="" HorizontalAlignment="Left" Margin="378,290,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t28" Content="" HorizontalAlignment="Left" Margin="140,318,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t29" Content="" HorizontalAlignment="Left" Margin="880,200,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t30" Content="" HorizontalAlignment="Left" Margin="674,318,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-
-        <RadioButton x:Name="t31" Content="" HorizontalAlignment="Left" Margin="556,636,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t32" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t33" Content="" HorizontalAlignment="Left" Margin="835,622,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t34" Content="" HorizontalAlignment="Left" Margin="600,600,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t35" Content="" HorizontalAlignment="Left" Margin="455,444,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t36" Content="" HorizontalAlignment="Left" Margin="389,532,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t37" Content="" HorizontalAlignment="Left" Margin="476,600,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t38" Content="" HorizontalAlignment="Left" Margin="462,494,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t39" Content="" HorizontalAlignment="Left" Margin="754,236,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t40" Content="" HorizontalAlignment="Left" Margin="556,318,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-
-        <RadioButton x:Name="t41" Content="" HorizontalAlignment="Left" Margin="498,364,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t42" Content="" HorizontalAlignment="Left" Margin="432,136,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t43" Content="" HorizontalAlignment="Left" Margin="302,396,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t44" Content="" HorizontalAlignment="Left" Margin="648,176,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t45" Content="" HorizontalAlignment="Left" Margin="431,266,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t46" Content="" HorizontalAlignment="Left" Margin="476,188,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t47" Content="" HorizontalAlignment="Left" Margin="328,236,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t48" Content="" HorizontalAlignment="Left" Margin="600,110,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t49" Content="" HorizontalAlignment="Left" Margin="90,156,0,0" VerticalAlignment="Top" Checked="showInformation"/>
-        <RadioButton x:Name="t50" Content="" HorizontalAlignment="Left" Margin="360,176,0,0" VerticalAlignment="Top" Checked="showInformation"/>
     </Grid>
 </UserControl>

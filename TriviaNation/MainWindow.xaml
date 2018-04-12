@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:TriviaNation.Views"
         mc:Ignorable="d"
         Title="MainWindow"
-        MinWidth="1024" MinHeight="768">
+        MinWidth="1500" MinHeight="750">
     <Window.Resources>
         <DataTemplate x:Name="AdminViewTemplate" DataType="{x:Type viewmodels:AdminViewModel}">
             <views:AdminView DataContext="{Binding}"/>

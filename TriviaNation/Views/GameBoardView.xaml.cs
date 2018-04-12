@@ -22,23 +22,74 @@ namespace TriviaNation.Views
     /// </summary>
     public partial class GameBoardView : UserControl
     {
+        private GameBoardViewModel game;
+        List<Rectangle> territories = new List<Rectangle>();
         public GameBoardView()
         {
             InitializeComponent();
+            AddTerritories();
+            ResetTerritories();
+            InitializeMouseButtons();
         }
 
         private void showInformation(object sender, RoutedEventArgs e)
         {
-            if (((RadioButton)sender).IsChecked == true)
-            {
-                InformationPanel.Visibility = Visibility.Visible;
-                Information_Info.Visibility = Visibility.Visible;
-                Information_Controlled.Visibility = Visibility.Visible;
-                AttackButton.Visibility = Visibility.Visible;
-                DefendButton.Visibility = Visibility.Visible;
+            InformationPanel.Visibility = Visibility.Visible;
+            Information_Info.Visibility = Visibility.Visible;
+            Information_Controlled.Visibility = Visibility.Visible;
+            Information_ControlName.Visibility = Visibility.Visible;
+            //AttackButton.Visibility = Visibility.Visible;
+            //DefendButton.Visibility = Visibility.Visible;
 
-                Information_Info.Content = ((RadioButton)sender).Name;
+            Information_Info.Content = ((Rectangle)sender).Name;
+            if(Information_ControlName.Content.Equals(""))
+            {
+                Information_ControlName.Content = "Uncontested.";
+                AttackButton.Visibility = Visibility.Visible;
             }
         }
+
+        private void AttackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var createQuestionWindow = new QuestionPromptView(new QuestionPromptViewModel());
+
+            createQuestionWindow.Show();
+
+        }
+
+        public void AddTerritories()
+        {
+            foreach (Rectangle x in boardGrid.Children.OfType<Rectangle>())
+            {
+                if(x.Name != "InformationPanel")
+                    territories.Add(x);
+            }
+        }
+
+        private void InitializeMouseButtons()
+        {
+            List<Rectangle> test = new List<Rectangle>();
+            foreach (Rectangle x in territories)
+                x.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+        }
+
+        private void ResetTerritories()
+        {
+            foreach(Rectangle x in territories)
+            {
+                x.Opacity = 0;
+            }
+        }
+
+        private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ResetTerritories();
+            ((Rectangle)sender).Opacity = 1;
+            ((Rectangle)sender).Fill = new SolidColorBrush(Colors.Blue);
+            ((Rectangle)sender).Fill.Opacity = .3;
+            ((Rectangle)sender).StrokeThickness = 3;
+            showInformation(((Rectangle)sender), e);
+        }
+
     }
 }

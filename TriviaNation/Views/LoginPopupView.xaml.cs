@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Amazon.Auth.AccessControlPolicy.ActionIdentifiers;
+using TriviaNation.Drivers;
 using TriviaNation.ViewModels;
 
 namespace TriviaNation.Views
@@ -19,13 +21,14 @@ namespace TriviaNation.Views
 	/// Interaction logic for LoginPopupView.xaml
 	/// </summary>
 	public partial class LoginPopupView : Window
-	{
+    {
+
 		public LoginPopupView(LoginPopupViewModel model)
 		{
 			InitializeComponent();
 
 			DataContext = model;
-
+		    ResetLogin();
 		}
 
 		#region Login Complete
@@ -33,17 +36,31 @@ namespace TriviaNation.Views
 
 		private void OnClicked_ContinueButton(object sender, RoutedEventArgs e)
 		{
-			if (User.IsChecked ?? false)
-			{
+            
+		    if (UserEntry.Text.Equals(""))
+		    {
+		        ErrorBox.Visibility = Visibility.Visible;
+		        ErrorBox.Text = "Error: Username cannot be empty.";
+                ResetLogin();
+		    }
+            else if (PasswordEntry.Password.Equals(""))
+            {
+                ErrorBox.Visibility = Visibility.Visible;
+                ErrorBox.Text = "Error: Password cannot be empty.";
+                ResetLogin();
+            }
+            else
+            {
                 LoginComplete?.Invoke(this, new GameBoardViewModel());
-			}
-			else if (Admin.IsChecked ?? false)
-			{
-				LoginComplete?.Invoke(this, new AdminViewModel());
-			}
-
-			this.Hide();
+                this.Hide();
+            }
 		}
+
+        public void ResetLogin()
+        {
+            UserEntry.Text = "";
+            PasswordEntry.Password = "";
+        }
 
 		public event EventHandler<Object> LoginComplete;
 

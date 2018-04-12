@@ -8,9 +8,11 @@
         Title="Login" Height="450" Width="250"
         Topmost="True">
     <Grid>
-        <RadioButton Content="Instructor" GroupName="UserType" Name="Admin" HorizontalAlignment="Left" Margin="84,149,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Student" GroupName="UserType" Name="User" HorizontalAlignment="Left" Margin="84,193,0,0" VerticalAlignment="Top"/>
-        <Label Content="I am a:" HorizontalAlignment="Left" Margin="99,104,0,0" VerticalAlignment="Top"/>
-        <Button Content="Continue" Name="ContinueButton" Click="OnClicked_ContinueButton" HorizontalAlignment="Left" Margin="79,245,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Continue" Name="ContinueButton" Click="OnClicked_ContinueButton" HorizontalAlignment="Left" Margin="79,270,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="UserEntry" HorizontalAlignment="Left" Height="22" Margin="79,198,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <Label x:Name="User" Content="Username" HorizontalAlignment="Left" Margin="11,194,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Pass" Content="Password" HorizontalAlignment="Left" Margin="11,221,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="ErrorBox" HorizontalAlignment="Left" Margin="25,114,0,0" TextWrapping="Wrap" Text="Error: Log In Not Found" VerticalAlignment="Top" Height="64" Width="183" TextAlignment="Center" FontSize="20" Visibility="Hidden"/>
+        <PasswordBox x:Name="PasswordEntry" HorizontalAlignment="Left" Height="22" Margin="79,225,0,0" VerticalAlignment="Top" Width="129"/>
     </Grid>
 </Window>
