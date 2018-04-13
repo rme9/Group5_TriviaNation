@@ -22,7 +22,7 @@
 
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" Grid.ColumnSpan="3" MinWidth="1024" Style="{StaticResource WindowHeader}">
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="3" MinWidth="1024">
             <StackPanel HorizontalAlignment="Stretch" DockPanel.Dock="Left">
                 <Label Content="Welcome" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="23" />
                 <Label Content="{Binding LoggedInUserName}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="28"/>

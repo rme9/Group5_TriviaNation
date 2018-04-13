@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using DevExpress.Mvvm.Native;
 using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
 using TriviaNation.Properties;

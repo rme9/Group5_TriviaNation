@@ -7,8 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using DevExpress.Mvvm;
-using DevExpress.Mvvm.POCO;
 using TriviaNation.Annotations;
 using TriviaNation.Core.Models;
 using TriviaNation.Util;
