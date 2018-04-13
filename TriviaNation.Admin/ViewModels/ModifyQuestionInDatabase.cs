@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace TriviaNation.ViewModels
 {
-    class AddQuestionToDatabaseViewModel
+    class ModifyQuestionInDatabase
     {
-
     }
 }
