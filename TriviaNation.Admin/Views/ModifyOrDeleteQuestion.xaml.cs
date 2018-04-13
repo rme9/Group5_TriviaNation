@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TriviaNation.Views
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for ModifyOrDeleteQuestion.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class ModifyOrDeleteQuestion : Page
     {
-        public Page1()
+        public ModifyOrDeleteQuestion()
         {
             InitializeComponent();
         }
