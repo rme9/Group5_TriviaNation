@@ -73,11 +73,13 @@ namespace TriviaNation.ViewModels
 
 		#region LoginCommand
 
-		public void ExecuteLoginCommand(object ob)
+		public async void ExecuteLoginCommand(object ob)
 		{
 			LoginMessage = null;
 
-			var result = App.OnLogin(Email, null, UserType);
+			await App.OnLogin(Email, null, UserType);
+
+			var result = App.LoginMessage;
 
 			if (result == null)
 			{
