@@ -188,7 +188,7 @@ namespace TriviaNation.Rest.Services
 
 				var didGetQuestions = item.TryGetValue("questions", out qs);
 
-				var questionList = new List<IQuestion>();
+				var questionList = new List<Question>();
 
 				if (didGetQuestions && qs.IsMSet)
 				{
@@ -361,7 +361,7 @@ namespace TriviaNation.Rest.Services
 				return new QuestionBank(null);
 			}
 
-			var questionList = new List<IQuestion>();
+			var questionList = new List<Question>();
 
 			if (result.TryGetValue("questions", out qs) && qs.IsMSet)
 			{
