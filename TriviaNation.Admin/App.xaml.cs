@@ -30,34 +30,35 @@ namespace TriviaNation
 		public static string OnLogin(string userId, string password, string userType)
 		{
 			string loginMessage = null;
-			var db = new DynamoDBDriver();
-
-			try
+			using (var db = new WebServiceDriver())
 			{
-				var user = db.GetUserByEmail(userId);
+				try
+				{
+					var user = db.GetUserByEmail(userId).Result;
 
-				if ((user as StudentUser)?.InstructorId == null && userType.Equals("User"))
-				{
-					throw new Exception();
-				}
+					if ((user as StudentUser)?.InstructorId == null && userType.Equals("User"))
+					{
+						throw new Exception();
+					}
 
-				if ((user as AdminUser) == null && userType.Equals("Admin"))
-				{
-					throw new Exception();
-				}
+					if ((user as AdminUser) == null && userType.Equals("Admin"))
+					{
+						throw new Exception();
+					}
 
-				Application.Current.Properties.Add("LoggedInUserId", user.Email);
-				Application.Current.Properties.Add("LoggedInUserName", user.Name);
-			}
-			catch (Exception ex)
-			{
-				if (ex is ItemNotFoundException)
-				{
-					return "Invalid Username";
+					Application.Current.Properties.Add("LoggedInUserId", user.Email);
+					Application.Current.Properties.Add("LoggedInUserName", user.Name);
 				}
-				else
+				catch (Exception ex)
 				{
-					return "Unable to Login.";
+					if (ex is ItemNotFoundException)
+					{
+						return "Invalid Username";
+					}
+					else
+					{
+						return "Unable to Login.";
+					}
 				}
 			}
 

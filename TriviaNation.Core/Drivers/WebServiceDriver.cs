@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -9,7 +10,7 @@ using TriviaNation.Core.Models;
 
 namespace TriviaNation.Core.Drivers
 {
-	public class WebServiceDriver : IDisposable
+	public class WebServiceDriver : IDisposable, IWebServiceDriver
 	{
 		public readonly string _BaseRequestURL = @"https://nxumf3nld2.execute-api.us-east-1.amazonaws.com/Prod/admin/";
 

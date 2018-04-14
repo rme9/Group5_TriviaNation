@@ -40,7 +40,7 @@ namespace TriviaNation.ViewModels
 			{
 				var currentUser = Application.Current.Properties["LoggedInUserId"] as string;
 				AllStudents = await serv.GetAllUsersByInstructor(currentUser);
-				//AllQuestionBanks = db.GetQuestionBanksByInstructor(currentUser);
+				AllQuestionBanks = await serv.GetQuestionBanksByInstructor(currentUser);
 			}
 		}
 

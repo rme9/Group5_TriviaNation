@@ -51,11 +51,11 @@ namespace TriviaNation.ViewModels
 		{
 			var user = Application.Current.Properties["LoggedInUserId"] as string;
 
-			using (var db = new DynamoDBDriver())
+			using (var db = new WebServiceDriver())
 			{
-				_AvailableStudents = db.GetAllUsersByInstructor(user);
+				_AvailableStudents = db.GetAllUsersByInstructor(user).Result;
 
-				_AvailableQuestionBanks = db.GetQuestionBanksByInstructor(user);
+				_AvailableQuestionBanks = db.GetQuestionBanksByInstructor(user).Result;
 			}
 
 		}
@@ -88,9 +88,9 @@ namespace TriviaNation.ViewModels
 				QuestionBank = SelectedQuestionBank
 			};
 
-			using (var db = new DynamoDBDriver())
+			using (var db = new WebServiceDriver())
 			{
-				db.InsertGameSession(newGame, Application.Current.Properties["LoggedInUserId"] as string);
+				var didInsert = db.InsertGameSession(newGame, Application.Current.Properties["LoggedInUserId"] as string).Result;
 			}
 
 			CloseView?.Invoke(this, newGame);

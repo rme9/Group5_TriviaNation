@@ -26,9 +26,9 @@ namespace TriviaNation.ViewModels
 
 		public GameManagementViewModel()
 		{
-			using (var db = new DynamoDBDriver())
+			using (var db = new WebServiceDriver())
 			{
-				_GameSessions = db.GetGameSessionsByInstructor(Application.Current.Properties["LoggedInUserId"].ToString());
+				_GameSessions = db.GetGameSessionsByInstructor(Application.Current.Properties["LoggedInUserId"].ToString()).Result;
 			} 
 		}
 

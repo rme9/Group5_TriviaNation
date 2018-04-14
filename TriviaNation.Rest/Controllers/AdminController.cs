@@ -7,7 +7,6 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using TriviaNation.Core.Models;
 using TriviaNation.Rest.Services;
-using TriviaNation.Services;
 
 namespace TriviaNation.Rest
 {

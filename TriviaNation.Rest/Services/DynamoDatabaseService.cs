@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using TriviaNation.Core.Models;
 using TriviaNation.Core.Util.CustomExceptions;
 using TriviaNation.Drivers;
-using TriviaNation.Services;
 
 namespace TriviaNation.Rest.Services
 {
@@ -161,12 +160,14 @@ namespace TriviaNation.Rest.Services
 				throw new ArgumentNullException(nameof(instructorsEmail));
 			}
 
+			var filter = "instructor_id = :instr";
+
 			var searchValues = new Dictionary<string, AttributeValue>
 			{
-				{"instructor_id", new AttributeValue {S = instructorsEmail}}
+				{":instr", new AttributeValue {S = instructorsEmail}}
 			};
 
-			var resp = _Driver.Scan(_QuestionBankTableName, searchValues, "").Result;
+			var resp = _Driver.Scan(_QuestionBankTableName, searchValues, filter).Result;
 
 			var questionbanks = new List<IQuestionBank>();
 
@@ -222,12 +223,14 @@ namespace TriviaNation.Rest.Services
 				throw new ArgumentNullException(nameof(instructorsEmail));
 			}
 
+			var filter = "instructor_id = :instr";
+
 			var searchValues = new Dictionary<string, AttributeValue>
 			{
-				{"instructor_id", new AttributeValue {S = instructorsEmail}}
+				{":instr", new AttributeValue {S = instructorsEmail}}
 			};
 
-			var resp = _Driver.Scan(_GameSessionTableName, searchValues, "").Result;
+			var resp = _Driver.Scan(_GameSessionTableName, searchValues, filter).Result;
 
 			var gameSessions = new List<IGameSession>();
 
@@ -280,15 +283,17 @@ namespace TriviaNation.Rest.Services
 		{
 			if (string.IsNullOrWhiteSpace(email))
 			{
-				throw new ArgumentNullException(nameof(email));
+				return new StudentUser("", "");
 			}
+
+			var filter = "email = :em";
 
 			var searchValues = new Dictionary<string, AttributeValue>
 			{
-				{"email", new AttributeValue {S = email}}
+				{":em", new AttributeValue {S = email}}
 			};
 
-			var response = _Driver.Scan(_UserTableName, searchValues, "").Result;
+			var response = _Driver.Scan(_UserTableName, searchValues, filter).Result;
 
 			var result = response.FirstOrDefault();
 
@@ -317,7 +322,7 @@ namespace TriviaNation.Rest.Services
 			// If the student doesn't have an instructor, throw an error
 			if (!result.TryGetValue("instructor_id", out instrid))
 			{
-				throw new InvalidDatabaseObjectException(email);
+				return new StudentUser("", "");
 			}
 
 			return new StudentUser(name.S, email)
