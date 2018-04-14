@@ -21,6 +21,74 @@ namespace TriviaNation.Core.Drivers
 			_Client = new HttpClient();
 		}
 
+		public async Task<bool> InsertUser(IUser newUser)
+		{
+			var response = new HttpResponseMessage();
+
+			if (newUser is StudentUser suser)
+			{
+				var content = JsonConvert.SerializeObject(suser);
+
+				response = await _Client.PostAsync(_BaseRequestURL + "InsertStudent", new StringContent(content, Encoding.UTF8, "application/json"));
+			}
+			else if (newUser is AdminUser auser)
+			{
+				var content = JsonConvert.SerializeObject(auser);
+
+				response = await _Client.PostAsync(_BaseRequestURL + "InsertAdmin", new StringContent(content, Encoding.UTF8, "application/json"));
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var didPost = await response.Content.ReadAsStringAsync();
+
+				if (JsonConvert.DeserializeObject<bool>(didPost))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public async Task<bool> InsertQuestionBank(IQuestionBank questionBank, string instructorsEmail)
+		{
+			var content = JsonConvert.SerializeObject(questionBank);
+
+			var response = await _Client.PostAsync(_BaseRequestURL + "InsertQuestionBank/" + instructorsEmail, new StringContent(content, Encoding.UTF8, "application/json"));
+
+			if (response.IsSuccessStatusCode)
+			{
+				var didPost = await response.Content.ReadAsStringAsync();
+
+				if (JsonConvert.DeserializeObject<bool>(didPost))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public async Task<bool> InsertGameSession(IGameSession gameSession, string instructorsEmail)
+		{
+			var content = JsonConvert.SerializeObject(gameSession);
+
+			var response = await _Client.PostAsync(_BaseRequestURL + "InsertGameSession/" + instructorsEmail, new StringContent(content, Encoding.UTF8, "application/json"));
+
+			if (response.IsSuccessStatusCode)
+			{
+				var didPost = await response.Content.ReadAsStringAsync();
+
+				if (JsonConvert.DeserializeObject<bool>(didPost))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		public async Task<List<StudentUser>> GetAllUsersByInstructor(string instructorsEmail)
 		{
 			var students = new List<StudentUser>();

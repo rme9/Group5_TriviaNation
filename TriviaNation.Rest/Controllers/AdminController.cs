@@ -38,7 +38,7 @@ namespace TriviaNation.Rest
 		public bool InsertQuestionBank([FromBody] IQuestionBank newQuestionBank, string instructorsEmail) => _WebService.InsertQuestionBank(newQuestionBank, instructorsEmail);
 
 		[HttpPost("{instructorsEmail}")]
-		public bool InsertGameSession(IGameSession newGameSession, string instructorsEmail) => _WebService.InsertGameSession(newGameSession, instructorsEmail);
+		public bool InsertGameSession([FromBody] IGameSession newGameSession, string instructorsEmail) => _WebService.InsertGameSession(newGameSession, instructorsEmail);
 
 		[HttpGet("{instructorEmail}")]
 		public List<StudentUser> GetAllUsersByInstructor(string instructorEmail) => _WebService.GetAllUsersByInstructor(instructorEmail);
