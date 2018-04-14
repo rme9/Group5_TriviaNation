@@ -12,5 +12,6 @@ namespace TriviaNation.Core.Models
 		public string CorrectAnswer { get; set; }
 		public List<string> AlternateAnswers { get; set; }
 
+        
 	}
 }

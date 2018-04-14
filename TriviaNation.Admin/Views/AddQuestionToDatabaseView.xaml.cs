@@ -18,11 +18,13 @@ namespace TriviaNation.Views
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class AddQuestionToDatabaseView : Page
+    public partial class AddQuestionToDatabaseView : UserControl
     {
         public AddQuestionToDatabaseView()
         {
             InitializeComponent();
+
+            
         }
     }
 }

@@ -1,12 +1,16 @@
-﻿<Page x:Class="TriviaNation.Views.AddQuestionToDatabaseView"
+﻿<UserControl x:Class="TriviaNation.Views.AddQuestionToDatabaseView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TriviaNation.Views"
+      xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
+      
       mc:Ignorable="d" 
-      d:DesignHeight="461.285" d:DesignWidth="369.749"
-      Title="AddQuestionToDatabase">
+      d:DesignHeight="461.285" d:DesignWidth="369.749">
+    <UserControl.DataContext>
+        <viewmodels:AddQuestionToDataseViewModel/>
+    </UserControl.DataContext>
 
     <Grid>
         <Border Padding="10">
@@ -16,23 +20,23 @@
                 
                 <!--Textbox to enter question-->
                 <TextBlock Text="Question:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Padding="2" Margin="0 0 0 10"></TextBox>
+                <TextBox Text="{Binding Body}" Padding="2" Margin="0 0 0 10"></TextBox>
 
                 <!--Textbox for the correct answer for the question that is being added-->
                 <TextBlock Text="Correcrt Answer:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Padding="2" Margin="0 0 0 10"></TextBox>
+                <TextBox Text="{Binding AlternateAnswers}" Padding="2" Margin="0 0 0 10"></TextBox>
 
                 <!--Textbox for the first wrong answer-->
                 <TextBlock Text="Second Answer:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Padding="2" Margin="0 0 0 10"></TextBox>
+                <TextBox Text="{Binding AlternateAnswers}" Padding="2" Margin="0 0 0 10"></TextBox>
 
                 <!--Textbox for the second wrong answer-->
                 <TextBlock Text="Third Answer:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Padding="2" Margin="0 0 0 10"></TextBox>
+                <TextBox Text="{Binding AlternateAnswers}" Padding="2" Margin="0 0 0 10"></TextBox>
 
                 <!--Textbox for the third and final wrong answer-->
                 <TextBlock Text="Fourth Answer:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Padding="2" Margin="0 0 0 50"></TextBox>
+                <TextBox Text="{Binding AlternateAnswers}" Padding="2" Margin="0 0 0 50"></TextBox>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -53,4 +57,4 @@
             </StackPanel>
         </Border>
     </Grid>
-</Page>
+</UserControl>
