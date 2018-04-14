@@ -108,7 +108,7 @@ namespace TriviaNation.Core.Drivers
 
 		public async Task<List<IQuestionBank>> GetQuestionBanksByInstructor(string instructorsEmail)
 		{
-			var questionBanks = new List<IQuestionBank>();
+			var questionBanks = new List<QuestionBank>();
 
 			var response = await _Client.GetAsync(_BaseRequestURL + "GetQuestionBanksByInstructor/" + instructorsEmail);
 
@@ -116,15 +116,15 @@ namespace TriviaNation.Core.Drivers
 			{
 				var content = await response.Content.ReadAsStringAsync();
 
-				questionBanks = JsonConvert.DeserializeObject<List<IQuestionBank>>(content);
+				questionBanks = JsonConvert.DeserializeObject<List<QuestionBank>>(content);
 			}
 
-			return questionBanks;
+			return new List<IQuestionBank>(questionBanks);
 		}
 
 		public async Task<List<IGameSession>> GetGameSessionsByInstructor(string instructorEmail)
 		{
-			var gameSessions = new List<IGameSession>();
+			var gameSessions = new List<GameSession>();
 
 			var response = await _Client.GetAsync(_BaseRequestURL + "GetGameSessionsByInstructor/" + instructorEmail);
 
@@ -132,23 +132,31 @@ namespace TriviaNation.Core.Drivers
 			{
 				var content = await response.Content.ReadAsStringAsync();
 
-				gameSessions = JsonConvert.DeserializeObject<List<IGameSession>>(content);
+				gameSessions = JsonConvert.DeserializeObject<List<GameSession>>(content);
 			}
 
-			return gameSessions;
+
+			return new List<IGameSession>(gameSessions);
 		}
 
 		public async Task<IUser> GetUserByEmail(string email)
 		{
 			IUser user = null;
 
-			var response = await _Client.GetAsync(_BaseRequestURL + "GetUserByEmail/" + email);
+			var request = _BaseRequestURL + "GetUserByEmail/" + email;
+
+			var response = await _Client.GetAsync(request);
 
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
 
-				user = JsonConvert.DeserializeObject<IUser>(content);
+				user = JsonConvert.DeserializeObject<StudentUser>(content);
+
+				if (((StudentUser) user).InstructorId == null)
+				{
+					return new AdminUser(user.Name, user.Email);
+				}
 			}
 
 			return user ?? new StudentUser("", "");
@@ -164,7 +172,7 @@ namespace TriviaNation.Core.Drivers
 			{
 				var content = await response.Content.ReadAsStringAsync();
 
-				questionBank = JsonConvert.DeserializeObject<IQuestionBank>(content);
+				questionBank = JsonConvert.DeserializeObject<QuestionBank>(content);
 			}
 
 			return questionBank ?? new QuestionBank(null);
@@ -180,7 +188,7 @@ namespace TriviaNation.Core.Drivers
 			{
 				var content = await response.Content.ReadAsStringAsync();
 
-				gameSession = JsonConvert.DeserializeObject<IGameSession>(content);
+				gameSession = JsonConvert.DeserializeObject<GameSession>(content);
 			}
 
 			return gameSession;

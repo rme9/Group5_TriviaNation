@@ -27,7 +27,20 @@ namespace TriviaNation.ViewModels
 			}
 		}
 
-		public List<IQuestionBank> AllQuestionBanks { get; set; }
+		public List<IQuestionBank> _AllQuestionBanks;
+
+		public List<IQuestionBank> AllQuestionBanks
+		{
+			get { return _AllQuestionBanks; }
+			set
+			{
+				if (_AllQuestionBanks != value)
+				{
+					_AllQuestionBanks = value;
+					OnPropertyChanged(nameof(AllQuestionBanks));
+				}
+			}
+		}
 
 		public AdminDashboardViewModel()
 		{

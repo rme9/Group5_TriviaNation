@@ -43,7 +43,7 @@ namespace TriviaNation.Rest
 		public List<StudentUser> GetAllUsersByInstructor(string instructorEmail) => _WebService.GetAllUsersByInstructor(instructorEmail);
 
 		[HttpGet("{instructorEmail}")]
-		public List<IQuestionBank> GetQuestionBanksByInstructor(string instructorsEmail) => _WebService.GetQuestionBanksByInstructor(instructorsEmail);
+		public List<IQuestionBank> GetQuestionBanksByInstructor(string instructorEmail) => _WebService.GetQuestionBanksByInstructor(instructorEmail);
 
 		[HttpGet("{instructorEmail}")]
 		public List<IGameSession> GetGameSessionsByInstructor(string instructorEmail) => _WebService.GetGameSessionsByInstructor(instructorEmail);
