@@ -30,18 +30,18 @@ namespace TriviaNation.Core.Drivers
 			{
 				var content = JsonConvert.SerializeObject(suser);
 
-				response = await _Client.PostAsync(_BaseRequestURL + "InsertStudent", new StringContent(content, Encoding.UTF8, "application/json"));
+				response = await _Client.PostAsync(_BaseRequestURL + "InsertStudent", new StringContent(content, Encoding.UTF8, "application/json")).ConfigureAwait(false);
 			}
 			else if (newUser is AdminUser auser)
 			{
 				var content = JsonConvert.SerializeObject(auser);
 
-				response = await _Client.PostAsync(_BaseRequestURL + "InsertAdmin", new StringContent(content, Encoding.UTF8, "application/json"));
+				response = await _Client.PostAsync(_BaseRequestURL + "InsertAdmin", new StringContent(content, Encoding.UTF8, "application/json")).ConfigureAwait(false);
 			}
 
 			if (response.IsSuccessStatusCode)
 			{
-				var didPost = await response.Content.ReadAsStringAsync();
+				var didPost = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
 				if (JsonConvert.DeserializeObject<bool>(didPost))
 				{
@@ -56,11 +56,11 @@ namespace TriviaNation.Core.Drivers
 		{
 			var content = JsonConvert.SerializeObject(questionBank);
 
-			var response = await _Client.PostAsync(_BaseRequestURL + "InsertQuestionBank/" + instructorsEmail, new StringContent(content, Encoding.UTF8, "application/json"));
+			var response = await _Client.PostAsync(_BaseRequestURL + "InsertQuestionBank/" + instructorsEmail, new StringContent(content, Encoding.UTF8, "application/json")).ConfigureAwait(false);
 
 			if (response.IsSuccessStatusCode)
 			{
-				var didPost = await response.Content.ReadAsStringAsync();
+				var didPost = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
 				if (JsonConvert.DeserializeObject<bool>(didPost))
 				{
@@ -75,11 +75,11 @@ namespace TriviaNation.Core.Drivers
 		{
 			var content = JsonConvert.SerializeObject(gameSession);
 
-			var response = await _Client.PostAsync(_BaseRequestURL + "InsertGameSession/" + instructorsEmail, new StringContent(content, Encoding.UTF8, "application/json"));
+			var response = await _Client.PostAsync(_BaseRequestURL + "InsertGameSession/" + instructorsEmail, new StringContent(content, Encoding.UTF8, "application/json")).ConfigureAwait(false);
 
 			if (response.IsSuccessStatusCode)
 			{
-				var didPost = await response.Content.ReadAsStringAsync();
+				var didPost = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
 				if (JsonConvert.DeserializeObject<bool>(didPost))
 				{
