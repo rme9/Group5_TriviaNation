@@ -52,12 +52,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TriviaNation.Admin\TriviaNation.Admin.csproj">
       <Project>{0e85db19-04e7-4c15-99d3-d805ff6e3212}</Project>
       <Name>TriviaNation.Admin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TriviaNation.Core\TriviaNation.Core.csproj">
+      <Project>{7fb5d060-913b-437a-acaa-0acdeeaf5cec}</Project>
+      <Name>TriviaNation.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

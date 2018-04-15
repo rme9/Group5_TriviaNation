@@ -4,25 +4,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TriviaNation.Drivers;
-using TriviaNation.Models;
+using TriviaNation.Core.Drivers;
+using TriviaNation.Core.Models;
 using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels
 {
-	public class AdminDashboardViewModel
+	public class AdminDashboardViewModel : ViewModel
 	{
-		public List<StudentUser> AllStudents { get; set; }
+		public List<StudentUser> _AllStudents;
 
-		public List<IQuestionBank> AllQuestionBanks { get; set; }
+		public List<StudentUser> AllStudents
+		{
+			get { return _AllStudents; }
+			set
+			{
+				if (value != _AllStudents)
+				{
+					_AllStudents = value;
+					OnPropertyChanged(nameof(AllStudents));
+				}
+			}
+		}
+
+		public List<IQuestionBank> _AllQuestionBanks;
+
+		public List<IQuestionBank> AllQuestionBanks
+		{
+			get { return _AllQuestionBanks; }
+			set
+			{
+				if (_AllQuestionBanks != value)
+				{
+					_AllQuestionBanks = value;
+					OnPropertyChanged(nameof(AllQuestionBanks));
+				}
+			}
+		}
 
 		public AdminDashboardViewModel()
 		{
-			using (var db = new DynamoDBDriver())
+			TryLoadData();
+		}
+
+		private async void TryLoadData()
+		{
+			using (var serv = new WebServiceDriver())
 			{
 				var currentUser = Application.Current.Properties["LoggedInUserId"] as string;
-				AllStudents = db.GetAllUsersByInstructor(currentUser);
-				AllQuestionBanks = db.GetQuestionBanksByInstructor(currentUser);
+				AllStudents = await serv.GetAllUsersByInstructor(currentUser);
+				AllQuestionBanks = await serv.GetQuestionBanksByInstructor(currentUser);
 			}
 		}
 

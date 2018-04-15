@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TriviaNation.Drivers;
-using TriviaNation.Models;
+using TriviaNation.Core.Drivers;
+using TriviaNation.Core.Models;
 
 namespace TriviaNation.Test
 {
