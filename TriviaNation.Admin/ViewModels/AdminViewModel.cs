@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TriviaNation.Models;
 using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels

@@ -9,8 +9,8 @@ namespace TriviaNation.Core.Models
 	public class QuestionBank : IQuestionBank
 	{
 		public string Name { get; set; }
-		public List<IQuestion> Questions { get; set; }
-		public string UniqueId { get; }
+		public List<Question> Questions { get; set; }
+		public string UniqueId { get; set; }
 
 		public QuestionBank()
 		{

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TriviaNation.Drivers;
-using TriviaNation.Models;
+using TriviaNation.Core.Drivers;
+using TriviaNation.Core.Models;
 using TriviaNation.UI.Views;
 using TriviaNation.Util;
 
@@ -26,9 +26,9 @@ namespace TriviaNation.ViewModels
 
 		public GameManagementViewModel()
 		{
-			using (var db = new DynamoDBDriver())
+			using (var db = new WebServiceDriver())
 			{
-				_GameSessions = db.GetGameSessionsByInstructor(Application.Current.Properties["LoggedInUserId"].ToString());
+				_GameSessions = db.GetGameSessionsByInstructor(Application.Current.Properties["LoggedInUserId"].ToString()).Result;
 			} 
 		}
 
