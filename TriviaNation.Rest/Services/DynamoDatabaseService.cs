@@ -36,9 +36,7 @@ namespace TriviaNation.Rest.Services
 			{
 				return false;
 			}
-
-			//var user = JsonConvert.DeserializeObject<IUser>(newUser);
-
+			
 			// Build the attribute dictionary
 			var attributes =
 				new Dictionary<string, AttributeValue>
@@ -157,7 +155,7 @@ namespace TriviaNation.Rest.Services
 		{
 			if (string.IsNullOrWhiteSpace(instructorsEmail))
 			{
-				throw new ArgumentNullException(nameof(instructorsEmail));
+				return null;
 			}
 
 			var filter = "instructor_id = :instr";
@@ -220,7 +218,7 @@ namespace TriviaNation.Rest.Services
 		{
 			if (string.IsNullOrWhiteSpace(instructorsEmail))
 			{
-				throw new ArgumentNullException(nameof(instructorsEmail));
+				return new List<IGameSession>();
 			}
 
 			var filter = "instructor_id = :instr";

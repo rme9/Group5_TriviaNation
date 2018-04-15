@@ -17,13 +17,11 @@ namespace TriviaNation.Drivers
 {
 	public class DynamoDBDriver : IDisposable
 	{
-		private readonly BasicAWSCredentials _awsCredentials;
-
 		private AmazonDynamoDBClient _Client;
 
 		public DynamoDBDriver()
 		{
-			_Client = new AmazonDynamoDBClient(_awsCredentials, RegionEndpoint.USEast1);
+			_Client = new AmazonDynamoDBClient(RegionEndpoint.USEast1);
 		}
 
 		public async Task<bool> Insert(string tableName, Dictionary<string, AttributeValue> item)
