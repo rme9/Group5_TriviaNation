@@ -6,21 +6,25 @@
         xmlns:local="clr-namespace:TriviaNation.Views"
         mc:Ignorable="d"
         d:DesignHeight="250" d:DesignWidth="200"
-        Title="Login" Height="300" Width="200"
-        Topmost="True">
+        Title="Login" Height="400" Width="350"
+        Topmost="True" WindowStartupLocation="CenterOwner">
     <Grid Margin="15,15,15,15" Focusable="True">
-        <StackPanel HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal"></StackPanel>
-            <Label Content="Email" Margin="5,5,5,0"/>
-            <TextBox Text="{Binding Email}" Margin="5,0,5,10"/>
-
-            <Label Content="I am a:" Margin="5,5,5,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <StackPanel Margin="5,0,5,5" Orientation="Horizontal">
-                <RadioButton Content="Instructor" Command="{Binding RadioButtonCommand}" CommandParameter="Admin" HorizontalAlignment="Left" Margin="5,5,5,5"/>
-                <RadioButton Content="Student" Command="{Binding RadioButtonCommand}" CommandParameter="User" HorizontalAlignment="Left" Margin="5,5,5,5"/>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Source="/Images/PenguinLogo.png" Margin="0,0,10,0"  Height="30" />
+                <Label Content="Trivia Nation" FontSize="30"/>
             </StackPanel>
-            <Label Content="{Binding LoginMessage}" HorizontalAlignment="Center" FontStyle="Oblique"/>
-            <Button Content="Continue" Name="ContinueButton" Command="{Binding LoginCommand}" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75"/>
-        </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+                
+                <Label Content="Email" Margin="5,5,5,0"/>
+                <TextBox Text="{Binding Email}" Margin="5,0,5,10"/>
+
+                <Label Content="Password" Margin="5,5,5,0"></Label>
+                <TextBox Text="{Binding Password}" Margin="5,0,5,10"/>
+                <StackPanel Margin="5,0,5,5" Orientation="Horizontal"/>
+                <Label Content="{Binding LoginMessage}" HorizontalAlignment="Center" FontStyle="Oblique"/>
+                <Button Content="Continue" Name="ContinueButton" Command="{Binding LoginCommand}" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75"/>
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>

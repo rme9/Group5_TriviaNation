@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomExceptions.cs" />
+    <Compile Include="Drivers\LoginDriver.cs" />
     <Compile Include="Drivers\WebServiceDriver.cs" />
     <Compile Include="Models\AdminUser.cs" />
     <Compile Include="Models\GameSession.cs" />

@@ -14,6 +14,8 @@ namespace TriviaNation.Core.Models
 
 		public string InstructorId { get; set; }
 
+		public string Password { get; set; }
+
 		public StudentUser(string name, string email)
 		{
 			Email = email;

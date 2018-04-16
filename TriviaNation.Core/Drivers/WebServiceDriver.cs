@@ -153,6 +153,8 @@ namespace TriviaNation.Core.Drivers
 
 				user = JsonConvert.DeserializeObject<StudentUser>(content);
 
+				user.Password = null;
+
 				if (((StudentUser) user).InstructorId == null)
 				{
 					return new AdminUser(user.Name, user.Email);
