@@ -20,23 +20,23 @@
                 
                 <!--Textbox to enter question-->
                 <TextBlock Text="Question:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Text="{Binding Body}" Padding="2" Margin="0 0 0 10"></TextBox>
+                <TextBox Name="BodyTextBox" Text="{Binding Body, Mode=OneWayToSource}" Padding="2" Margin="0 0 0 10"></TextBox>
 
                 <!--Textbox for the correct answer for the question that is being added-->
                 <TextBlock Text="Correcrt Answer:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Text="{Binding AlternateAnswers}" Padding="2" Margin="0 0 0 10"></TextBox>
+                <TextBox Name="CorrectAnswerTextBox" Text="{Binding CorrectAnswer,  Mode=OneWayToSource}" Padding="2" Margin="0 0 0 10"></TextBox>
 
                 <!--Textbox for the first wrong answer-->
                 <TextBlock Text="Second Answer:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Text="{Binding AlternateAnswers}" Padding="2" Margin="0 0 0 10"></TextBox>
+                <TextBox Name="FirstAnswerTextBox" Text="{Binding AlternateAnswer1,  Mode=OneWayToSource}" Padding="2" Margin="0 0 0 10"></TextBox>
 
                 <!--Textbox for the second wrong answer-->
                 <TextBlock Text="Third Answer:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Text="{Binding AlternateAnswers}" Padding="2" Margin="0 0 0 10"></TextBox>
+                <TextBox Name="SecondAsnwerTextBox" Text="{Binding AlternateAnswer2,  Mode=OneWayToSource}" Padding="2" Margin="0 0 0 10"></TextBox>
 
                 <!--Textbox for the third and final wrong answer-->
                 <TextBlock Text="Fourth Answer:" FontSize="15" FontWeight = "Bold"/>
-                <TextBox Text="{Binding AlternateAnswers}" Padding="2" Margin="0 0 0 50"></TextBox>
+                <TextBox Name="FourthAnswerTextBox" Text="{Binding AlternateAnswer3,  Mode=OneWayToSource}" Padding="2" Margin="0 0 0 50"></TextBox>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -46,10 +46,12 @@
                     
                     <!--Stackpanel with "Save Question to Database" and "Cancel adding question to database" buttons-->
                     <StackPanel Margin="10 0" Grid.Column="0" >
-                        <Button Content="Save question to database" FontSize="9"/>
+                        <!--Save Button-->
+                        <Button Name="SaveQuestionButton" Content="Save question to database" Command="{Binding }" FontSize="9"/>
                     </StackPanel>
                     <StackPanel Margin="10 0" Grid.Column="1" >
-                        <Button Content="Cancel saving question" FontSize="9"/>
+                        <!--Cancel Button-->
+                        <Button Name="CancelButton" Content="Cancel saving question" FontSize="9"/>
                     </StackPanel>
                 </Grid>
 

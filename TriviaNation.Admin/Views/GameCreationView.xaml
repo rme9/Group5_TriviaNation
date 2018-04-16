@@ -44,7 +44,7 @@
            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5,10,10,5">
                 <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" HorizontalAlignment="Left" Margin="5,5,10,5" VerticalAlignment="Top" Width="100"/>
                 <Button Content="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=StudentListBox, Path=SelectedItems}" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Top" Width="100"/>
-            </StackPanel>
+           </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
