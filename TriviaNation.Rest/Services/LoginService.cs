@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TriviaNation.Core.Models;
+﻿using TriviaNation.Core.Models;
 
 namespace TriviaNation.Rest.Services
 {

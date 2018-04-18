@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Amazon.DynamoDBv2.Model;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using TriviaNation.Core.Models;
-using TriviaNation.Core.Util.CustomExceptions;
 using TriviaNation.Drivers;
 
 namespace TriviaNation.Rest.Services

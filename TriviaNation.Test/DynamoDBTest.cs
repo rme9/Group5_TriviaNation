@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
 
 namespace TriviaNation.Test
@@ -180,6 +177,5 @@ namespace TriviaNation.Test
 		}
 
 		#endregion
-
 	}
 }
