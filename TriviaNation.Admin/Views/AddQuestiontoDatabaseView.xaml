@@ -47,7 +47,7 @@
                     <!--Stackpanel with "Save Question to Database" and "Cancel adding question to database" buttons-->
                     <StackPanel Margin="10 0" Grid.Column="0" >
                         <!--Save Button-->
-                        <Button Name="SaveQuestionButton" Content="Save question to database" Command="{Binding }" FontSize="9"/>
+                        <Button Name="SaveQuestionButton" Content="Save question to database" Command="{Binding AddQuestionToDatabase}" FontSize="9"/>
                     </StackPanel>
                     <StackPanel Margin="10 0" Grid.Column="1" >
                         <!--Cancel Button-->

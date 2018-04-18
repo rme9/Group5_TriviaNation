@@ -18,6 +18,7 @@ namespace TriviaNation.ViewModels
     {
 
         private Question question;
+        private QuestionBank questionbank;
         private string _body;
         private string _correctAnswer;
         private string _altAnswer1;
@@ -29,7 +30,7 @@ namespace TriviaNation.ViewModels
         public AddQuestionToDataseViewModel()
         {
             question = new Question();
-            
+            questionbank = new QuestionBank();
         }
 
         public string Body
@@ -44,7 +45,9 @@ namespace TriviaNation.ViewModels
                 }
             }
         }
+
         #region Answers
+
         public string CorrectAnswer
         {
             get { return _correctAnswer; }
@@ -99,11 +102,24 @@ namespace TriviaNation.ViewModels
 
         #endregion
 
-        public void addAltAnswer(string _altAnswer)
+        public Question Question
         {
-            question.AlternateAnswers.Add(_altAnswer);
+            get { return question; }
+            set
+            {
+                if (question != value)
+                {
+                    question = value;
+                }
+            }
         }
 
+        public bool CanExecuteSaveQuestionCommand(object ob)
+        {
+            return question != null;
+        }
+
+        /*Adds the body of the question to the question object*/
         public void addBody(string body)
         {
             if (body != null)
@@ -112,23 +128,61 @@ namespace TriviaNation.ViewModels
             }
         }
 
-        public bool CanExecuteLoginCommand(object ob)
+        /*Adds the alternate answer strings to the question object*/
+        public void AddAltAnswer(string _altAnswer)
         {
-            return question != null;
+            Question.AlternateAnswers.Add(_altAnswer);
         }
 
-        public void ExecuteSaveQuestionCommand()
+        /* Adds question to questionbank (to be later added to the database) 
+         */
+        public void AddToQuestionBank(Question question)
         {
-            
-            addAltAnswer(CorrectAnswer);
-            addAltAnswer(AlternateAnswer1);
-            addAltAnswer(AlternateAnswer2);
-            addAltAnswer(AlternateAnswer3);
+            questionbank.Questions.Add(Question);
+        }
+        
+        
+        /*Takes the info in the textboxes of the view and save the body and the answers into the 
+         * question object.
+         * Takes the question object and adds it the database.
+        */
+        public void ExecuteSaveQuestionCommand(object ob)
+        {
+
+            addBody(Body);
+            AddAltAnswer(CorrectAnswer);
+            AddAltAnswer(AlternateAnswer1);
+            AddAltAnswer(AlternateAnswer2);
+            AddAltAnswer(AlternateAnswer3);
+            AddToQuestionBank(question);
         }
 
-        private ICommand _AddQuestionCommand;
+        private RelayCommand _AddQuestionToDatabase;
+        public RelayCommand AddQuestionToDatabase
+        {
+            get { return _AddQuestionToDatabase ?? (_AddQuestionToDatabase = new RelayCommand(ExecuteSaveQuestionCommand, CanExecuteSaveQuestionCommand)); }
+        }
 
-       
+        #region CancelSavingQuestionCommand
+
+        public void ExecuteCancelSavingQuestionCommand(object ob)
+        {
+            CloseView?.Invoke(this, null);
+        }
+
+        private RelayCommand _CancelSavingQuestionCommand;
+
+        public RelayCommand CancelSavingQuestionCommand
+        {
+            get { return _CancelSavingQuestionCommand ?? (_CancelSavingQuestionCommand = new RelayCommand(ExecuteCancelSavingQuestionCommand)); }
+            set { _CancelSavingQuestionCommand = value; }
+        }
+
+        #endregion
+
+        public event EventHandler<object> CloseView;
+
+
 
 
 
