@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TriviaNation.Properties;
+using TriviaNation.Student.ViewModels;
 using TriviaNation.ViewModels;
 using TriviaNation.Views;
 using LoginPopupView = TriviaNation.Views.LoginPopupView;
@@ -48,7 +49,7 @@ namespace TriviaNation
 
 		private void LoginView_LoginComplete(object sender, object e)
 		{
-			if (e is AdminViewModel model)
+			if (e is GameBoardViewModel model)
 			{
 				DataContext = model;
 			}

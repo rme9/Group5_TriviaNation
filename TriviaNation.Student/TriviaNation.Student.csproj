@@ -54,14 +54,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Territories.cs" />
+    <Compile Include="Util\RelayCommand.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\LoginPopupViewModel.cs" />
-    <Compile Include="ViewModels\StudentViewModel.cs" />
+    <Compile Include="ViewModels\GameBoardViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\GameBoardView.xaml.cs">
+      <DependentUpon>GameBoardView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPopupView.xaml.cs">
       <DependentUpon>LoginPopupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +78,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\GameBoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginPopupView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

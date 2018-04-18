@@ -35,9 +35,9 @@ namespace TriviaNation
 			{
 				try
 				{
-					var user = await db.Login(userId, password, "Admin");
+					var user = await db.Login(userId, password, "Student");
 					
-					if ((user as AdminUser) == null)
+					if ((user as StudentUser) == null)
 					{
 						throw new Exception();
 					}

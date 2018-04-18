@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using TriviaNation.Student.ViewModels;
+using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels
 {
@@ -81,7 +83,7 @@ namespace TriviaNation.ViewModels
 
 				if (result == null)
 				{
-					LoginComplete?.Invoke(this, new AdminViewModel());
+					LoginComplete?.Invoke(this, new GameBoardViewModel());
 				}
 				else
 				{

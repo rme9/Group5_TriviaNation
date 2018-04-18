@@ -8,7 +8,7 @@ using TriviaNation.Util;
 
 namespace TriviaNation.Student.ViewModels
 {
-    class StudentViewModel
+    class GameBoardViewModel
     {
         public string LoggedInUserName
         {
@@ -16,7 +16,7 @@ namespace TriviaNation.Student.ViewModels
             set { }
         }
 
-        public StudentViewModel()
+        public GameBoardViewModel()
         {
 
         }
