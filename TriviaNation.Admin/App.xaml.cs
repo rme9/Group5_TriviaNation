@@ -27,22 +27,17 @@ namespace TriviaNation
 		/// <param name="userId"></param>
 		/// <param name="password"></param>
 		/// <returns>Null on succes, or an error message if not successful</returns>
-		public static async Task OnLogin(string userId, string password, string userType)
+		public static async Task OnLogin(string userId, string password)
 		{
 			LoginMessage = null;
 
-			using (var db = new WebServiceDriver())
+			using (var db = new LoginDriver())
 			{
 				try
 				{
-					var user = await db.GetUserByEmail(userId).ConfigureAwait(false);
-
-					if ((user as StudentUser)?.InstructorId == null && userType.Equals("User"))
-					{
-						throw new Exception();
-					}
-
-					if ((user as AdminUser) == null && userType.Equals("Admin"))
+					var user = await db.Login(userId, password, "Admin");
+					
+					if ((user as AdminUser) == null)
 					{
 						throw new Exception();
 					}
@@ -52,14 +47,7 @@ namespace TriviaNation
 				}
 				catch (Exception ex)
 				{
-					if (ex is ItemNotFoundException)
-					{
-						LoginMessage = "Invalid Username";
-					}
-					else
-					{
-						LoginMessage = "Unable to Login.";
-					}
+					LoginMessage = "Unable to Login.";
 				}
 			}
 

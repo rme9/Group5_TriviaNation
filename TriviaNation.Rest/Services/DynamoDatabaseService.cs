@@ -298,6 +298,7 @@ namespace TriviaNation.Rest.Services
 			AttributeValue userIsAdmin;
 			AttributeValue dbEmail;
 			AttributeValue name;
+			AttributeValue password;
 
 			// if we can't retrieve one of the values, or the email doesn't match
 			// what we searched for, throw an error
@@ -305,6 +306,7 @@ namespace TriviaNation.Rest.Services
 			    !result.TryGetValue("isadmin", out userIsAdmin) ||
 			    !result.TryGetValue("email", out dbEmail) ||
 			    !result.TryGetValue("name", out name) ||
+				!result.TryGetValue("password", out password) ||
 			    !email.Equals(dbEmail.S))
 			{
 				return new StudentUser(null, null);
@@ -312,7 +314,7 @@ namespace TriviaNation.Rest.Services
 
 			if (userIsAdmin.BOOL)
 			{
-				return new AdminUser(name.S, email);
+				return new AdminUser(name.S, email) {Password = password.S};
 			}
 
 			AttributeValue instrid;
@@ -325,7 +327,8 @@ namespace TriviaNation.Rest.Services
 
 			return new StudentUser(name.S, email)
 			{
-				InstructorId = instrid.S
+				InstructorId = instrid.S,
+				Password = password.S
 			};
 		}
 

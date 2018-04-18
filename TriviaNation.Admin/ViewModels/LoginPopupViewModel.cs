@@ -16,6 +16,7 @@ namespace TriviaNation.ViewModels
 {
 	public class LoginPopupViewModel : ViewModel
 	{
+		#region Login Message
 		private string _LoginMessage;
 
 		public string LoginMessage
@@ -31,6 +32,9 @@ namespace TriviaNation.ViewModels
 			}
 		}
 
+		#endregion
+
+		#region Email
 		private string _Email;
 
 		public string Email
@@ -46,27 +50,23 @@ namespace TriviaNation.ViewModels
 			}
 		}
 
-		public string UserType { get; set; }
+		#endregion
 
-		public LoginPopupViewModel()
+		#region Password
+
+		private string _Password;
+
+		public string Password
 		{
-
-		}
-
-		#region RadioButtons
-
-		private ICommand _RadioButtonCommand;
-
-		public ICommand RadioButtonCommand
-		{
-			get { return _RadioButtonCommand ?? (_RadioButtonCommand = new RelayCommand(ExecuteRadioButtonCommand)); }
-			set { _RadioButtonCommand = value; }
-
-		}
-
-		private void ExecuteRadioButtonCommand(object param)
-		{
-			UserType = param as string;
+			get { return _Password; }
+			set
+			{
+				if (_Password != value)
+				{
+					_Password = value;
+					OnPropertyChanged(nameof(Password));
+				}
+			}
 		}
 
 		#endregion
@@ -75,27 +75,27 @@ namespace TriviaNation.ViewModels
 
 		public async void ExecuteLoginCommand(object ob)
 		{
-			LoginMessage = null;
-
-			await App.OnLogin(Email, null, UserType);
-
-			var result = App.LoginMessage;
-
-			if (result == null)
+			try
 			{
-				if (UserType.Equals("User"))
-				{
-					// TODO Load User View
-				}
-				else if (UserType.Equals("Admin"))
+				LoginMessage = null;
+
+				await App.OnLogin(Email, Password);
+
+				var result = App.LoginMessage;
+
+				if (result == null)
 				{
 					LoginComplete?.Invoke(this, new AdminViewModel());
 				}
+				else
+				{
+					LoginMessage = result;
+					Email = null;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				LoginMessage = result;
-				Email = null;
+				LoginMessage = "Unable to Log In";
 			}
 		}
 

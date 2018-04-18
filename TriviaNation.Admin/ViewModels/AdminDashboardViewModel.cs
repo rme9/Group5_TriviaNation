@@ -49,11 +49,18 @@ namespace TriviaNation.ViewModels
 
 		private async void TryLoadData()
 		{
-			using (var serv = new WebServiceDriver())
+			try
 			{
-				var currentUser = Application.Current.Properties["LoggedInUserId"] as string;
-				AllStudents = await serv.GetAllUsersByInstructor(currentUser);
-				AllQuestionBanks = await serv.GetQuestionBanksByInstructor(currentUser);
+				using (var serv = new WebServiceDriver())
+				{
+					var currentUser = Application.Current.Properties["LoggedInUserId"] as string;
+					AllStudents = await serv.GetAllUsersByInstructor(currentUser);
+					AllQuestionBanks = await serv.GetQuestionBanksByInstructor(currentUser);
+				}
+			}
+			catch (Exception ex)
+			{
+				var m = ex.Message;
 			}
 		}
 
