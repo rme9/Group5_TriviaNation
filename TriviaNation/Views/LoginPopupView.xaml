@@ -8,11 +8,17 @@
         Title="Login" Height="450" Width="250"
         Topmost="True">
     <Grid>
-        <Button Content="Continue" Name="ContinueButton" Click="OnClicked_ContinueButton" HorizontalAlignment="Left" Margin="79,270,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="UserEntry" HorizontalAlignment="Left" Height="22" Margin="79,198,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
-        <Label x:Name="User" Content="Username" HorizontalAlignment="Left" Margin="11,194,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Pass" Content="Password" HorizontalAlignment="Left" Margin="11,221,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="ErrorBox" HorizontalAlignment="Left" Margin="25,114,0,0" TextWrapping="Wrap" Text="Error: Log In Not Found" VerticalAlignment="Top" Height="64" Width="183" TextAlignment="Center" FontSize="20" Visibility="Hidden"/>
-        <PasswordBox x:Name="PasswordEntry" HorizontalAlignment="Left" Height="22" Margin="79,225,0,0" VerticalAlignment="Top" Width="129"/>
+        <StackPanel>
+            <TextBlock x:Name="ErrorBox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ErrorType}" VerticalAlignment="Top" Height="64" Width="183" TextAlignment="Center" FontSize="20" Visibility="Hidden"/>
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="User" Content="Username" HorizontalAlignment="Left" VerticalAlignment="Center" Width="80"/>
+                <TextBox x:Name="UserEntry" Text="{Binding Email}"  HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" VerticalAlignment="Center" Width="129"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="Pass" Content="Password" HorizontalAlignment="Left" VerticalAlignment="Center" Width="80"/>
+                <PasswordBox x:Name="PasswordEntry" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="129"/>
+            </StackPanel>
+            <Button Content="Continue" Name="ContinueButton" Click="OnClicked_ContinueButton" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75"/>
+        </StackPanel>
     </Grid>
 </Window>

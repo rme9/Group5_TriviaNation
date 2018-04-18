@@ -51,9 +51,9 @@ namespace TriviaNation.Views
 
         private void AttackButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var createQuestionWindow = new QuestionPromptView(new QuestionPromptViewModel());
+            //var createQuestionWindow = new QuestionPromptView(new QuestionPromptViewModel());
 
-            createQuestionWindow.Show();
+            //createQuestionWindow.Show();
 
         }
 

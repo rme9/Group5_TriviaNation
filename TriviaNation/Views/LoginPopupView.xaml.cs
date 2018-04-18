@@ -31,10 +31,18 @@ namespace TriviaNation.Views
 		    ResetLogin();
 		}
 
-		#region Login Complete
-		// TODO This code may actually belong in the ViewModel
+        private void LoginPopupView_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (Application.Current.Properties["LoggedInUserId"] == null)
+            {
+                Application.Current.Shutdown();
+            }
+        }
 
-		private void OnClicked_ContinueButton(object sender, RoutedEventArgs e)
+        #region Login Complete
+        // TODO This code may actually belong in the ViewModel
+
+        private void OnClicked_ContinueButton(object sender, RoutedEventArgs e)
 		{
             
 		    if (UserEntry.Text.Equals(""))
