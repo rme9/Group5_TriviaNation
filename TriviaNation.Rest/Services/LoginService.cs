@@ -6,7 +6,7 @@ namespace TriviaNation.Rest.Services
     {
 	    public IUser Login(string email, string password)
 	    {
-		    using (var serv = new DynamoDatabaseService())
+		    using (var serv = new AdminService())
 		    {
 			    var user = serv.GetUserByEmail(email);
 
