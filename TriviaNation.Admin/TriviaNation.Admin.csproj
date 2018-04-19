@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Mvvm, Version=17.1.0.0, Culture=neutral, PublicKeyToken=382ad28f6ae31f30, processorArchitecture=MSIL">
       <HintPath>..\packages\DevExpressMvvm.17.1.6.0\lib\net40-client\DevExpress.Mvvm.dll</HintPath>
     </Reference>
@@ -46,6 +49,9 @@
     <Reference Include="AWSSDK.DynamoDBv2, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
       <HintPath>..\packages\AWSSDK.DynamoDBv2.3.3.6.2\lib\net45\AWSSDK.DynamoDBv2.dll</HintPath>
     </Reference>
+    <Reference Include="MahApps.Metro, Version=1.6.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.1\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -55,6 +61,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,17 +85,15 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Util\RelayCommand.cs" />
     <Compile Include="ViewModels\AdminDashboardViewModel.cs" />
-    <Compile Include="ViewModels\AdminViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\GameCreationViewModel.cs" />
     <Compile Include="ViewModels\GameManagementViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\LoginPopupViewModel.cs" />
+    <Compile Include="ViewModels\StudentManagementViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\AdminDashboardView.xaml.cs">
       <DependentUpon>AdminDashboardView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AdminView.xaml.cs">
-      <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GameCreationView.xaml.cs">
       <DependentUpon>GameCreationView.xaml</DependentUpon>
@@ -97,6 +104,13 @@
     <Compile Include="Views\LoginPopupView.xaml.cs">
       <DependentUpon>LoginPopupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StudentManagementView.xaml.cs">
+      <DependentUpon>StudentManagementView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Theme\AdminTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,10 +127,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AdminView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\GameCreationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,6 +136,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LoginPopupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StudentManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +179,11 @@
       <Project>{7fb5d060-913b-437a-acaa-0acdeeaf5cec}</Project>
       <Name>TriviaNation.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PenguinLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

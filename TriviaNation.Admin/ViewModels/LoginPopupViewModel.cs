@@ -79,13 +79,13 @@ namespace TriviaNation.ViewModels
 			{
 				LoginMessage = null;
 
-				await App.OnLogin(Email, Password);
+				await App.OnLogin(Email, Password, "Admin");
 
 				var result = App.LoginMessage;
 
 				if (result == null)
 				{
-					LoginComplete?.Invoke(this, new AdminViewModel());
+					LoginComplete?.Invoke(this, new MainWindowViewModel());
 				}
 				else
 				{

@@ -64,6 +64,11 @@ namespace TriviaNation.ViewModels
 			}
 		}
 
+		public void UpdateViewAfterLogin()
+		{
+			TryLoadData();
+		}
+
 		#region ManageGameSessions
 
 		public void ExecuteManageGamesCommand(object ob)
