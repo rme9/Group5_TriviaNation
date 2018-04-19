@@ -5,14 +5,14 @@ using TriviaNation.Rest.Services;
 
 namespace TriviaNation.Rest
 {
-	[Route("[controller]/[action]")]
+	[Route("admin/[action]")]
 	public class AdminController : Controller
 	{
-		private readonly DynamoDatabaseService _WebService;
+		private readonly AdminService _WebService;
 
 		public AdminController()
 		{
-			_WebService = new DynamoDatabaseService();
+			_WebService = new AdminService();
 		}
 
 		public IEnumerable<string> Get()
@@ -21,6 +21,8 @@ namespace TriviaNation.Rest
 		}
 
 		#region webservice requests
+
+		#region Inserts
 
 		[HttpPost]
 		public bool InsertStudent([FromBody] StudentUser newUser) => _WebService.InsertUser(newUser);
@@ -34,14 +36,18 @@ namespace TriviaNation.Rest
 		[HttpPost("{instructorsEmail}")]
 		public bool InsertGameSession([FromBody] IGameSession newGameSession, string instructorsEmail) => _WebService.InsertGameSession(newGameSession, instructorsEmail);
 
+		#endregion
+
+		#region Gets
+
 		[HttpGet("{instructorEmail}")]
 		public List<StudentUser> GetAllUsersByInstructor(string instructorEmail) => _WebService.GetAllUsersByInstructor(instructorEmail);
 
 		[HttpGet("{instructorEmail}")]
-		public List<IQuestionBank> GetQuestionBanksByInstructor(string instructorEmail) => _WebService.GetQuestionBanksByInstructor(instructorEmail);
+		public List<QuestionBank> GetQuestionBanksByInstructor(string instructorEmail) => _WebService.GetQuestionBanksByInstructor(instructorEmail);
 
 		[HttpGet("{instructorEmail}")]
-		public List<IGameSession> GetGameSessionsByInstructor(string instructorEmail) => _WebService.GetGameSessionsByInstructor(instructorEmail);
+		public List<GameSession> GetGameSessionsByInstructor(string instructorEmail) => _WebService.GetGameSessionsByInstructor(instructorEmail);
 
 		[HttpGet("{email}")]
 		public IUser GetUserByEmail(string email) => _WebService.GetUserByEmail(email);
@@ -51,6 +57,15 @@ namespace TriviaNation.Rest
 
 		[HttpGet("{uniqueId}")]
 		public IGameSession GetGameSessionById(string uniqueId) => _WebService.GetGameSessionById(uniqueId);
+
+		#endregion
+
+		#region Deletes
+
+
+
+		#endregion 
+
 
 		#endregion
 	}
