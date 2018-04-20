@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime;
-using Amazon.Runtime.CredentialManagement;
-using TriviaNation.Core.Drivers;
-using TriviaNation.Core.Models;
-using TriviaNation.Core.Util.CustomExceptions;
-using Table = Amazon.DynamoDBv2.DocumentModel.Table;
 
 namespace TriviaNation.Drivers
 {

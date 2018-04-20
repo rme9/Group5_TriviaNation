@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TriviaNation.Core.Models
 {
 	public interface IGameSession
 	{
 		string Name { get; set; }
-		List<IUser> Students { get; set; }
-		IQuestionBank QuestionBank { get; set; }
+		List<StudentUser> Students { get; set; }
+		QuestionBank QuestionBank { get; set; }
 		string UniqueId { get; }
 	}
 }

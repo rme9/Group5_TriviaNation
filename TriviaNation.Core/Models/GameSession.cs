@@ -5,13 +5,13 @@ namespace TriviaNation.Core.Models
 {
 	public class GameSession : IGameSession
 	{
-		public List<IUser> Students { get; set; }
+		public List<StudentUser> Students { get; set; }
 
 		public string Name { get; set; }
 
 		public string UniqueId { get; set; }
 
-		public IQuestionBank QuestionBank { get; set; }
+		public QuestionBank QuestionBank { get; set; }
 
 		public GameSession()
 		{
