@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using TriviaNation.Student.ViewModels;
 
 namespace TriviaNation.Student.Views
 {
@@ -21,7 +21,8 @@ namespace TriviaNation.Student.Views
     /// </summary>
     public partial class GameBoardView : UserControl
     {
-        List<Rectangle> territories = new List<Rectangle>();
+        private List<Rectangle> territories = new List<Rectangle>();
+        private GameBoardViewModel game = new GameBoardViewModel();
 
         public GameBoardView()
         {

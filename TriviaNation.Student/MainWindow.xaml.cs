@@ -16,7 +16,9 @@ using TriviaNation.Student.Properties;
 using TriviaNation.Student.ViewModels;
 using TriviaNation.ViewModels;
 using TriviaNation.Views;
+using TriviaNation.Student.Views;
 using LoginPopupView = TriviaNation.Views.LoginPopupView;
+using GameSessionListView = TriviaNation.Student.Views.GameSessionListView;
 
 namespace TriviaNation
 {
@@ -26,6 +28,7 @@ namespace TriviaNation
 	public partial class MainWindow : Window
 	{
 		public Views.LoginPopupView _LoginPopup;
+        public GameSessionListView _SessionList;
 
 		public MainWindow()
 		{
@@ -49,12 +52,12 @@ namespace TriviaNation
 
 		private void LoginView_LoginComplete(object sender, object e)
 		{
-			if (e is GameBoardViewModel model)
+			if (e is GameSessionListViewModel model)
 			{
 				DataContext = model;
+                _SessionList = new GameSessionListView(model);
+                _SessionList.Show();
 			}
-
-			this.Show();
 		}
 
 		protected override void OnClosed(EventArgs e)

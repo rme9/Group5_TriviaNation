@@ -11,6 +11,7 @@ namespace TriviaNation.Student.ViewModels
 {
     class GameBoardViewModel : IViewModel
     {
+        public string SessionID = null;
         public string LoggedInUserName
         {
             get { return Application.Current.Properties["LoggedInUserName"] as string; }
@@ -22,7 +23,7 @@ namespace TriviaNation.Student.ViewModels
 
         }
 
-        public EventHandler<object> TransitionChildView;
+        //public EventHandler<object> TransitionChildView;
 
         #region Logout
 
