@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Amazon.DynamoDBv2.Model;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using TriviaNation.Core.Models;
-using TriviaNation.Core.Util.CustomExceptions;
 using TriviaNation.Drivers;
 
 namespace TriviaNation.Rest.Services
 {
-	public class DynamoDatabaseService : IDisposable
+	public class AdminService : IDisposable
 	{
 		private DynamoDBDriver _Driver;
 		
@@ -25,7 +21,7 @@ namespace TriviaNation.Rest.Services
 
 		#endregion
 
-		public DynamoDatabaseService()
+		public AdminService()
 		{
 			_Driver = new DynamoDBDriver();
 		}
@@ -151,7 +147,7 @@ namespace TriviaNation.Rest.Services
 			return users;
 		}
 
-		public List<IQuestionBank> GetQuestionBanksByInstructor(string instructorsEmail)
+		public List<QuestionBank> GetQuestionBanksByInstructor(string instructorsEmail)
 		{
 			if (string.IsNullOrWhiteSpace(instructorsEmail))
 			{
@@ -167,7 +163,7 @@ namespace TriviaNation.Rest.Services
 
 			var resp = _Driver.Scan(_QuestionBankTableName, searchValues, filter).Result;
 
-			var questionbanks = new List<IQuestionBank>();
+			var questionbanks = new List<QuestionBank>();
 
 			#region out variables
 
@@ -214,11 +210,11 @@ namespace TriviaNation.Rest.Services
 			return questionbanks;
 		}
 
-		public List<IGameSession> GetGameSessionsByInstructor(string instructorsEmail)
+		public List<GameSession> GetGameSessionsByInstructor(string instructorsEmail)
 		{
 			if (string.IsNullOrWhiteSpace(instructorsEmail))
 			{
-				return new List<IGameSession>();
+				return new List<GameSession>();
 			}
 
 			var filter = "instructor_id = :instr";
@@ -230,7 +226,7 @@ namespace TriviaNation.Rest.Services
 
 			var resp = _Driver.Scan(_GameSessionTableName, searchValues, filter).Result;
 
-			var gameSessions = new List<IGameSession>();
+			var gameSessions = new List<GameSession>();
 
 			#region out variables
 
@@ -249,12 +245,13 @@ namespace TriviaNation.Rest.Services
 				    item.TryGetValue("student_ids", out studentsEmails))
 				{
 					// pull all the students from the user table
-					var studentList = new List<IUser>();
+					var studentList = new List<StudentUser>();
 					foreach (var stid in studentsEmails.SS)
 					{
 						try
 						{
-							studentList.Add(GetUserByEmail(stid));
+							IUser user = GetUserByEmail(stid);
+							studentList.Add(user as StudentUser);
 						}
 						catch (Exception ex)
 						{
@@ -263,7 +260,7 @@ namespace TriviaNation.Rest.Services
 					}
 
 					//pull the questionbank from the questionbank table
-					var questionB = GetQuestionBankById(qbId.S);
+					QuestionBank questionB = GetQuestionBankById(qbId.S);
 
 					gameSessions.Add(new GameSession(unid?.S)
 					{
@@ -332,19 +329,21 @@ namespace TriviaNation.Rest.Services
 			};
 		}
 
-		public IQuestionBank GetQuestionBankById(string uniqueId)
+		public QuestionBank GetQuestionBankById(string uniqueId)
 		{
 			if (string.IsNullOrWhiteSpace(uniqueId))
 			{
 				throw new ArgumentNullException(nameof(uniqueId));
 			}
 
+			var filter = "unique_id = :uid";
+
 			var searchValues = new Dictionary<string, AttributeValue>
 			{
-				{"unique_id", new AttributeValue {S = uniqueId}}
+				{":uid", new AttributeValue {S = uniqueId}}
 			};
 
-			var response = _Driver.Scan(_QuestionBankTableName, searchValues, "").Result;
+			var response = _Driver.Scan(_QuestionBankTableName, searchValues, filter).Result;
 
 			var result = response.FirstOrDefault();
 
@@ -420,12 +419,13 @@ namespace TriviaNation.Rest.Services
 			}
 
 			// pull all the students from the user table
-			var studentList = new List<IUser>();
+			var studentList = new List<StudentUser>();
 			foreach (var stid in studentsEmails.SS)
 			{
 				try
 				{
-					studentList.Add(GetUserByEmail(stid));
+					var suser = GetUserByEmail(stid) as StudentUser;
+					studentList.Add(suser);
 				}
 				catch (Exception ex)
 				{
@@ -434,7 +434,7 @@ namespace TriviaNation.Rest.Services
 			}
 
 			//pull the questionbank from the questionbank table
-			var questionB = GetQuestionBankById(qbId.S);
+			QuestionBank questionB = GetQuestionBankById(qbId.S);
 
 			return new GameSession(unid?.S)
 			{
