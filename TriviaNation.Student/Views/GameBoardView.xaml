@@ -9,13 +9,13 @@
     <UserControl.Background>
         <ImageBrush ImageSource="/TriviaNation.Student;component/Resources/background.gif"/>
     </UserControl.Background>
-    <Grid>
-        <Rectangle x:Name="Information_Panel" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="529" Margin="1105,110,0,0" Stroke="Black" VerticalAlignment="Top" Width="304"/>
-        <Button x:Name="AttackButton" Content="Attack" HorizontalAlignment="Left" Margin="1208,442,0,0" VerticalAlignment="Top" Width="104" Height="35" Click="AttackButton_onClick"/>
-        <Button x:Name="DefendButton" Content="Defend" HorizontalAlignment="Left" Margin="1208,505,0,0" VerticalAlignment="Top" Width="104" Height="35"/>
-        <Label x:Name="Information_Info" Content="[name]" HorizontalAlignment="Left" Height="33" Margin="1144,139,0,0" VerticalAlignment="Top" Width="228"/>
-        <Label x:Name="Information_Controlled" Content="Is Currently Controlled by:" HorizontalAlignment="Left" Height="34" Margin="1144,231,0,0" VerticalAlignment="Top" Width="228"/>
-        <Label x:Name="Information_ControlName" Content=" " HorizontalAlignment="Left" Margin="1144,270,0,0" VerticalAlignment="Top" Width="228" Height="70"/>
+    <Grid x:Name="boardGrid">
+        <Rectangle x:Name="Information_Panel" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="529" Margin="1105,110,0,0" Stroke="Black" VerticalAlignment="Top" Width="304" Visibility="Hidden"/>
+        <Button x:Name="AttackButton" Content="Attack" HorizontalAlignment="Left" Margin="1208,442,0,0" VerticalAlignment="Top" Width="104" Height="35" Click="AttackButton_onClick" Visibility="Hidden"/>
+        <Button x:Name="DefendButton" Content="Defend" HorizontalAlignment="Left" Margin="1208,505,0,0" VerticalAlignment="Top" Width="104" Height="35" Visibility="Hidden"/>
+        <Label x:Name="Information_Info" Content="[name]" HorizontalAlignment="Left" Height="33" Margin="1144,139,0,0" VerticalAlignment="Top" Width="228" Visibility="Hidden"/>
+        <Label x:Name="Information_Controlled" Content="Is Currently Controlled by:" HorizontalAlignment="Left" Height="34" Margin="1144,231,0,0" VerticalAlignment="Top" Width="228" Visibility="Hidden"/>
+        <Label x:Name="Information_ControlName" Content=" " HorizontalAlignment="Left" Margin="1144,270,0,0" VerticalAlignment="Top" Width="228" Height="70" Visibility="Hidden"/>
 
         <Rectangle x:Name="T1" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
         <Rectangle x:Name="T2" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
