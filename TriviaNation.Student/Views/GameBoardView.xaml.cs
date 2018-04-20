@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace TriviaNation.Student.Views
 {
     /// <summary>
@@ -61,6 +62,10 @@ namespace TriviaNation.Student.Views
             {
                 Information_ControlName.Content = "Uncontested.";
                 AttackButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DefendButton.Visibility = Visibility.Visible;
             }
         }
 
