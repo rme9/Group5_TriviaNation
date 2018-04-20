@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TriviaNation"
-        xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
-        xmlns:views="clr-namespace:TriviaNation.Views"
+        xmlns:local="clr-namespace:TriviaNation.Student"
+        xmlns:viewmodels="clr-namespace:TriviaNation.Student.ViewModels"
+        xmlns:views="clr-namespace:TriviaNation.Student.Views"
         mc:Ignorable="d"
         Title="MainWindow"
         MinWidth="1500" MinHeight="750">

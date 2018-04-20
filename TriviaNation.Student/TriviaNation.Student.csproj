@@ -56,9 +56,9 @@
     </ApplicationDefinition>
     <Compile Include="Models\Territories.cs" />
     <Compile Include="Util\RelayCommand.cs" />
+    <Compile Include="ViewModels\GameBoardViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\LoginPopupViewModel.cs" />
-    <Compile Include="ViewModels\GameBoardViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\GameBoardView.xaml.cs">
       <DependentUpon>GameBoardView.xaml</DependentUpon>
@@ -113,7 +113,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\PenguinLogo.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TriviaNation.Core\TriviaNation.Core.csproj">
       <Project>{7fb5d060-913b-437a-acaa-0acdeeaf5cec}</Project>
@@ -122,9 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\background.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\PenguinLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

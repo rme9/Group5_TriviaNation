@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TriviaNation.Util;
+using TriviaNation.ViewModels;
 
 namespace TriviaNation.Student.ViewModels
 {
-    class GameBoardViewModel
+    class GameBoardViewModel : IViewModel
     {
         public string LoggedInUserName
         {

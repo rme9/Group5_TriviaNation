@@ -1,26 +1,21 @@
-﻿<UserControl x:Class="TriviaNation.Views.GameBoardView"
+﻿<UserControl x:Class="TriviaNation.Student.Views.GameBoardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TriviaNation.Views"
-             xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
-             xmlns:views="clr-namespace:TriviaNation.Views"
+             xmlns:local="clr-namespace:TriviaNation.Student.Views"
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="1500">
-    <UserControl.Resources>
-
-    </UserControl.Resources>
-    <Grid RenderTransformOrigin="0.5,0.5">
-        <Grid.Background>
-            <ImageBrush ImageSource="/TriviaNation.Student;component/Resources/background.gif"/>
-        </Grid.Background>
-        <Rectangle x:Name="InformationPanel" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="602" Margin="1080,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="332" Visibility="Hidden"/>
-        <Label x:Name="Information_Info" Content="Name:" HorizontalAlignment="Left" Height="60" Margin="1122,104,0,0" VerticalAlignment="Top" Width="242" FontSize="18" Visibility="Hidden"/>
-        <Label x:Name="Information_Controlled" Content="Controlled By:" HorizontalAlignment="Left" Height="39" Margin="1122,229,0,0" VerticalAlignment="Top" Width="242" RenderTransformOrigin="0.5,1.4" FontSize="18" Visibility="Hidden"/>
-        <Label x:Name="Information_ControlName" Content="" HorizontalAlignment="Left" Height="101" Margin="1122,273,0,0" VerticalAlignment="Top" Width="242" RenderTransformOrigin="0.5,1.4" FontSize="18" Visibility="Hidden"/>
-        <Button x:Name="AttackButton" Content="Attack" HorizontalAlignment="Left" Height="46" Margin="1166,476,0,0" VerticalAlignment="Top" Width="172" FontSize="22" Click="AttackButton_OnClick" Visibility="Hidden"/>
-        <Button x:Name="DefendButton" Content="Defend" HorizontalAlignment="Left" Height="46" Margin="1166,565,0,0" VerticalAlignment="Top" Width="172" FontSize="22" Visibility="Hidden"/>
+    <UserControl.Background>
+        <ImageBrush ImageSource="/TriviaNation.Student;component/Resources/background.gif"/>
+    </UserControl.Background>
+    <Grid>
+        <Rectangle x:Name="Information_Panel" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="529" Margin="1105,110,0,0" Stroke="Black" VerticalAlignment="Top" Width="304"/>
+        <Button x:Name="AttackButton" Content="Attack" HorizontalAlignment="Left" Margin="1208,442,0,0" VerticalAlignment="Top" Width="104" Height="35" Click="AttackButton_onClick"/>
+        <Button x:Name="DefendButton" Content="Defend" HorizontalAlignment="Left" Margin="1208,505,0,0" VerticalAlignment="Top" Width="104" Height="35"/>
+        <Label x:Name="Information_Info" Content="[name]" HorizontalAlignment="Left" Height="33" Margin="1144,139,0,0" VerticalAlignment="Top" Width="228"/>
+        <Label x:Name="Information_Controlled" Content="Is Currently Controlled by:" HorizontalAlignment="Left" Height="34" Margin="1144,231,0,0" VerticalAlignment="Top" Width="228"/>
+        <Label x:Name="Information_ControlName" Content=" " HorizontalAlignment="Left" Margin="1144,270,0,0" VerticalAlignment="Top" Width="228" Height="70"/>
 
         <Rectangle x:Name="T1" Fill="White" HorizontalAlignment="Left" Height="80" Margin="115,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
         <Rectangle x:Name="T2" Fill="White" HorizontalAlignment="Left" Height="80" Margin="233,77,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
@@ -79,6 +74,5 @@
         <Rectangle x:Name="T55" Fill="White" HorizontalAlignment="Left" Height="80" Margin="823,162,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
         <Rectangle x:Name="T56" Fill="White" HorizontalAlignment="Left" Height="80" Margin="941,162,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
         <Rectangle x:Name="T57" Fill="White" HorizontalAlignment="Left" Height="80" Margin="823,242,0,0" Stroke="Black" VerticalAlignment="Top" Width="118" StrokeThickness="0" Opacity="0.9"/>
-
     </Grid>
 </UserControl>

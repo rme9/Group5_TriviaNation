@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TriviaNation.Properties;
+using TriviaNation.Student.Properties;
 using TriviaNation.Student.ViewModels;
 using TriviaNation.ViewModels;
 using TriviaNation.Views;
