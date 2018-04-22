@@ -14,6 +14,7 @@ namespace TriviaNation.Test
             //Arrange
             AddQuestionToDataseViewModel tester = new AddQuestionToDataseViewModel();
             string answer = "This string was added to the question object";
+            
             //Act
             tester.AddAltAnswer(answer);
 

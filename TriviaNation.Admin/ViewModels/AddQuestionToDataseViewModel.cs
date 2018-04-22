@@ -20,10 +20,10 @@ namespace TriviaNation.ViewModels
         private Question question;
         private QuestionBank questionbank;
         private string _body;
-        private string _correctAnswer;
-        private string _altAnswer1;
-        private string _altAnswer2;
-        private string _altAnswer3;
+        private string _correctAnswer = "";
+        private string _altAnswer1 = "";
+        private string _altAnswer2 = "";
+        private string _altAnswer3 = "";
         
 
 
@@ -129,9 +129,9 @@ namespace TriviaNation.ViewModels
         }
 
         /*Adds the alternate answer strings to the question object*/
-        public void AddAltAnswer(string _altAnswer)
+        public void AddAltAnswer(string answerToQuestion)
         {
-            Question.AlternateAnswers.Add(_altAnswer);
+            Question.AlternateAnswers.Add(answerToQuestion);
         }
 
         /* Adds question to questionbank (to be later added to the database) 
