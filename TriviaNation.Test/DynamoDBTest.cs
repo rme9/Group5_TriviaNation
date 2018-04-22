@@ -7,7 +7,7 @@ namespace TriviaNation.Test
 	[TestClass]
 	public class DynamoDBTest
 	{
-		private DynamoDBDriver _driver;
+		/*private DynamoDBDriver _driver;
 
 		#region TestParameters
 
@@ -177,5 +177,9 @@ namespace TriviaNation.Test
 		}
 
 		#endregion
+<<<<<<< HEAD
+        */
+=======
+>>>>>>> origin/develop
 	}
 }

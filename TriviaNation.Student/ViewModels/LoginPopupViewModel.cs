@@ -1,12 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
-using TriviaNation.Annotations;
+using TriviaNation.Core.Models;
+using TriviaNation.Student.ViewModels;
 using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels
 {
 	public class LoginPopupViewModel : ViewModel
 	{
+        private StudentUser Student;
 		#region Login Message
 		private string _LoginMessage;
 
@@ -74,9 +83,11 @@ namespace TriviaNation.ViewModels
 
 				var result = App.LoginMessage;
 
-				if (result == null)
+                if (result == null)
 				{
-					LoginComplete?.Invoke(this, new AdminViewModel());
+                    var name = (string)Application.Current.Properties["LoggedInUserName"];
+                    Student = new StudentUser(name, Email);
+					LoginComplete?.Invoke(this, new GameSessionListViewModel(Student));
 				}
 				else
 				{

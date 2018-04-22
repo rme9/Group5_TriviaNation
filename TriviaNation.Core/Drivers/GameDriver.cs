@@ -9,7 +9,7 @@ using TriviaNation.Core.Models;
 
 namespace TriviaNation.Core.Drivers
 {
-	public class GameDriver
+	public class GameDriver : IDisposable
 	{
 		public readonly string _BaseRequestURL = @"https://nxumf3nld2.execute-api.us-east-1.amazonaws.com/Prod/game/";
 
@@ -51,7 +51,8 @@ namespace TriviaNation.Core.Drivers
 			{
 				var content = await response.Content.ReadAsStringAsync();
 
-				sessions = JsonConvert.DeserializeObject<List<GameSession>>(content);
+                sessions = JsonConvert.DeserializeObject<List<GameSession>>(content);
+                //sessions.Add(new GameSession("abc"));
 			}
 
 			return sessions;
@@ -74,5 +75,9 @@ namespace TriviaNation.Core.Drivers
 			return territories;
 		}
 
+	    public void Dispose()
+	    {
+	        _Client?.Dispose();
+	    }
 	}
 }
