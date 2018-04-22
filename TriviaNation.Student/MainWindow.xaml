@@ -15,10 +15,6 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="32*"/>
-            <ColumnDefinition Width="63*"/>
-        </Grid.ColumnDefinitions>
-        <ContentControl Content="{Binding}" Grid.ColumnSpan="2" />
+        <ContentPresenter Content="{Binding}" />
     </Grid>
 </Window>

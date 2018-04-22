@@ -32,11 +32,16 @@ namespace TriviaNation.Student.Views
 
             CurrentName.Content = model.Student.Name;
             //this.Show();
-            AvailableSessions.Items.Add(model.Sessions[0].UniqueId);
+            //if (model?.Sessions?.Count > 0)
+            //{
+            //    foreach (GameSession x in model.Sessions)
+            //        AvailableSessions.Items.Add(x.Name);
+            //}*/
+
             //List<string> a= new List<string>() { "1", "2", "3" };
             /*foreach(GameSession x in model.Sessions)
                 AvailableSessions.Items.Add(test);*/
-            this.Show();
+            //this.Show();
             this.Closing += GameSessionListView_Closing;
         }
 
@@ -56,7 +61,7 @@ namespace TriviaNation.Student.Views
             }
             else
             {
-                gsvm.ContinueToGameBoard(AvailableSessions.SelectedIndex.ToString());
+                gsvm.ContinueToGameBoard(AvailableSessions.SelectedIndex);
                 this.Hide();
                 
             }

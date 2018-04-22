@@ -30,8 +30,7 @@ namespace TriviaNation
 	{
 		public Views.LoginPopupView _LoginPopup;
         public GameSessionListView _SessionList;
-        public GameBoardView _GameBoard;
-
+        public GameBoardView _GameBoard { get; set; }
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -41,7 +40,7 @@ namespace TriviaNation
 
 		private void ShowLoginWindow()
 		{
-			this.Hide();
+			//this.Hide();
 
 			var loginvm = new LoginPopupViewModel();
 
@@ -49,27 +48,39 @@ namespace TriviaNation
 
 			loginvm.LoginComplete += LoginView_LoginComplete;
 
-			_LoginPopup.Show();
+			_LoginPopup.ShowDialog();
 		}
 
-        private void ShowGameBoard(string sessionID)
-        {
-            var gamevm = new GameBoardViewModel(sessionID);
-            _GameBoard = new GameBoardView(gamevm);
+        //private void ShowGameBoard(string sessionID)
+        //{
+        //    var gamevm = new GameBoardViewModel(sessionID);
+        //    DataContext = gamevm;
+        //    _GameBoard = new GameBoardView(gamevm);
             
-        }
+            
+        //}
 
 		private void LoginView_LoginComplete(object sender, object e)
 		{
 			if (e is GameSessionListViewModel model)
 			{
-				DataContext = model;
+			    DataContext = model;
                 _SessionList = new GameSessionListView(model);
-                _SessionList.Show();
+                model.ContinueGameBoard += LoadGameBoard;
+                _SessionList.ShowDialog();
 			}
-		}
+        }
 
-		protected override void OnClosed(EventArgs e)
+        private void LoadGameBoard(object sender, object e)
+        {
+            if (e is GameBoardViewModel gamevm)
+            {
+                DataContext = gamevm;
+                _GameBoard = new GameBoardView(gamevm);
+            }
+        }
+
+        protected override void OnClosed(EventArgs e)
 		{
 			base.OnClosed(e);
 

@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
 using TriviaNation.Util;
+using TriviaNation.ViewModels;
 using Application = System.Windows.Application;
 
 
 namespace TriviaNation.Student.ViewModels
 {
-    public class GameSessionListViewModel
+    public class GameSessionListViewModel : ViewModel
     {
         public StudentUser Student;
-        public List<GameSession> Sessions = new List<GameSession>();
-        private GameDriver gdrive = new GameDriver();
-        public WebServiceDriver wdrive = new WebServiceDriver();
+
+        public ObservableCollection<GameSession> Sessions
+        {
+            get
+            {
+                return new ObservableCollection<GameSession>(_Sessions ?? new List<GameSession>());
+            }
+            set { _Sessions = value.ToList(); }
+        }
+
+        private List<GameSession> _Sessions;
 
         public GameSessionListViewModel(StudentUser stu)
         {
@@ -32,27 +42,24 @@ namespace TriviaNation.Student.ViewModels
 
         public async void ActiveGameSessions()
         {
-            var result = new GameSession("abc"); //await wdrive.GetGameSessionsByInstructor("beddy@uwf.edu");
-            /*if (result == null)
+            using (var gdrive = new GameDriver())
             {
-                Sessions.Add(new GameSession("abc"));
+                var result = await gdrive.GetGameSessionsByStudent(Student.Email);
+                _Sessions = result;
             }
-            else
-            {
-                foreach (GameSession x in result)
-                    Sessions.Add(x);
-            }*/
-            Sessions.Add(result);
+
+            OnPropertyChanged(nameof(Sessions));
+            //Sessions.Add(result);
         }
 
-        /*public List<string> ReturnAvailableSessions()
+        public void ContinueToGameBoard(int id)
         {
-            List<string> output = new List<string>();
-        }*/
+            var passthru = _Sessions[id];
+            if (passthru != null)
+            {
+                ContinueGameBoard?.Invoke(this, new GameBoardViewModel(passthru));
+            }
 
-        public void ContinueToGameBoard(string id)
-        {
-            ContinueGameBoard?.Invoke(this, new GameBoardViewModel(id));
         }
 
         private RelayCommand _LougoutCommand;

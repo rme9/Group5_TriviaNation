@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TriviaNation.Core.Models;
 using TriviaNation.Util;
 using TriviaNation.ViewModels;
 
@@ -11,35 +12,35 @@ namespace TriviaNation.Student.ViewModels
 {
     public class GameBoardViewModel : IViewModel
     {
-        public string SessionID = null;
-        public string LoggedInUserName
+        public GameSession Session = null;
+        //public string LoggedInUserName
+        //{
+        //    get { return Application.Current.Properties["LoggedInUserName"] as string; }
+        //    set { }
+        //}
+
+        public GameBoardViewModel(GameSession input)
         {
-            get { return Application.Current.Properties["LoggedInUserName"] as string; }
-            set { }
+            Session = input;
         }
 
-        public GameBoardViewModel(string id)
-        {
-            SessionID = id;
-        }
+        ////public EventHandler<object> TransitionChildView;
 
-        //public EventHandler<object> TransitionChildView;
+        //#region Logout
 
-        #region Logout
+        //public void ExecuteLogoutCommand(object ob)
+        //{
+        //    App.OnLogout();
+        //}
 
-        public void ExecuteLogoutCommand(object ob)
-        {
-            App.OnLogout();
-        }
+        //private RelayCommand _LougoutCommand;
 
-        private RelayCommand _LougoutCommand;
+        //public RelayCommand LogoutCommand
+        //{
+        //    get { return _LougoutCommand ?? (_LougoutCommand = new RelayCommand(ExecuteLogoutCommand)); }
+        //    set { _LougoutCommand = value; }
+        //}
 
-        public RelayCommand LogoutCommand
-        {
-            get { return _LougoutCommand ?? (_LougoutCommand = new RelayCommand(ExecuteLogoutCommand)); }
-            set { _LougoutCommand = value; }
-        }
-
-        #endregion
+        //#endregion
     }
 }
