@@ -16,7 +16,6 @@ namespace TriviaNation.ViewModels
 	public class LoginPopupViewModel : ViewModel
 	{
         private StudentUser Student;
-        //private string name;
 		#region Login Message
 		private string _LoginMessage;
 

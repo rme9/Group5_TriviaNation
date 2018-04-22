@@ -40,8 +40,6 @@ namespace TriviaNation
 
 		private void ShowLoginWindow()
 		{
-			//this.Hide();
-
 			var loginvm = new LoginPopupViewModel();
 
 			_LoginPopup = new LoginPopupView(loginvm);
@@ -50,15 +48,6 @@ namespace TriviaNation
 
 			_LoginPopup.ShowDialog();
 		}
-
-        //private void ShowGameBoard(string sessionID)
-        //{
-        //    var gamevm = new GameBoardViewModel(sessionID);
-        //    DataContext = gamevm;
-        //    _GameBoard = new GameBoardView(gamevm);
-            
-            
-        //}
 
 		private void LoginView_LoginComplete(object sender, object e)
 		{

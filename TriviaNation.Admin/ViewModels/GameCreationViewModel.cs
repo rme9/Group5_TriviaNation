@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-<<<<<<< HEAD
-using System.Windows.Controls;
-using System.Windows.Documents;
-=======
->>>>>>> origin/develop
 using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
 using TriviaNation.Util;

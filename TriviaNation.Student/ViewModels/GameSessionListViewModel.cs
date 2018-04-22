@@ -49,7 +49,6 @@ namespace TriviaNation.Student.ViewModels
             }
 
             OnPropertyChanged(nameof(Sessions));
-            //Sessions.Add(result);
         }
 
         public void ContinueToGameBoard(int id)

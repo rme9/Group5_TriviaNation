@@ -8,9 +8,9 @@ namespace TriviaNation.Student.Models
 {
     class Territories
     {
-        private string Name;
-        private string ControllerName = null;
-        private bool ControlStatus = false;
+        private string Name { get; set; }
+        private string ControllerName { get; set; }
+        private bool ControlStatus { get; set; }
 
         public Territories(string name, bool isConstrolled, string controllerName)
         {

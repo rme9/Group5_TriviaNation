@@ -23,7 +23,6 @@ namespace TriviaNation.Student.Views
     public partial class GameSessionListView : Window
     {
         public GameSessionListViewModel gsvm;
-        //public List<string> Sessions = new List<string>();
         public GameSessionListView(GameSessionListViewModel model)
         {
             InitializeComponent();
@@ -31,17 +30,6 @@ namespace TriviaNation.Student.Views
             gsvm = model;
 
             CurrentName.Content = model.Student.Name;
-            //this.Show();
-            //if (model?.Sessions?.Count > 0)
-            //{
-            //    foreach (GameSession x in model.Sessions)
-            //        AvailableSessions.Items.Add(x.Name);
-            //}*/
-
-            //List<string> a= new List<string>() { "1", "2", "3" };
-            /*foreach(GameSession x in model.Sessions)
-                AvailableSessions.Items.Add(test);*/
-            //this.Show();
             this.Closing += GameSessionListView_Closing;
         }
 
