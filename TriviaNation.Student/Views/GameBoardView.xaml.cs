@@ -22,11 +22,14 @@ namespace TriviaNation.Student.Views
     public partial class GameBoardView : UserControl
     {
         private List<Rectangle> territories = new List<Rectangle>();
-        private GameBoardViewModel game = new GameBoardViewModel();
+        private GameBoardViewModel Game;
 
-        public GameBoardView()
+        public GameBoardView(GameBoardViewModel input)
         {
             InitializeComponent();
+            DataContext = input;
+            Game = input;
+
             AddFunctionality();
         }
 

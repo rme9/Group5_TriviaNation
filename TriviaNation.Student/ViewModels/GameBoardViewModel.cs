@@ -9,7 +9,7 @@ using TriviaNation.ViewModels;
 
 namespace TriviaNation.Student.ViewModels
 {
-    class GameBoardViewModel : IViewModel
+    public class GameBoardViewModel : IViewModel
     {
         public string SessionID = null;
         public string LoggedInUserName
@@ -18,9 +18,9 @@ namespace TriviaNation.Student.ViewModels
             set { }
         }
 
-        public GameBoardViewModel()
+        public GameBoardViewModel(string id)
         {
-
+            SessionID = id;
         }
 
         //public EventHandler<object> TransitionChildView;

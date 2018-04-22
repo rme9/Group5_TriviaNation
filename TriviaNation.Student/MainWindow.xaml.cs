@@ -19,6 +19,7 @@ using TriviaNation.Views;
 using TriviaNation.Student.Views;
 using LoginPopupView = TriviaNation.Views.LoginPopupView;
 using GameSessionListView = TriviaNation.Student.Views.GameSessionListView;
+using GameBoardView = TriviaNation.Student.Views.GameBoardView;
 
 namespace TriviaNation
 {
@@ -29,6 +30,7 @@ namespace TriviaNation
 	{
 		public Views.LoginPopupView _LoginPopup;
         public GameSessionListView _SessionList;
+        public GameBoardView _GameBoard;
 
 		public MainWindow()
 		{
@@ -49,6 +51,13 @@ namespace TriviaNation
 
 			_LoginPopup.Show();
 		}
+
+        private void ShowGameBoard(string sessionID)
+        {
+            var gamevm = new GameBoardViewModel(sessionID);
+            _GameBoard = new GameBoardView(gamevm);
+            
+        }
 
 		private void LoginView_LoginComplete(object sender, object e)
 		{

@@ -42,6 +42,11 @@ namespace TriviaNation
 						throw new Exception();
 					}
 
+                    if(user.Name == "" || user.Email == "")
+                    {
+                        throw new Exception();
+                    }
+
 					Application.Current.Properties.Add("LoggedInUserId", user.Email);
 					Application.Current.Properties.Add("LoggedInUserName", user.Name);
 				}

@@ -22,14 +22,25 @@ namespace TriviaNation.Core.Drivers
 		public async Task<IUser> Login(string email, string password, string userType)
 		{
 			IUser user = null;
+            string name = "null";
+            string useremail;
 
 			var request = _BaseRequestURL + email + "/" + password;
 
 			var response = await _Client.GetAsync(request);
+            if(response.IsSuccessStatusCode)
+            {
+                name = "true";
+            }
+            else
+            {
+                name = "false";
+            }
 
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
+                
 
 				if (userType.Equals("Student"))
 				{
@@ -43,7 +54,7 @@ namespace TriviaNation.Core.Drivers
 				user.Password = null;
 			}
 
-			return user ?? new StudentUser("", "");
+			return user ?? new StudentUser(name, "");
 		}
 
 		public void Dispose()

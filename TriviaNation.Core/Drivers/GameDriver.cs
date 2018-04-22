@@ -51,8 +51,13 @@ namespace TriviaNation.Core.Drivers
 			{
 				var content = await response.Content.ReadAsStringAsync();
 
-				sessions = JsonConvert.DeserializeObject<List<GameSession>>(content);
+                //sessions = JsonConvert.DeserializeObject<List<GameSession>>(content);
+                sessions.Add(new GameSession("abc"));
 			}
+            else
+            {
+                sessions.Add(new GameSession("def"));
+            }
 
 			return sessions;
 		}

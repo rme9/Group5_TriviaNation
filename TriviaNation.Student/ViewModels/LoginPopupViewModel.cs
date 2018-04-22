@@ -84,12 +84,11 @@ namespace TriviaNation.ViewModels
 
 				var result = App.LoginMessage;
 
-                var name = Application.Current.Properties["LoggedInUserName"] as string;
-
                 if (result == null)
 				{
+                    var name = (string)Application.Current.Properties["LoggedInUserName"];
                     Student = new StudentUser(name, Email);
-					LoginComplete?.Invoke(this, new GameSessionListViewModel(name));
+					LoginComplete?.Invoke(this, new GameSessionListViewModel(Student));
 				}
 				else
 				{

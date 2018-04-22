@@ -13,6 +13,8 @@
                 <Label x:Name="CurrentName" Content="{Binding Name}"/>
             </StackPanel>
             <ListBox x:Name="AvailableSessions" Height="200"/>
+            <Button Name ="ContinueButton" Content="Enter" HorizontalAlignment ="Right" VerticalAlignment="Center" Width="100" Margin="0,10,20,0" Click="ContinueButton_OnClick"/>
+
 
         </StackPanel>
     </Grid>

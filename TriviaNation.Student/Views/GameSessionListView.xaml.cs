@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TriviaNation.Core.Models;
 using TriviaNation.Student.ViewModels;
 using Application = System.Windows.Application;
 
@@ -21,15 +22,20 @@ namespace TriviaNation.Student.Views
     /// </summary>
     public partial class GameSessionListView : Window
     {
+        public GameSessionListViewModel gsvm;
+        //public List<string> Sessions = new List<string>();
         public GameSessionListView(GameSessionListViewModel model)
         {
             InitializeComponent();
-            //DataContext = model;
+            DataContext = model;
+            gsvm = model;
 
-            CurrentName.Content = model.StudentName;
-            List<string> a= new List<string>() { "1", "2", "3" };
-            foreach(string x in a)
-                AvailableSessions.Items.Add(x);
+            CurrentName.Content = model.Student.Name;
+            //this.Show();
+            AvailableSessions.Items.Add(model.Sessions[0].UniqueId);
+            //List<string> a= new List<string>() { "1", "2", "3" };
+            /*foreach(GameSession x in model.Sessions)
+                AvailableSessions.Items.Add(test);*/
             this.Show();
             this.Closing += GameSessionListView_Closing;
         }
@@ -41,5 +47,21 @@ namespace TriviaNation.Student.Views
                 Application.Current.Shutdown();
             }
         }
+
+        private void ContinueButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if(AvailableSessions.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a Game Session.", "Error - No Selection Found", MessageBoxButton.OK);
+            }
+            else
+            {
+                gsvm.ContinueToGameBoard(AvailableSessions.SelectedIndex.ToString());
+                this.Hide();
+                
+            }
+        }
+
+        public event EventHandler<Object> EnterGame;
     }
 }

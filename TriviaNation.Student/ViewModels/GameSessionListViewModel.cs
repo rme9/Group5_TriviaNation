@@ -13,15 +13,15 @@ namespace TriviaNation.Student.ViewModels
 {
     public class GameSessionListViewModel
     {
-        public StudentUser Student = new StudentUser("bob", "bob2");
-        public List<string> Sessions;
-        public string StudentEmail;
-        public string StudentName;
+        public StudentUser Student;
+        public List<GameSession> Sessions = new List<GameSession>();
+        private GameDriver gdrive = new GameDriver();
+        public WebServiceDriver wdrive = new WebServiceDriver();
 
-        public GameSessionListViewModel(string name)
+        public GameSessionListViewModel(StudentUser stu)
         {
-            //Student = input;
-            StudentName = name;
+            Student = stu;
+            ActiveGameSessions();
         }
 
 
@@ -30,10 +30,30 @@ namespace TriviaNation.Student.ViewModels
             App.OnLogout();
         }
 
+        public async void ActiveGameSessions()
+        {
+            var result = new GameSession("abc"); //await wdrive.GetGameSessionsByInstructor("beddy@uwf.edu");
+            /*if (result == null)
+            {
+                Sessions.Add(new GameSession("abc"));
+            }
+            else
+            {
+                foreach (GameSession x in result)
+                    Sessions.Add(x);
+            }*/
+            Sessions.Add(result);
+        }
+
         /*public List<string> ReturnAvailableSessions()
         {
             List<string> output = new List<string>();
         }*/
+
+        public void ContinueToGameBoard(string id)
+        {
+            ContinueGameBoard?.Invoke(this, new GameBoardViewModel(id));
+        }
 
         private RelayCommand _LougoutCommand;
 
@@ -42,6 +62,8 @@ namespace TriviaNation.Student.ViewModels
             get { return _LougoutCommand ?? (_LougoutCommand = new RelayCommand(ExecuteLogoutCommand)); }
             set { _LougoutCommand = value; }
         }
+
+        public event EventHandler<Object> ContinueGameBoard;
 
     }
 }
