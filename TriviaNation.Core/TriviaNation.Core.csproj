@@ -36,6 +36,9 @@
     <Reference Include="AWSSDK.DynamoDBv2, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
       <HintPath>..\packages\AWSSDK.DynamoDBv2.3.3.7.1\lib\net45\AWSSDK.DynamoDBv2.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +52,8 @@
     <Compile Include="CustomExceptions.cs" />
     <Compile Include="Drivers\DynamoDBDriver.cs" />
     <Compile Include="Drivers\IDatabaseDriver.cs" />
+    <Compile Include="Drivers\IWebServiceDriver.cs" />
+    <Compile Include="Drivers\WebServiceDriver.cs" />
     <Compile Include="Models\AdminUser.cs" />
     <Compile Include="Models\GameSession.cs" />
     <Compile Include="Models\IGameSession.cs" />
