@@ -20,6 +20,7 @@ namespace TriviaNation.Core.Drivers
 			_Client = new HttpClient();
 		}
 
+		#region Insert
 		public async Task<bool> InsertUser(IUser newUser)
 		{
 			var response = new HttpResponseMessage();
@@ -88,6 +89,10 @@ namespace TriviaNation.Core.Drivers
 			return false;
 		}
 
+		#endregion
+
+		#region Get Many
+
 		public async Task<List<StudentUser>> GetAllUsersByInstructor(string instructorsEmail)
 		{
 			var students = new List<StudentUser>();
@@ -136,6 +141,10 @@ namespace TriviaNation.Core.Drivers
 
 			return new List<IGameSession>(gameSessions);
 		}
+
+		#endregion
+
+		#region Get One
 
 		public async Task<IUser> GetUserByEmail(string email)
 		{
@@ -193,6 +202,38 @@ namespace TriviaNation.Core.Drivers
 
 			return gameSession;
 		}
+
+		#endregion
+
+		#region Delete
+
+		public async Task<bool> DeleteUser(IUser user)
+		{
+			var content = JsonConvert.SerializeObject(user);
+
+			var request = new HttpRequestMessage
+			{
+				Content = new StringContent(content, Encoding.UTF8, "application/json"),
+				Method = HttpMethod.Delete,
+				RequestUri = new Uri(_BaseRequestURL + "DeleteUser")
+			};
+
+			var response = await _Client.SendAsync(request).ConfigureAwait(false);
+
+			if (response.IsSuccessStatusCode)
+			{
+				var didDelete = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+				if (JsonConvert.DeserializeObject<bool>(didDelete))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		#endregion
 
 		public void Dispose()
 		{

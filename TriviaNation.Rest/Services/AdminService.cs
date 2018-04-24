@@ -118,6 +118,18 @@ namespace TriviaNation.Rest.Services
 			return _Driver.Insert(_GameSessionTableName, attributes).Result;
 		}
 
+		public bool DeleteUser(IUser userId)
+		{
+			var attributes =
+				new Dictionary<string, AttributeValue>()
+				{
+					{"email", new AttributeValue {S = userId.Email}},
+					{"name",  new AttributeValue{S = userId.Name}}
+				};
+
+			return _Driver.Delete(_UserTableName, attributes).Result;
+		}
+
 		public List<StudentUser> GetAllUsersByInstructor(string instructorsEmail)
 		{
 			var searchValues = new Dictionary<string, AttributeValue>

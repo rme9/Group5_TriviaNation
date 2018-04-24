@@ -1,0 +1,31 @@
+﻿<Window x:Class="TriviaNation.Views.StudentCreationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TriviaNation.Views"
+        mc:Ignorable="d"
+        Title="trivia Nation | Create Student" Height="500" Width="400">
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Create Student Account" FontSize="30"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350">
+                <Label Content="Student Name" Margin="5,5,5,0" FontSize="14" />
+                <TextBox Text="{Binding Name}" Margin="5,0,5,10"/>
+
+                <Label Content="Student Email" Margin="5,5,5,0" FontSize="14"/>
+                <TextBox Text="{Binding Email}" Margin="5,0,5,10"/>
+
+                <Label Content="Student Password" Margin="5,5,5,0" FontSize="14"/>
+                <TextBox Text="{Binding Password}" Margin="5,0,5,10"/>
+
+                <StackPanel Margin="5,30,5,5" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" HorizontalAlignment="Left" Margin="5,5,10,5" VerticalAlignment="Top" Width="100"/>
+                    <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Top" Width="100"/>
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

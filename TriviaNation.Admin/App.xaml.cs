@@ -36,7 +36,8 @@ namespace TriviaNation
 				try
 				{
 					var user = await db.Login(userId, password, "Admin");
-					
+
+
 					if ((user as AdminUser) == null)
 					{
 						throw new Exception();
@@ -59,8 +60,6 @@ namespace TriviaNation
 		{
 			Application.Current.Properties.Remove("LoggedInUserId");
 			Application.Current.Properties.Remove("LoggedInUserName");
-
-			Application.Current.Shutdown();
 		}
 	}
 }

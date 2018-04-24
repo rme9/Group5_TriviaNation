@@ -62,9 +62,10 @@ namespace TriviaNation.Rest
 
 		#region Deletes
 
+		[HttpDelete]
+		public bool DeleteUser([FromBody] StudentUser userId) => _WebService.DeleteUser(userId);
 
-
-		#endregion 
+		#endregion
 
 
 		#endregion
