@@ -69,7 +69,7 @@ namespace TriviaNation.ViewModels
 			{
 				LoginMessage = null;
 
-				await App.OnLogin(Email, Password, "Admin");
+				await App.OnLogin(Email, Password);
 
 				var result = App.LoginMessage;
 
@@ -80,7 +80,7 @@ namespace TriviaNation.ViewModels
 				else
 				{
 					LoginMessage = result;
-					Email = null;
+					Password = null;
 				}
 			}
 			catch (Exception ex)

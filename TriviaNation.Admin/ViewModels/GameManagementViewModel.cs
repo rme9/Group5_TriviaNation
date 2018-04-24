@@ -53,7 +53,7 @@ namespace TriviaNation.ViewModels
 				{
 					var user = Application.Current.Properties["LoggedInUserId"].ToString();
 					_GameSessions = await db.GetGameSessionsByInstructor(user);
-
+					
 					OnPropertyChanged(nameof(GameSessions));
 				}
 				catch (Exception ex)
@@ -73,7 +73,7 @@ namespace TriviaNation.ViewModels
 
 			newVM.CloseView += OnCloseGameCreationWindow;
 			
-			newGameWindow.Show();
+			newGameWindow.ShowDialog();
 		}
 
 		private void OnCloseGameCreationWindow(object sender, object e)

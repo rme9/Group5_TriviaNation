@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using DevExpress.Mvvm.POCO;
 using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
 using TriviaNation.Util;
@@ -87,8 +88,23 @@ namespace TriviaNation.ViewModels
 		{
 			if (SelectedStudent != null)
 			{
-				// TODO show confirmation popup
+				var itemDesc = "student user " + SelectedStudent.Name;
 
+				var vm = new DeleteConfirmationViewModel(itemDesc);
+
+				vm.CloseView += OnConfirmDeleteClosed;
+
+				var confirmationPopup = new DeleteConfirmationVeiw(vm) {Owner = Application.Current.MainWindow};
+
+
+				confirmationPopup.ShowDialog();
+			}
+		}
+
+		private async void OnConfirmDeleteClosed(object sender, object e)
+		{
+			if (e is bool b && b)
+			{
 				using (var driver = new WebServiceDriver())
 				{
 					var didDelete = await driver.DeleteUser(SelectedStudent);
@@ -98,13 +114,12 @@ namespace TriviaNation.ViewModels
 						OnPropertyChanged(nameof(Students));
 					}
 				}
-				
 			}
 		}
 
 		public bool CanExecuteDeleteStudentCommand(object ob)
 		{
-			return true;
+			return SelectedStudent != null;
 		}
 
 		private RelayCommand _DeleteStudentCommand;
