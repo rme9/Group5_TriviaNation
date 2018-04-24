@@ -16,7 +16,7 @@ namespace TriviaNation.Core.Models
 		{
 			UniqueId = Guid.NewGuid().ToString("N");
             Name = "Default";
-            Questions = null;
+            Questions = new List<IQuestion>();
 
 		}
 

@@ -42,16 +42,48 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
                     <!--Stackpanel with "Save Question to Database" and "Cancel adding question to database" buttons-->
                     <StackPanel Margin="10 0" Grid.Column="0" >
                         <!--Save Button-->
-                        <Button Name="SaveQuestionButton" Content="Save question to database" Command="{Binding AddQuestionToDatabase}" FontSize="9"/>
+                        <Button Name="SaveQuestionButton" Command="{Binding AddQuestionToQuestionBank}" FontSize="12">
+                            <TextBlock>Add Question<LineBreak/>To Question Bank</TextBlock>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Text.Length, ElementName=BodyTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                                <Condition Binding="{Binding Text.Length, ElementName=CorrectAnswerTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                                <Condition Binding="{Binding Text.Length, ElementName=FirstAnswerTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                                <Condition Binding="{Binding Text.Length, ElementName=SecondAsnwerTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                                <Condition Binding="{Binding Text.Length, ElementName=FourthAnswerTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                     </StackPanel>
                     <StackPanel Margin="10 0" Grid.Column="1" >
                         <!--Cancel Button-->
-                        <Button Name="CancelButton" Content="Cancel saving question" FontSize="9"/>
+                        <Button Name="CancelButton" FontSize="12" Command="{Binding CancelSavingQuestionCommand}">
+                            <TextBlock>Cancel<LineBreak/>Adding Question</TextBlock>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}"/>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Margin="10 0" Grid.Column="2" >
+                        <!--Cancel Button-->
+                        <Button Name="CommitButton" FontSize="11" Command="{Binding AddQuestionBankToDatabaseCommand}">
+                            <TextBlock>Add Question<LineBreak/>Bank To Database</TextBlock>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}"/>
+                            </Button.Style>
+                        </Button>
                     </StackPanel>
                 </Grid>
 

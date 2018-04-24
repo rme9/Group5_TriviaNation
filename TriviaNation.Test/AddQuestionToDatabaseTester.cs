@@ -20,8 +20,23 @@ namespace TriviaNation.Test
 
             //Assert
             Assert.AreEqual("This string was added to the question object", tester.Question.AlternateAnswers[0]);
+        }
 
+        [TestMethod]
+        public void addToQuestionBank_questionObjectNotNull_addsQuestionToDatabase()
+        {
+            //Arrange
+            AddQuestionToDataseViewModel tester = new AddQuestionToDataseViewModel();
+            tester.addBody("This is the body of the question object");
+            tester.AddAltAnswer("This the correct answer");
+            tester.AddAltAnswer("This is the alternate answer");
+            tester.AddToQuestionBank(tester.Question);
 
+            //Act
+            tester.AddToQuestionBank(tester.Question);
+
+            //Assert
+            Assert.AreEqual(tester.Question, tester.QuestionBank.Questions[0]);
         }
     }
 }

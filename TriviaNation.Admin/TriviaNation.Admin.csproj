@@ -112,6 +112,9 @@
     <Compile Include="Views\ModifyOrDeleteQuestion.xaml.cs">
       <DependentUpon>ModifyOrDeleteQuestion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PopUp.xaml.cs">
+      <DependentUpon>PopUp.xaml</DependentUpon>
+    </Compile>
     <Page Include="Theme\AdminTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -152,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\PopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -189,6 +196,8 @@
       <Name>TriviaNation.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UserDefinedExceptions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

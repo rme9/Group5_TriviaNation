@@ -10,23 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TriviaNation.Views
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for PopUp.xaml
     /// </summary>
-    public partial class AddQuestionToDatabaseView : UserControl
+    public partial class PopUp : Window
     {
-        public AddQuestionToDatabaseView()
+        public PopUp()
         {
             InitializeComponent();
-
-            
         }
 
-      
+        public PopUp(string textInTextbox)
+        {
+            PopUpTextBox.Text = textInTextbox;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

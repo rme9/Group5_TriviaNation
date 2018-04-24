@@ -11,6 +11,7 @@ using TriviaNation.Core.Models;
 using TriviaNation.Properties;
 using TriviaNation.Util;
 using TriviaNation.Annotations;
+using TriviaNation.Views;
 
 namespace TriviaNation.ViewModels
 {
@@ -19,6 +20,8 @@ namespace TriviaNation.ViewModels
 
         private Question question;
         private QuestionBank questionbank;
+        private PopUp pop;
+        WebServiceDriver web = new WebServiceDriver();
         private string _body;
         private string _correctAnswer = "";
         private string _altAnswer1 = "";
@@ -114,6 +117,20 @@ namespace TriviaNation.ViewModels
             }
         }
 
+        public QuestionBank QuestionBank
+        {
+            get { return questionbank; }
+            set
+            {
+                if (questionbank != value)
+                {
+                    questionbank = value;
+                }
+            }
+        }
+
+        #region SaveQuestionToQuestionBank
+
         public bool CanExecuteSaveQuestionCommand(object ob)
         {
             return question != null;
@@ -122,10 +139,7 @@ namespace TriviaNation.ViewModels
         /*Adds the body of the question to the question object*/
         public void addBody(string body)
         {
-            if (body != null)
-            {
-                question.Body = body;
-            }
+            question.Body = body;
         }
 
         /*Adds the alternate answer strings to the question object*/
@@ -148,20 +162,23 @@ namespace TriviaNation.ViewModels
         */
         public void ExecuteSaveQuestionCommand(object ob)
         {
-
             addBody(Body);
             AddAltAnswer(CorrectAnswer);
             AddAltAnswer(AlternateAnswer1);
             AddAltAnswer(AlternateAnswer2);
             AddAltAnswer(AlternateAnswer3);
             AddToQuestionBank(question);
+            pop = new PopUp("Question has been created and added to database!");
+            pop.ShowDialog();
         }
 
-        private RelayCommand _AddQuestionToDatabase;
-        public RelayCommand AddQuestionToDatabase
+        private RelayCommand _AddQuestionToQuestionBank;
+        public RelayCommand AddQuestionToQuestionBank
         {
-            get { return _AddQuestionToDatabase ?? (_AddQuestionToDatabase = new RelayCommand(ExecuteSaveQuestionCommand, CanExecuteSaveQuestionCommand)); }
+            get { return _AddQuestionToQuestionBank ?? (_AddQuestionToQuestionBank = new RelayCommand(ExecuteSaveQuestionCommand, CanExecuteSaveQuestionCommand)); }
         }
+
+        #endregion
 
         #region CancelSavingQuestionCommand
 
@@ -180,9 +197,29 @@ namespace TriviaNation.ViewModels
 
         #endregion
 
+        #region AddQuestionBanktoDatabase
+
+        public bool CanExecuteSaveQuestionBankCommand(object ob)
+        {
+            return question != null;
+        }
+
+        public void ExecuteSaveQuestionBankCommand(object ob)
+        {
+            web.InsertQuestionBank(questionbank, Application.Current.Properties["LoggedInUserName"] as string);
+        }
+
+        private RelayCommand _AddQuestionBankToDatabaseCommand;
+
+        public RelayCommand AddQuestionBankToDatabaseCommand
+        {
+            get { return _AddQuestionBankToDatabaseCommand ?? (_AddQuestionBankToDatabaseCommand = new RelayCommand(ExecuteSaveQuestionCommand, CanExecuteSaveQuestionCommand)); }
+        }
+
+        #endregion
         public event EventHandler<object> CloseView;
 
-
+        
 
 
 
