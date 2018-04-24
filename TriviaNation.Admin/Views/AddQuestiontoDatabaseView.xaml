@@ -77,7 +77,7 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Margin="10 0" Grid.Column="2" >
-                        <!--Cancel Button-->
+                        <!--Add QuestionBank to database Button-->
                         <Button Name="CommitButton" FontSize="11" Command="{Binding AddQuestionBankToDatabaseCommand}">
                             <TextBlock>Add Question<LineBreak/>Bank To Database</TextBlock>
                             <Button.Style>

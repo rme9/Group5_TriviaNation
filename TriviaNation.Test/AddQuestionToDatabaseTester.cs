@@ -35,8 +35,11 @@ namespace TriviaNation.Test
             //Act
             tester.AddToQuestionBank(tester.Question);
 
+
             //Assert
             Assert.AreEqual(tester.Question, tester.QuestionBank.Questions[0]);
         }
+
+       
     }
 }

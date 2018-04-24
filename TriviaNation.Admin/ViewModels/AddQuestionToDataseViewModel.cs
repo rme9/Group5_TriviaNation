@@ -204,19 +204,21 @@ namespace TriviaNation.ViewModels
             return question != null;
         }
 
-        public void ExecuteSaveQuestionBankCommand(object ob)
+        public async void ExecuteSaveQuestionBankCommand(object ob)
         {
-            web.InsertQuestionBank(questionbank, Application.Current.Properties["LoggedInUserName"] as string);
+            string val = Application.Current.Properties["LoggedInUserName"] as string;
+            var result = await web.InsertQuestionBank(questionbank, val);
         }
 
         private RelayCommand _AddQuestionBankToDatabaseCommand;
 
         public RelayCommand AddQuestionBankToDatabaseCommand
         {
-            get { return _AddQuestionBankToDatabaseCommand ?? (_AddQuestionBankToDatabaseCommand = new RelayCommand(ExecuteSaveQuestionCommand, CanExecuteSaveQuestionCommand)); }
+            get { return _AddQuestionBankToDatabaseCommand ?? (_AddQuestionBankToDatabaseCommand = new RelayCommand(ExecuteSaveQuestionBankCommand, CanExecuteSaveQuestionCommand)); }
         }
 
         #endregion
+
         public event EventHandler<object> CloseView;
 
         
