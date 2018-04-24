@@ -20,7 +20,7 @@
             <Button Content="Delete Selected Student" Command="{Binding DeleteStudentCommand}" Width="200" Height="25"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="5,5,5,5">
-            <DataGrid MinHeight="250" MinWidth="350" Margin="20,0,20,0" BorderThickness="2" SelectedItem="{Binding SelectedStudent}" x:Name="StudentGrid" BorderBrush="{StaticResource AccentBaseColorBrush}" ItemsSource="{Binding Students}" AutoGenerateColumns="False">
+            <DataGrid MinHeight="250" Width="400" Margin="20,0,20,0" BorderThickness="2" SelectedItem="{Binding SelectedStudent}" x:Name="StudentGrid" BorderBrush="{StaticResource AccentBaseColorBrush}" ItemsSource="{Binding Students}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Student Name" Binding="{Binding Name}" MinWidth="150"/>
 
