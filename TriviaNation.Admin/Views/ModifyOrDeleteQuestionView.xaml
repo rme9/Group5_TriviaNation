@@ -1,4 +1,4 @@
-﻿<Page x:Class="TriviaNation.Views.ModifyOrDeleteQuestion"
+﻿<UserControl x:Class="TriviaNation.Views.ModifyOrDeleteQuestionView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,8 +7,10 @@
       xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
       xmlns:views="clr-namespace:TriviaNation.UI.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ModifyOrDeleteQuestion">
+      d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodels:ModifyOrDeleteQuestionViewModel/>
+    </UserControl.DataContext>
 
     <Border Padding="10">
         <Grid>
@@ -16,58 +18,58 @@
                 <RowDefinition Height=".1*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <!--Stackpanel containing four buttons-->
             <StackPanel Grid.Column="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width ="*"/>
-                        <ColumnDefinition Width ="*"/>
-                        <ColumnDefinition Width ="*"/>
-                        <ColumnDefinition Width ="*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width ="195"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-            
+
                     <!--Return to question bank button-->
                     <Button Grid.Column ="0" Content="Return to Question Banks" Margin="10 0"/>
-            
+
                     <!--Add a new question button-->
-                    <Button Grid.Column="1" Content="Add a new Question" Margin="10 0"/>
-            
+                    <Button Name="AddQuestionToQuestionBankButton" Grid.Column="1" Content="Add a new Question" Margin="10 0"/>
+
                     <!--modify question button-->
                     <Button Grid.Column="2" Content="Modify Question" Margin="10 0"/>
-            
+
                     <!--delete question button-->
                     <Button Grid.Column="3" Content="Delete Question" Margin="10 0"/>
-            
+
                     <!--Datagrid with all of the questions that are in the database-->
                 </Grid>
             </StackPanel>
-            
+
             <!--Stackpanel containing question inside DataGrid-->
-            <DataGrid Grid.Row="1">
+            <DataGrid Grid.Row="1" SelectionMode="Extended" SelectionUnit="FullRow" AutoGenerateColumns="False">
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header=""/>
-                    
+
                     <!--Question Column-->
-                    <DataGridTextColumn Header="Question" MinWidth="150"/>
-                    
+                    <DataGridTextColumn Header="Question" Binding="{Binding Question.body}" MinWidth="150"/>
+
                     <!--Correct Answer Column-->
-                    <DataGridTextColumn Header="Correct Answer" MinWidth="150"/>
+                    <DataGridTextColumn Header="Correct Answer" Binding="{Binding Question.AlteranteAnswers[0]}" MinWidth="150"/>
 
                     <!--Second Answer Column-->
-                    <DataGridTextColumn Header="Second Answer" MinWidth="150"/>
+                    <DataGridTextColumn Header="Second Answer" Binding="{Binding Question.AlteranteAnswers[1]}" MinWidth="150"/>
 
                     <!--Third Answer Column-->
-                    <DataGridTextColumn Header="Third Answer" MinWidth="150"/>
+                    <DataGridTextColumn Header="Third Answer" Binding="{Binding Question.AlteranteAnswers[2]}" MinWidth="150"/>
 
                     <!--Fourth Column-->
-                    <DataGridTextColumn Header="Fourth Answer" MinWidth="150"/>
+                    <DataGridTextColumn Header="Fourth Answer" Binding="{Binding Question.AlteranteAnswers[3]}" MinWidth="150"/>
 
+                    <DataGridTemplateColumn Width="*"/>
 
-
-                </DataGrid.Columns>    
+                </DataGrid.Columns>
             </DataGrid>
         </Grid>
     </Border>
-</Page>
+</UserControl>

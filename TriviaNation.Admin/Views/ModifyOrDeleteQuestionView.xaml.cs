@@ -18,9 +18,9 @@ namespace TriviaNation.Views
     /// <summary>
     /// Interaction logic for ModifyOrDeleteQuestion.xaml
     /// </summary>
-    public partial class ModifyOrDeleteQuestion : Page
+    public partial class ModifyOrDeleteQuestionView : UserControl
     {
-        public ModifyOrDeleteQuestion()
+        public ModifyOrDeleteQuestionView()
         {
             InitializeComponent();
         }

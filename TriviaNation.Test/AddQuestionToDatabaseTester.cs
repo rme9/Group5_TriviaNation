@@ -12,7 +12,7 @@ namespace TriviaNation.Test
         public void addAltAnswer_StringIsNotNull_AddsAnswerToQuestionObject()
         {
             //Arrange
-            AddQuestionToDataseViewModel tester = new AddQuestionToDataseViewModel();
+            AddQuestionToDatabaseViewModel tester = new AddQuestionToDatabaseViewModel();
             string answer = "This string was added to the question object";
             
             //Act
@@ -26,7 +26,7 @@ namespace TriviaNation.Test
         public void addToQuestionBank_questionObjectNotNull_addsQuestionToDatabase()
         {
             //Arrange
-            AddQuestionToDataseViewModel tester = new AddQuestionToDataseViewModel();
+            AddQuestionToDatabaseViewModel tester = new AddQuestionToDatabaseViewModel();
             tester.addBody("This is the body of the question object");
             tester.AddAltAnswer("This the correct answer");
             tester.AddAltAnswer("This is the alternate answer");
@@ -34,7 +34,6 @@ namespace TriviaNation.Test
 
             //Act
             tester.AddToQuestionBank(tester.Question);
-
 
             //Assert
             Assert.AreEqual(tester.Question, tester.QuestionBank.Questions[0]);

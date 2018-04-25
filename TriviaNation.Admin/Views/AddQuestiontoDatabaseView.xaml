@@ -9,8 +9,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="461.285" d:DesignWidth="369.749">
     <UserControl.DataContext>
-        <viewmodels:AddQuestionToDataseViewModel/>
+        <viewmodels:AddQuestionToDatabaseViewModel/>
     </UserControl.DataContext>
+
 
     <Grid>
         <Border Padding="10">

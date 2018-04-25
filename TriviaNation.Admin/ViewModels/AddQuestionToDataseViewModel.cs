@@ -15,11 +15,12 @@ using TriviaNation.Views;
 
 namespace TriviaNation.ViewModels
 {
-    public class AddQuestionToDataseViewModel : ViewModel
+    public class AddQuestionToDatabaseViewModel : ViewModel
     {
 
         private Question question;
         private QuestionBank questionbank;
+        private List<string> list;
         private PopUp pop;
         WebServiceDriver web = new WebServiceDriver();
         private string _body;
@@ -28,12 +29,17 @@ namespace TriviaNation.ViewModels
         private string _altAnswer2 = "";
         private string _altAnswer3 = "";
         
+        
+
+        
 
 
-        public AddQuestionToDataseViewModel()
+
+        public AddQuestionToDatabaseViewModel()
         {
             question = new Question();
             questionbank = new QuestionBank();
+            list = new List<string>();
         }
 
         public string Body
