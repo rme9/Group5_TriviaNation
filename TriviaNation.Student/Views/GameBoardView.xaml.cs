@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TriviaNation.Core.Models;
 using TriviaNation.Student.ViewModels;
 
 namespace TriviaNation.Student.Views
@@ -22,13 +23,14 @@ namespace TriviaNation.Student.Views
     public partial class GameBoardView : UserControl
     {
         private List<Rectangle> territories = new List<Rectangle>();
-        //private GameBoardViewModel Game;
+        public static GameBoardViewModel Game { get; set; }
+        private string test;
 
         public GameBoardView(GameBoardViewModel input)
         {
             InitializeComponent();
             DataContext = input;
-            //Game = input;
+            Game = input;
 
             AddFunctionality();
         }
@@ -38,11 +40,6 @@ namespace TriviaNation.Student.Views
             InitializeComponent();
             AddFunctionality();
         }
-
-        //public GameBoardView()
-        //{
-        //    InitializeComponent();
-        //}
 
         private void AddFunctionality()
         {
@@ -58,25 +55,19 @@ namespace TriviaNation.Student.Views
 
         }
 
-        private void AttackButton_onClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void showInformation(object sender, RoutedEventArgs e)
         {
             Information_Panel.Visibility = Visibility.Visible;
             Information_Info.Visibility = Visibility.Visible;
             Information_Controlled.Visibility = Visibility.Visible;
             Information_ControlName.Visibility = Visibility.Visible;
-            //AttackButton.Visibility = Visibility.Visible;
-            //DefendButton.Visibility = Visibility.Visible;
 
             Information_Info.Content = ((Rectangle)sender).Name;
             if (Information_ControlName.Content.Equals(""))
             {
                 Information_ControlName.Content = "Uncontested.";
                 AttackButton.Visibility = Visibility.Visible;
+                AttackButton.Click += Game.CreateQuestionWindow;
             }
             else
             {
