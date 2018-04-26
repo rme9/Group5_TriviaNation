@@ -178,8 +178,9 @@ namespace TriviaNation.Test
 
 		#endregion
 <<<<<<< HEAD
-        */
+        
 =======
 >>>>>>> origin/develop
+*/
 	}
 }

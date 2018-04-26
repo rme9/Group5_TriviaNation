@@ -68,10 +68,7 @@
     <Compile Include="Models\StudentUser.cs" />
     <Compile Include="Models\Territories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Drivers\IWebServiceDriver.cs" />
-    <Compile Include="Services\DatabaseRestService.cs" />
-    <Compile Include="Services\IDatabaseService.cs" />
-    <Compile Include="Services\IRestService.cs" />
+    <Compile Include="Services\IDatabaseWebService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

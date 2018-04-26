@@ -9,20 +9,20 @@ namespace TriviaNation
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class AdminViewModel : Window
 	{
 		public Views.LoginPopupView _LoginPopup;
 
-		private MainWindowViewModel _ViewModel;
+		private AdminViewModel  _ViewModel;
 
-		public MainWindow()
+		public AdminViewModel()
 		{
 			InitializeComponent();
 
 			_BaseViewModel = new AdminDashboardViewModel();
 			_BaseView = new AdminDashboardView(_BaseViewModel);
 
-			_ViewModel = new MainWindowViewModel();
+			_ViewModel = new AdminViewModel ();
 			
 			 _ViewModel.ContentViewBox = _BaseView;
 
