@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomExceptions.cs" />
-    <Compile Include="Drivers\DynamoDBDriver.cs" />
     <Compile Include="Drivers\GameDriver.cs" />
     <Compile Include="Drivers\LoginDriver.cs" />
     <Compile Include="Drivers\IWebServiceDriver.cs" />

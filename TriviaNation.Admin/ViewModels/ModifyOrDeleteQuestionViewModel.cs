@@ -15,27 +15,27 @@ namespace TriviaNation.ViewModels
     class ModifyOrDeleteQuestionViewModel
     {
         
-        private QuestionBank questionBank { get; set; }
+        private IQuestionBank questionBank { get; set; }
 
-        private List<IQuestion> _questions;
+        private IQuestionBank _questions;
 
         /*Id that determines what questionbank to show in the view. */
         private string Id { get; set; }
 
-        public ObservableCollection<IQuestion> Questions
+        public IQuestionBank Questions
         {
-            get { return new ObservableCollection<IQuestion>(_questions); }
-            set { _questions = value.ToList(); }
+            get {return _questions; }
+            set { _questions = value; }
         }
 
         public ModifyOrDeleteQuestionViewModel()
         {
-            using (var db = new DynamoDBDriver())
+            using (var db = new WebServiceDriver())
             {
-                _questions = db.GetQuestionBankById(Id).Questions;
+                _questions = db.GetQuestionBankById(Id).Result;
             }
 
-            questionBank = new QuestionBank();
+            
         }
 
 
