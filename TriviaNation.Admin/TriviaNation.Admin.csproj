@@ -115,10 +115,6 @@
     <Compile Include="Views\StudentManagementView.xaml.cs">
       <DependentUpon>StudentManagementView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Theme\AdminTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -200,6 +196,9 @@
     <Resource Include="Resources\PenguinLogo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Theme\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

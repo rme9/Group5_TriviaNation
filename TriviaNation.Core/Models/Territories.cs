@@ -10,7 +10,6 @@ namespace TriviaNation.Core.Models
 
 		public bool ControlStatus { get; set; }
 
-		public string SessionId { get; set; }
 
 		public Territories(string name, bool isConstrolled, string controllerName)
 		{
@@ -20,13 +19,6 @@ namespace TriviaNation.Core.Models
 
 		}
 
-		public Territories(string name, bool isConstrolled, string controllerName, string sessionId)
-		{
-			Name = name;
-			ControlStatus = isConstrolled;
-			ControllerName = controllerName;
-			SessionId = sessionId;
-		}
 
 		public Territories()
 		{

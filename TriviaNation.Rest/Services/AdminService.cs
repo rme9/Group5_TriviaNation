@@ -92,7 +92,7 @@ namespace TriviaNation.Rest.Services
 		{
 			if (newGameSession == null || instructorsEmail == null)
 			{
-				throw new ArgumentNullException();
+				return false;
 			}
 
 
@@ -405,12 +405,14 @@ namespace TriviaNation.Rest.Services
 				throw new ArgumentNullException(nameof(uniqueId));
 			}
 
+			var filter = "unique_id = :uid";
+
 			var searchValues = new Dictionary<string, AttributeValue>
 			{
-				{"unique_id", new AttributeValue {S = uniqueId}}
+				{":uid", new AttributeValue {S = uniqueId}}
 			};
 
-			var resp = _Driver.Scan(_GameSessionTableName, searchValues, "").Result.FirstOrDefault();
+			var resp = _Driver.Scan(_GameSessionTableName, searchValues, filter).Result.FirstOrDefault();
 
 			#region
 

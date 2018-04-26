@@ -31,10 +31,10 @@ namespace TriviaNation.Rest
 		public bool InsertAdmin([FromBody] AdminUser newUser) => _WebService.InsertUser(newUser);
 
 		[HttpPost("{instructorsEmail}")]
-		public bool InsertQuestionBank([FromBody] IQuestionBank newQuestionBank, string instructorsEmail) => _WebService.InsertQuestionBank(newQuestionBank, instructorsEmail);
+		public bool InsertQuestionBank([FromBody] QuestionBank newQuestionBank, string instructorsEmail) => _WebService.InsertQuestionBank(newQuestionBank, instructorsEmail);
 
 		[HttpPost("{instructorsEmail}")]
-		public bool InsertGameSession([FromBody] IGameSession newGameSession, string instructorsEmail) => _WebService.InsertGameSession(newGameSession, instructorsEmail);
+		public bool InsertGameSession([FromBody] GameSession newGameSession, string instructorsEmail) => _WebService.InsertGameSession(newGameSession, instructorsEmail);
 
 		#endregion
 

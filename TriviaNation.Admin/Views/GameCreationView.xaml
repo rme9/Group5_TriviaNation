@@ -7,39 +7,36 @@
         xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
         mc:Ignorable="d"
         d:DesignHeight="450" d:DesignWidth="800"
-        Height="600" Width="400">
+        Height="600" Width="400"
+        Title="Trivia Nation | Create Game">
     <Grid>
         <StackPanel HorizontalAlignment="Center">
             <Label Content="Create Game" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Margin="0,20,0,20"/>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Session Name" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top"/>
-                <TextBox Text="{Binding Name}" HorizontalAlignment="Center" Height="26" Margin="5,5,5,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
+                <Label Content="Session Name" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" FontSize="14"/>
+                <TextBox Text="{Binding Name}" HorizontalAlignment="Center" Height="26" Margin="5,5,5,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
             </StackPanel>
 
 
-            <Label Content="Question Bank" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top"/>
-            <ListBox SelectionMode="Single" ItemsSource="{Binding Path=AvailableQuestionBanks}" SelectedItem="{Binding SelectedQuestionBank}" HorizontalAlignment="Left" Height="125" Margin="5,0,5,5" VerticalAlignment="Top" Width="300">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Label Content="Select A Question Bank" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top" FontSize="14"/>
+            <DataGrid SelectionMode="Single" ItemsSource="{Binding Path=AvailableQuestionBanks}" SelectedItem="{Binding SelectedQuestionBank}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="125" Margin="5,0,5,5" VerticalAlignment="Top" Width="305">
+                <DataGrid.Columns>
 
-            <Label Content="Select Students" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top"/>
-            <ListBox SelectionMode="Multiple" ItemsSource="{Binding Path=AvailableStudents}" x:Name="StudentListBox" HorizontalAlignment="Left" Height="200" Margin="5,0,5,5" VerticalAlignment="Top" Width="300">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" Margin="0,2,5,2"/>
-                            <TextBlock Text="{Binding Email}" Margin="5,2,0,2"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-           </ListBox>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="305" />
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Content="Select Students" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top" FontSize="14"/>
+            <DataGrid SelectionMode="Extended" ItemsSource="{Binding Path=AvailableStudents}" x:Name="StudentListBox" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="200" Margin="5,0,5,5" VerticalAlignment="Top" Width="305">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="125" />
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" MinWidth="175"/>
+
+                </DataGrid.Columns>
+           </DataGrid>
 
            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5,10,10,5">
                 <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" HorizontalAlignment="Left" Margin="5,5,10,5" VerticalAlignment="Top" Width="100"/>

@@ -14,9 +14,9 @@ namespace TriviaNation.Test
 
 		#region TestParameters
 
-		private AdminUser _NewAdmin => new AdminUser("Rebecca Elliff", "rme9@students.uwf.edu");
+		private AdminUser _NewAdmin => new AdminUser("Rebecca Elliff", "rme9@students.uwf.edu") { Password = "password"};
 
-		private StudentUser _NewUser => new StudentUser("Ron Weasley", "RWeasley@email.com") { InstructorId = _NewAdmin.Email };
+		private StudentUser _NewUser => new StudentUser("Ron Weasley", "RWeasley@email.com") { InstructorId = _NewAdmin.Email, Password = "rw" };
 
 		private List<Question> _Questions;
 
