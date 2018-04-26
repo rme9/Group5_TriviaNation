@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
@@ -24,22 +22,12 @@ namespace TriviaNation.ViewModels
 			set { _GameSessions = value.ToList(); }
 		}
 
-		public ObservableCollection<int> StudentCount { get; set; }
-
 		public GameManagementViewModel()
 		{
-			using (var db = new DynamoDBDriver())
+			using (var db = new WebServiceDriver())
 			{
-				_GameSessions = db.GetGameSessionsByInstructor(Application.Current.Properties["LoggedInUserId"].ToString());
-			}
-
-			var counts = new List<int>();
-			foreach (var item in _GameSessions)
-			{
-				counts.Add(item.Students?.Count ?? 0);
-			}
-
-			StudentCount = new ObservableCollection<int>(counts);
+				_GameSessions = db.GetGameSessionsByInstructor(Application.Current.Properties["LoggedInUserId"].ToString()).Result;
+			} 
 		}
 
 		#region NewGameCommand

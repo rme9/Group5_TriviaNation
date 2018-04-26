@@ -88,7 +88,7 @@
     <Compile Include="Util\RelayCommand.cs" />
     <Compile Include="ViewModels\AddQuestionToDataseViewModel.cs" />
     <Compile Include="ViewModels\AdminDashboardViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\GameCreationViewModel.cs" />
     <Compile Include="ViewModels\GameManagementViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
@@ -100,6 +100,9 @@
     </Compile>
     <Compile Include="Views\AdminDashboardView.xaml.cs">
       <DependentUpon>AdminDashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GameCreationView.xaml.cs">
       <DependentUpon>GameCreationView.xaml</DependentUpon>
@@ -133,10 +136,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddQuestionToDatabaseView.xaml">
+    <Page Include="Views\AdminDashboardView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AdminDashboardView.xaml">
+    <Page Include="Views\AdminView.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -198,7 +203,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UserDefinedExceptions\" />
+    <Resource Include="Resources\PenguinLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

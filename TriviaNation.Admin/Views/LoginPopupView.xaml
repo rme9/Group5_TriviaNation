@@ -10,12 +10,17 @@
         Topmost="True" WindowStartupLocation="CenterOwner">
     <Grid Margin="15,15,15,15" Focusable="True">
         <DockPanel>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+            <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Source="/Resources/PenguinLogo.png" Margin="0,0,10,0"  Height="30" />
+                <Label Content="Trivia Nation" FontSize="30"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+                
                 <Label Content="Email" Margin="5,5,5,0"/>
                 <TextBox Text="{Binding Email}" Margin="5,0,5,10"/>
 
                 <Label Content="Password" Margin="5,5,5,0"></Label>
-                <PasswordBox Margin="5,0,5,10"/>
+                <TextBox Text="{Binding Password}" Margin="5,0,5,10"/>
                 <StackPanel Margin="5,0,5,5" Orientation="Horizontal"/>
                 <Label Content="{Binding LoginMessage}" HorizontalAlignment="Center" FontStyle="Oblique"/>
                 <Button Content="Continue" Name="ContinueButton" Command="{Binding LoginCommand}" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75"/>

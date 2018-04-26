@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="DynamoDBTest.cs" />
     <Compile Include="ModfiyOrDeleteQuestionTester.cs" />
+    <Compile Include="LoginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AddQuestionToDatabaseTester.cs" />
   </ItemGroup>
@@ -58,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TriviaNation.Admin\TriviaNation.Admin.csproj">
-      <Project>{0E85DB19-04E7-4C15-99D3-D805FF6E3212}</Project>
+      <Project>{0e85db19-04e7-4c15-99d3-d805ff6e3212}</Project>
       <Name>TriviaNation.Admin</Name>
     </ProjectReference>
     <ProjectReference Include="..\TriviaNation.Core\TriviaNation.Core.csproj">

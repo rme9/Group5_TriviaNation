@@ -9,15 +9,12 @@ namespace TriviaNation.Core.Models
 	public class QuestionBank : IQuestionBank
 	{
 		public string Name { get; set; }
-		public List<IQuestion> Questions { get; set; }
-		public string UniqueId { set; get; }
+		public List<Question> Questions { get; set; }
+		public string UniqueId { get; set; }
 
 		public QuestionBank()
 		{
 			UniqueId = Guid.NewGuid().ToString("N");
-            Name = "Default";
-            Questions = new List<IQuestion>();
-
 		}
 
 		public QuestionBank(string uniqueId)

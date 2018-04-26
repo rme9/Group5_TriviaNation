@@ -27,37 +27,33 @@ namespace TriviaNation
 		/// <param name="userId"></param>
 		/// <param name="password"></param>
 		/// <returns>Null on succes, or an error message if not successful</returns>
-		public static string OnLogin(string userId, string password, string userType)
+		public static async Task OnLogin(string userId, string password)
 		{
-			string loginMessage = null;
-			var db = new DynamoDBDriver();
+			LoginMessage = null;
 
-			try
+			using (var db = new LoginDriver())
 			{
-				var user = db.GetUserByEmail(userId);
+				try
+				{
+					var user = await db.Login(userId, password, "Admin");
+					
+					if ((user as AdminUser) == null)
+					{
+						throw new Exception();
+					}
 
-				if ((user as AdminUser) == null)
-				{
-					throw new Exception();
+					Application.Current.Properties.Add("LoggedInUserId", user.Email);
+					Application.Current.Properties.Add("LoggedInUserName", user.Name);
 				}
-
-				Application.Current.Properties.Add("LoggedInUserId", user.Email);
-				Application.Current.Properties.Add("LoggedInUserName", user.Name);
-			}
-			catch (Exception ex)
-			{
-				if (ex is ItemNotFoundException)
+				catch (Exception ex)
 				{
-					return "Invalid Username";
-				}
-				else
-				{
-					return "Unable to Login.";
+					LoginMessage = "Unable to Login.";
 				}
 			}
 
-			return loginMessage;
 		}
+
+		public static string LoginMessage { get; set; }
 
 		public static void OnLogout()
 		{

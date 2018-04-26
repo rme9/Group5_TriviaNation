@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
 using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
-using TriviaNation.Properties;
 using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels
@@ -50,11 +47,11 @@ namespace TriviaNation.ViewModels
 		{
 			var user = Application.Current.Properties["LoggedInUserId"] as string;
 
-			using (var db = new DynamoDBDriver())
+			using (var db = new WebServiceDriver())
 			{
-				_AvailableStudents = db.GetAllUsersByInstructor(user);
+				_AvailableStudents = db.GetAllUsersByInstructor(user).Result;
 
-				_AvailableQuestionBanks = db.GetQuestionBanksByInstructor(user);
+				_AvailableQuestionBanks = db.GetQuestionBanksByInstructor(user).Result;
 			}
 
 		}
@@ -87,9 +84,9 @@ namespace TriviaNation.ViewModels
 				QuestionBank = SelectedQuestionBank
 			};
 
-			using (var db = new DynamoDBDriver())
+			using (var db = new WebServiceDriver())
 			{
-				db.InsertGameSession(newGame, Application.Current.Properties["LoggedInUserId"] as string);
+				var didInsert = db.InsertGameSession(newGame, Application.Current.Properties["LoggedInUserId"] as string).Result;
 			}
 
 			CloseView?.Invoke(this, newGame);

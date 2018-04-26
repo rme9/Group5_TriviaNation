@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
@@ -12,15 +9,14 @@ namespace TriviaNation.ViewModels
 {
 	public class AdminDashboardViewModel : ViewModel
 	{
-		#region Student List
-		private List<StudentUser> _AllStudents;
+		public List<StudentUser> _AllStudents;
 
 		public List<StudentUser> AllStudents
 		{
 			get { return _AllStudents; }
 			set
 			{
-				if (_AllStudents != value)
+				if (value != _AllStudents)
 				{
 					_AllStudents = value;
 					OnPropertyChanged(nameof(AllStudents));
@@ -28,40 +24,41 @@ namespace TriviaNation.ViewModels
 			}
 		}
 
-		#endregion
+		public List<IQuestionBank> _AllQuestionBanks;
 
-		#region Question Banks
-
-		private List<IQuestionBank> _AllQuestionBanks;
 		public List<IQuestionBank> AllQuestionBanks
 		{
-			get { return _AllQuestionBanks;}
+			get { return _AllQuestionBanks; }
 			set
 			{
 				if (_AllQuestionBanks != value)
 				{
 					_AllQuestionBanks = value;
-					OnPropertyChanged(nameof(_AllQuestionBanks));
+					OnPropertyChanged(nameof(AllQuestionBanks));
 				}
 			}
 		}
 
-
-		#endregion
 		public AdminDashboardViewModel()
 		{
-			
+			TryLoadData();
 		}
 
-		public void UpdateViewAfterLogin()
+		private async void TryLoadData()
 		{
-			using (var db = new DynamoDBDriver())
+			try
 			{
-				var currentUser = Application.Current.Properties["LoggedInUserId"] as string;
-				AllStudents = db.GetAllUsersByInstructor(currentUser);
-				AllQuestionBanks = db.GetQuestionBanksByInstructor(currentUser);
+				using (var serv = new WebServiceDriver())
+				{
+					var currentUser = Application.Current.Properties["LoggedInUserId"] as string;
+					AllStudents = await serv.GetAllUsersByInstructor(currentUser);
+					AllQuestionBanks = await serv.GetQuestionBanksByInstructor(currentUser);
+				}
 			}
-
+			catch (Exception ex)
+			{
+				var m = ex.Message;
+			}
 		}
 
 		#region ManageGameSessions

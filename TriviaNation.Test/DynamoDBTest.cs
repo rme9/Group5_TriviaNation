@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TriviaNation.Core.Drivers;
 using TriviaNation.Core.Models;
 
 namespace TriviaNation.Test
@@ -10,7 +7,7 @@ namespace TriviaNation.Test
 	[TestClass]
 	public class DynamoDBTest
 	{
-		private DynamoDBDriver _driver;
+		/*private DynamoDBDriver _driver;
 
 		#region TestParameters
 
@@ -180,6 +177,9 @@ namespace TriviaNation.Test
 		}
 
 		#endregion
-
+<<<<<<< HEAD
+        */
+=======
+>>>>>>> origin/develop
 	}
 }

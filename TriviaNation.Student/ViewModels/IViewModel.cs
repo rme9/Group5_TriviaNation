@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TriviaNation.Core.Drivers
+namespace TriviaNation.ViewModels
 {
-	public interface IDatabaseDriver
+	public interface IViewModel
 	{
-
 	}
 }

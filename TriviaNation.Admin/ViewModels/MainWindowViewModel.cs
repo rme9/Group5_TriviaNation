@@ -11,22 +11,15 @@ using TriviaNation.Util;
 namespace TriviaNation.ViewModels
 {
 	// Defines the data context of an AdminView
-	public class MainWindowViewModel : ViewModel
+	public class AdminViewModel : IViewModel
 	{
-
-		public UserControl ContentViewBox
-		{
-			get;
-			set;
-		}
-
 		public string LoggedInUserName
 		{
 			get { return Application.Current.Properties["LoggedInUserName"] as string; }
 			set { }
 		}
 
-		public MainWindowViewModel()
+		public AdminViewModel()
 		{
 			
 		}

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TriviaNation.Core.Models
 {
@@ -10,7 +6,7 @@ namespace TriviaNation.Core.Models
 	{
 		string Name { get; set; }
 
-		List<IQuestion> Questions { get; set; }
+		List<Question> Questions { get; set; }
 
 		string UniqueId { get; }
 	}

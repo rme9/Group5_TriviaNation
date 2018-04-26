@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using TriviaNation.Annotations;
 using TriviaNation.Core.Models;
@@ -15,6 +8,7 @@ namespace TriviaNation.ViewModels
 {
 	public class LoginPopupViewModel : ViewModel
 	{
+		#region Login Message
 		private string _LoginMessage;
 
 		public string LoginMessage
@@ -30,6 +24,9 @@ namespace TriviaNation.ViewModels
 			}
 		}
 
+		#endregion
+
+		#region Email
 		private string _Email;
 
 		public string Email
@@ -45,31 +42,52 @@ namespace TriviaNation.ViewModels
 			}
 		}
 
-		public string UserType { get; set; }
+		#endregion
 
-		public LoginPopupViewModel()
+		#region Password
+
+		private string _Password;
+
+		public string Password
 		{
-
+			get { return _Password; }
+			set
+			{
+				if (_Password != value)
+				{
+					_Password = value;
+					OnPropertyChanged(nameof(Password));
+				}
+			}
 		}
 
-		
+		#endregion
 
 		#region LoginCommand
 
-		public void ExecuteLoginCommand(object ob)
+		public async void ExecuteLoginCommand(object ob)
 		{
-			LoginMessage = null;
-
-			var result = App.OnLogin(Email, null, "admin");
-
-			if (result == null)
+			try
 			{
-				LoginComplete?.Invoke(this, new MainWindowViewModel());
+				LoginMessage = null;
+
+				await App.OnLogin(Email, Password);
+
+				var result = App.LoginMessage;
+
+				if (result == null)
+				{
+					LoginComplete?.Invoke(this, new AdminViewModel());
+				}
+				else
+				{
+					LoginMessage = result;
+					Email = null;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				LoginMessage = result;
-				Email = null;
+				LoginMessage = "Unable to Log In";
 			}
 		}
 
