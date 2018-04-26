@@ -33,7 +33,7 @@
                     <Button Grid.Column ="0" Content="Return to Question Banks" Margin="10 0"/>
 
                     <!--Add a new question button-->
-                    <Button Name="AddQuestionToQuestionBankButton" Grid.Column="1" Content="Add a new Question" Margin="10 0"/>
+                    <Button Name="AddQuestionToQuestionBankButton" Grid.Column="1" Content="Add a new Question" Margin="10 0" Command="{Binding OpenAddQuestionViewControlCommand}"/>
 
                     <!--modify question button-->
                     <Button Grid.Column="2" Content="Modify Question" Margin="10 0"/>

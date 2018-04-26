@@ -29,12 +29,6 @@ namespace TriviaNation.ViewModels
         private string _altAnswer2 = "";
         private string _altAnswer3 = "";
         
-        
-
-        
-
-
-
         public AddQuestionToDatabaseViewModel()
         {
             question = new Question();
