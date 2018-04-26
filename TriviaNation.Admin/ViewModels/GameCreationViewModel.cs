@@ -14,7 +14,7 @@ namespace TriviaNation.ViewModels
 	{
 		public string Name { get; set; }
 
-		public IQuestionBank SelectedQuestionBank { get; set; }
+		public QuestionBank SelectedQuestionBank { get; set; }
 
 		private List<IQuestionBank> _AvailableQuestionBanks;
 
@@ -67,13 +67,13 @@ namespace TriviaNation.ViewModels
 
 		public void ExecuteSaveCommand(object ob)
 		{
-			var students = new List<IUser>();
+			var students = new List<StudentUser>();
 
 			if (ob is ObservableCollection<object> list)
 			{
 				foreach (var item in list)
 				{
-					students.Add(item as IUser);
+					students.Add(item as StudentUser);
 				}
 			}
 
