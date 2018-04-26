@@ -42,7 +42,7 @@ namespace TriviaNation.Student.ViewModels
         public Question GetActiveQuestion()
         {
             Random rand = new Random();
-            int questionRef = rand.Next(0, (_ActiveQuestionBank.Questions.Count - 1));
+            int questionRef = rand.Next(0, (_ActiveQuestionBank.Questions.Count));
 
             return _ActiveQuestionBank.Questions[questionRef];
         }

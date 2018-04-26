@@ -22,9 +22,9 @@ namespace TriviaNation.Student.ViewModels
 
         public void CreateQuestionWindow(object sender, EventArgs e)
         {
-            var test = new QuestionPromptView(new QuestionPromptViewModel(Session));
+            var createQuestion = new QuestionPromptView(new QuestionPromptViewModel(Session));
 
-            test.Show();
+            createQuestion.Show();
         }
     }
 }
