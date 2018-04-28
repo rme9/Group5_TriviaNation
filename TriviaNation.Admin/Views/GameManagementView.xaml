@@ -18,16 +18,22 @@
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="New" Command="{Binding NewGameCommand}" Width="100" Height="25" Margin="5,5,5,5"/>
+            <Button Content="Create Game Session" Command="{Binding NewGameCommand}" Width="200" Height="25" Margin="5,5,5,5"/>
+            <Button Content="View and Edit Selected Session" Command="{Binding ModifyGameCommand}" Width="200" Height="25" Margin="5,5,5,5"/>
+            <Button Content="Delete Selected Session" Width="200" Height="25"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Margin="5,5,5,5">
-            <DataGrid MinHeight="250" Width="400" ItemsSource="{Binding GameSessions}" AutoGenerateColumns="False">
+        <StackPanel Grid.Row="1" Margin="7,5,3,5">
+            <DataGrid MinHeight="250" Width="400" BorderThickness="2" BorderBrush="{StaticResource AccentBaseColorBrush}" ItemsSource="{Binding GameSessions}" AutoGenerateColumns="False">
                <DataGrid.Columns>
                     <DataGridTextColumn Header="Session Name" Binding="{Binding Name}" MinWidth="150"/>
 
                     <DataGridTextColumn Header="Question Bank" Binding="{Binding QuestionBank.Name}"/>
+                   
+                   <DataGridTextColumn Header="Students" Binding="{Binding Students.Count}" />
                 </DataGrid.Columns>
             </DataGrid>
+
+           
         </StackPanel>
     </Grid>
 </UserControl>

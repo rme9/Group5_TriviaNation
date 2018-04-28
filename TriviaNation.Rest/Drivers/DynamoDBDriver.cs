@@ -61,7 +61,27 @@ namespace TriviaNation.Drivers
 				return new List<Dictionary<string, AttributeValue>>();
 			}
 		}
-		
+
+		public async Task<bool> Delete(string tableName, Dictionary<string, AttributeValue> itemAttr)
+		{
+			try
+			{
+				var request = new DeleteItemRequest
+				{
+					TableName = tableName,
+					Key = itemAttr,
+				};
+
+				var response = await _Client.DeleteItemAsync(request);
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+
 		#region IDisposable Implementation
 		public void Dispose()
 		{

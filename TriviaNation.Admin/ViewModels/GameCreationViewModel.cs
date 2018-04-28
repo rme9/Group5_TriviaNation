@@ -14,13 +14,13 @@ namespace TriviaNation.ViewModels
 	{
 		public string Name { get; set; }
 
-		public IQuestionBank SelectedQuestionBank { get; set; }
+		public QuestionBank SelectedQuestionBank { get; set; }
 
 		private List<IQuestionBank> _AvailableQuestionBanks;
 
 		public ObservableCollection<IQuestionBank> AvailableQuestionBanks
 		{
-			get{ return new ObservableCollection<IQuestionBank>(_AvailableQuestionBanks); }
+			get{ return new ObservableCollection<IQuestionBank>(_AvailableQuestionBanks ?? new List<IQuestionBank>()); }
 			set { _AvailableQuestionBanks = value.ToList(); }
 		}
 
@@ -28,7 +28,7 @@ namespace TriviaNation.ViewModels
 
 		public ObservableCollection<StudentUser> AvailableStudents
 		{
-			get { return new ObservableCollection<StudentUser>(_AvailableStudents); }
+			get { return new ObservableCollection<StudentUser>(_AvailableStudents ?? new List<StudentUser>()); }
 			set
 			{	
 				_AvailableStudents = value.ToList();
@@ -37,23 +37,23 @@ namespace TriviaNation.ViewModels
 		
 		public GameCreationViewModel()
 		{
-			
-				LoadData();
+			TryLoadData();
 		}
 
 		#region Database Query
 
-		public void LoadData()
+		public async void TryLoadData()
 		{
 			var user = Application.Current.Properties["LoggedInUserId"] as string;
 
 			using (var db = new WebServiceDriver())
 			{
-				_AvailableStudents = db.GetAllUsersByInstructor(user).Result;
+				_AvailableStudents = await db.GetAllUsersByInstructor(user);
+				OnPropertyChanged(nameof(AvailableStudents));
 
-				_AvailableQuestionBanks = db.GetQuestionBanksByInstructor(user).Result;
+				_AvailableQuestionBanks = await db.GetQuestionBanksByInstructor(user);
+				OnPropertyChanged(nameof(AvailableQuestionBanks));
 			}
-
 		}
 
 		#endregion
@@ -67,13 +67,13 @@ namespace TriviaNation.ViewModels
 
 		public void ExecuteSaveCommand(object ob)
 		{
-			var students = new List<IUser>();
+			var students = new List<StudentUser>();
 
 			if (ob is ObservableCollection<object> list)
 			{
 				foreach (var item in list)
 				{
-					students.Add(item as IUser);
+					students.Add(item as StudentUser);
 				}
 			}
 
