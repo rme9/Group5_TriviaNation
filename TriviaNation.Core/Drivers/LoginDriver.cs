@@ -22,6 +22,7 @@ namespace TriviaNation.Core.Drivers
 		public async Task<IUser> Login(string email, string password, string userType)
 		{
 			IUser user = null;
+            string useremail;
 
 			var request = _BaseRequestURL + email + "/" + password;
 
@@ -30,6 +31,7 @@ namespace TriviaNation.Core.Drivers
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
+                
 
 				user = JsonConvert.DeserializeObject<StudentUser>(content);
 
