@@ -33,16 +33,24 @@ namespace TriviaNation.Core.Drivers
 				var content = await response.Content.ReadAsStringAsync();
                 
 
-				if (userType.Equals("Student"))
-				{
-					user = JsonConvert.DeserializeObject<StudentUser>(content);
-				}
-				else
-				{
-					user = JsonConvert.DeserializeObject<AdminUser>(content);
-				}
+				user = JsonConvert.DeserializeObject<StudentUser>(content);
 
 				user.Password = null;
+
+				if ((user as StudentUser).InstructorId != null && userType.Equals("Student"))
+				{
+					return user;
+				}
+
+				if ((user as StudentUser).InstructorId == null && userType.Equals("Admin"))
+				{
+					user = JsonConvert.DeserializeObject<AdminUser>(content);
+					user.Password = null;
+
+					return user;
+				}
+
+
 			}
 
 			return user ?? new StudentUser("", "");

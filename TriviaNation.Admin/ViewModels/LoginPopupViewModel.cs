@@ -77,12 +77,12 @@ namespace TriviaNation.ViewModels
 
 				if (result == null)
 				{
-					LoginComplete?.Invoke(this, new AdminViewModel());
+					LoginComplete?.Invoke(this, new MainWindowViewModel());
 				}
 				else
 				{
 					LoginMessage = result;
-					Email = null;
+					Password = null;
 				}
 			}
 			catch (Exception ex)
