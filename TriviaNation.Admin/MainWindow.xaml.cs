@@ -23,8 +23,8 @@ namespace TriviaNation
 			_BaseView = new AdminDashboardView(_BaseViewModel);
 
 			_ViewModel = new MainWindowViewModel();
-			
-			 _ViewModel.ContentViewBox = _BaseView;
+
+			_ViewModel.ContentViewBox = _BaseView;
 
 			DataContext = _ViewModel;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using TriviaNation.Annotations;
+using TriviaNation.Core.Models;
 using TriviaNation.Util;
 
 namespace TriviaNation.ViewModels

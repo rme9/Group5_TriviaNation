@@ -33,7 +33,6 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-           
         </StackPanel>
     </Grid>
 </UserControl>
