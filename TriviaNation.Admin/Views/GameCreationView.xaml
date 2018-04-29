@@ -1,0 +1,47 @@
+﻿<Window x:Class="TriviaNation.UI.Views.GameCreationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TriviaNation.UI.Views"
+        xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
+        mc:Ignorable="d"
+        d:DesignHeight="450" d:DesignWidth="800"
+        Height="600" Width="400"
+        Title="Trivia Nation | Create Game">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center">
+            <Label Content="Create Game" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Margin="0,20,0,20"/>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Session Name" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" FontSize="14"/>
+                <TextBox Text="{Binding Name}" HorizontalAlignment="Center" Height="26" Margin="5,5,5,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+            </StackPanel>
+
+
+            <Label Content="Select A Question Bank" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top" FontSize="14"/>
+            <DataGrid SelectionMode="Single" ItemsSource="{Binding Path=AvailableQuestionBanks}" SelectedItem="{Binding SelectedQuestionBank}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="125" Margin="5,0,5,5" VerticalAlignment="Top" Width="305">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="305" />
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Content="Select Students" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top" FontSize="14"/>
+            <DataGrid SelectionMode="Extended" ItemsSource="{Binding Path=AvailableStudents}" x:Name="StudentListBox" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="200" Margin="5,0,5,5" VerticalAlignment="Top" Width="305">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="125" />
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" MinWidth="175"/>
+
+                </DataGrid.Columns>
+           </DataGrid>
+
+           <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5,10,10,5">
+                <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" HorizontalAlignment="Left" Margin="5,5,10,5" VerticalAlignment="Top" Width="100"/>
+                <Button Content="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=StudentListBox, Path=SelectedItems}" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Top" Width="100"/>
+           </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

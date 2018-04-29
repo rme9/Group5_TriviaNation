@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="TriviaNation.Views.AddQuestionToDatabaseView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TriviaNation.Views"
+      xmlns:viewmodels="clr-namespace:TriviaNation.ViewModels"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="461.285" d:DesignWidth="369.749">
+    <UserControl.DataContext>
+        <viewmodels:AddQuestionToDatabaseViewModel/>
+    </UserControl.DataContext>
+
+
+    <Grid>
+        <Border Padding="10">
+            <StackPanel>
+                <TextBlock Text=" Add a question to database:" FontWeight="Bold" FontSize="25" Margin="0 0 0 30"></TextBlock>
+                
+                
+                <!--Textbox to enter question-->
+                <TextBlock Text="Question:" FontSize="15" FontWeight = "Bold"/>
+                <TextBox Name="BodyTextBox" Text="{Binding Body, Mode=OneWayToSource}" Padding="2" Margin="0 0 0 10"></TextBox>
+
+                <!--Textbox for the correct answer for the question that is being added-->
+                <TextBlock Text="Correcrt Answer:" FontSize="15" FontWeight = "Bold"/>
+                <TextBox Name="CorrectAnswerTextBox" Text="{Binding CorrectAnswer,  Mode=OneWayToSource}" Padding="2" Margin="0 0 0 10"></TextBox>
+
+                <!--Textbox for the first wrong answer-->
+                <TextBlock Text="Second Answer:" FontSize="15" FontWeight = "Bold"/>
+                <TextBox Name="FirstAnswerTextBox" Text="{Binding AlternateAnswer1,  Mode=OneWayToSource}" Padding="2" Margin="0 0 0 10"></TextBox>
+
+                <!--Textbox for the second wrong answer-->
+                <TextBlock Text="Third Answer:" FontSize="15" FontWeight = "Bold"/>
+                <TextBox Name="SecondAsnwerTextBox" Text="{Binding AlternateAnswer2,  Mode=OneWayToSource}" Padding="2" Margin="0 0 0 10"></TextBox>
+
+                <!--Textbox for the third and final wrong answer-->
+                <TextBlock Text="Fourth Answer:" FontSize="15" FontWeight = "Bold"/>
+                <TextBox Name="FourthAnswerTextBox" Text="{Binding AlternateAnswer3,  Mode=OneWayToSource}" Padding="2" Margin="0 0 0 50"></TextBox>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!--Stackpanel with "Save Question to Database" and "Cancel adding question to database" buttons-->
+                    <StackPanel Margin="10 0" Grid.Column="0" >
+                        <!--Save Button-->
+                        <Button Name="SaveQuestionButton" Command="{Binding AddQuestionToQuestionBank}" FontSize="12">
+                            <TextBlock>Add Question<LineBreak/>To Question Bank</TextBlock>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Text.Length, ElementName=BodyTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                                <Condition Binding="{Binding Text.Length, ElementName=CorrectAnswerTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                                <Condition Binding="{Binding Text.Length, ElementName=FirstAnswerTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                                <Condition Binding="{Binding Text.Length, ElementName=SecondAsnwerTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                                <Condition Binding="{Binding Text.Length, ElementName=FourthAnswerTextBox, UpdateSourceTrigger=PropertyChanged}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Margin="10 0" Grid.Column="1" >
+                        <!--Cancel Button-->
+                        <Button Name="CancelButton" FontSize="12" Command="{Binding CancelSavingQuestionCommand}">
+                            <TextBlock>Cancel<LineBreak/>Adding Question</TextBlock>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}"/>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Margin="10 0" Grid.Column="2" >
+                        <!--Add QuestionBank to database Button-->
+                        <Button Name="CommitButton" FontSize="11" Command="{Binding AddQuestionBankToDatabaseCommand}">
+                            <TextBlock>Add Question<LineBreak/>Bank To Database</TextBlock>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}"/>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
