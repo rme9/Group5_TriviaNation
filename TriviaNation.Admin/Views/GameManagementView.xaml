@@ -33,8 +33,6 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-
-            <Button Content="View/Edit Game Session" Command="{Binding NewGameCommand}" Width="200" Height="25" Margin="5,5,5,5"/>
         </StackPanel>
     </Grid>
 </UserControl>

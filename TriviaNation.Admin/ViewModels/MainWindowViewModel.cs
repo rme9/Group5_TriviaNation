@@ -54,6 +54,26 @@ namespace TriviaNation.ViewModels
 
 		#endregion
 
+		#region ManageQuestionBanks
+
+		public void ExecuteManageQuestionBanksCommand(object ob)
+		{
+			//var newContentVM = new ModifyOrDeleteQuestionViewModel();
+			var newContent = new ModifyOrDeleteQuestionView();
+
+			ContentViewBox.Content = newContent;
+		}
+
+		private RelayCommand _ManageQuestionBanksCommand;
+
+		public RelayCommand ManageQuestionBanksCommand
+		{
+			get { return _ManageQuestionBanksCommand ?? (_ManageQuestionBanksCommand = new RelayCommand(ExecuteManageQuestionBanksCommand)); }
+			set { _ManageQuestionBanksCommand = value; }
+		}
+
+		#endregion
+
 		#region ManageStudents
 
 		public void ExecuteManageStudentsCommand(object ob)

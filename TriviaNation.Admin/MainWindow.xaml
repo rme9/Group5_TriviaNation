@@ -47,7 +47,7 @@
 
                 <Button Content="Manage Game Sessions" Click="CreateGame_OnClick" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
 
-                <Button Content="Manage Question Banks" Click="CreateGame_OnClick" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
+                <Button Content="Manage Question Banks" Command="{Binding ManageQuestionBanksCommand}" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
 
                 <Button Content="Manage Students" Command="{Binding ManageStudentsCommand}" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Top" Width="200"/>
             </StackPanel>

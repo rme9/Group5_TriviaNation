@@ -33,11 +33,16 @@ namespace TriviaNation.ViewModels
 
         public ModifyOrDeleteQuestionViewModel()
         {
-            using (var db = new WebServiceDriver())
-            {
-                _questions = db.GetQuestionBankById(Id).Result;
-            }
+            
         }
+
+	    public async void TryLoadData()
+	    {
+		    using (var db = new WebServiceDriver())
+		    {
+			    _questions = await db.GetQuestionBankById(Id);
+		    }
+		}
 
 
         #region OpenAddQuestionViewCommand
